@@ -40,7 +40,7 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-            @yield('content')
+          @yield('content')
         </div>
         <!-- /.container-fluid -->
 
@@ -74,7 +74,8 @@
 
   <!-- Page level plugins -->
   <script src="{{ asset('/admin/assets/chart.js/Chart.min.js') }}"></script>
-
+  {{-- scripts --}}
+  @yield('scripts')
 
 </body>
 

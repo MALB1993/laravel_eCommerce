@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
+
+    /**
+     * Summary of table
+     * @var string
+     */
+    protected $table = 'brands';
+
+    protected $guarded = [];
 }

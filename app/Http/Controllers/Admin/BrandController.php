@@ -21,6 +21,7 @@ class BrandController extends Controller
     public function create()
     {
         //
+        return view('Admin.Pages.Brands.create');
     }
 
     /**

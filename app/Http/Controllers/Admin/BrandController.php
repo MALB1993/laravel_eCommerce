@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBrandRequest;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -30,7 +31,18 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $storeBrandRequest)
     {
-        //
+        #_________________________________________ variables
+        $message = 'برند شما به درستی ذخیره شد .';
+
+        #_________________________________________ created brand
+        Brand::query()->create([
+            'name'          =>      $storeBrandRequest->input('name'),
+            'is_active'     =>      $storeBrandRequest->input('is_active')
+        ]);
+
+        #_________________________________________ pass message and redirect
+        return redirect()->route('admin.brands.index')->with('success',$message);
+
     }
 
     /**

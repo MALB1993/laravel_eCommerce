@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     /**
      * Summary of table
@@ -16,4 +17,21 @@ class Brand extends Model
     protected $table = 'brands';
 
     protected $guarded = [];
+
+
+
+    /**
+     * Summary of sluggable
+     * @return array<array>
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug'  =>  [
+
+                'source'  =>  'name'
+
+            ]
+        ];
+    }
 }

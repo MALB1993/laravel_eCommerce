@@ -88,23 +88,23 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $updateBrandRequest, Brand $brand)
     {
-                #_________________________________________ variables
-                $message = 'برند شما به درستی ویرایش شد .';
+        #_________________________________________ variables
+        $message = 'برند شما به درستی ویرایش شد .';
 
-                #_________________________________________ created brand
-                $brand->update([
-                    'name'          =>      $updateBrandRequest->input('name'),
-                    'slug'          =>      null,
-                    'is_active'     =>      $updateBrandRequest->input('is_active'),
-                    'updated_at'    =>      Carbon::now(),
-                ]);
+        #_________________________________________ created brand
+        $brand->update([
+            'name'          =>      $updateBrandRequest->input('name'),
+            'slug'          =>      null,
+            'is_active'     =>      $updateBrandRequest->input('is_active'),
+            'updated_at'    =>      Carbon::now(),
+        ]);
 
-                #_________________________________________ Sweet Alert
-                alert()->success('گزارش وضعیت',$message);
+        #_________________________________________ Sweet Alert
+        alert()->success('گزارش وضعیت',$message);
 
 
-                #_________________________________________ pass message and redirect
-                return redirect()->route('admin.brands.index');
+        #_________________________________________ pass message and redirect
+        return redirect()->route('admin.brands.index');
     }
 
 

@@ -1,5 +1,7 @@
 @extends('Admin\partials\master')
-@section('title', 'ایجاد برند جدید')
+@section('title')
+    {{ __('ایجاد برند جدید') }}
+@endsection
 @section('content')
 
 <!-- Content Row -->
@@ -16,15 +18,15 @@
             <div class="row">
                 {{-- brand name input --}}
                 <div class="col">
-                    <label for="name">نام برند</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="نام برند را وارد کنید" value="{{ old('name')}} " />
+                    <label for="name">{{ __('نام برند') }}</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('نام برند را وارد کنید') }}" value="{{ old('name')}} " />
                 </div>
                 {{-- end brand name --}}
                 {{-- select is active --}}
                 <div class="col">
-                    <label for="is_active">وضعیت</label>
+                    <label for="is_active">{{ __('وضعیت') }}</label>
                     <select name="is_active" id="is_active" class="form-control form-select">
-                        <option disabled selected>وضعیت نمایش برند را مشخص کنید</option>
+                        <option disabled selected>{{ __('وضعیت نمایش برند را مشخص کنید') }}</option>
                         <option value="1">فعال</option>
                         <option value="0">غیرفعال</option>
                     </select>
@@ -33,8 +35,8 @@
             </div>
             {{-- button --}}
             <div class="my-4">
-                <button class="btn btn-md btn-primary" type="submit">ثبت برند</button>
-                <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mx-3">بازگشت</a>
+                <button class="btn btn-md btn-primary" type="submit">{{ __('ثبت برند') }}</button>
+                <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mx-3">{{ __('بازگشت') }}</a>
             </div>
         </form>
     </div>

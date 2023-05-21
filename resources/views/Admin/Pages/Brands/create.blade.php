@@ -1,5 +1,5 @@
 @extends('Admin\partials\master')
-@section('title', 'برندها')
+@section('title', 'ایجاد برند جدید')
 @section('content')
 
 <!-- Content Row -->
@@ -10,6 +10,7 @@
             <h5 class="font-weight-bold">ایجاد برند</h5>
         </div>
         <hr>
+        @include('Admin.sections.errors')
         <form action="{{ route('admin.brands.store') }}" method="post">
             @csrf
             <div class="row">

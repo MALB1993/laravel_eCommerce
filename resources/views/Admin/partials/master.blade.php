@@ -16,6 +16,8 @@
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <!-- sweet alert -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
 
 </head>
 
@@ -74,9 +76,13 @@
 
   <!-- Page level plugins -->
   <script src="{{ asset('/admin/assets/chart.js/Chart.min.js') }}"></script>
+
+  <!-- sweet alert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
   {{-- scripts --}}
   @yield('scripts')
-
+  @include('sweetalert::alert')
 </body>
 
 </html>

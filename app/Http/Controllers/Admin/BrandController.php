@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBrandRequest;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -27,7 +28,7 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBrandRequest $storeBrandRequest)
     {
         //
     }

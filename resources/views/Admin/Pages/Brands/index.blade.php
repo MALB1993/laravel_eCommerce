@@ -1,5 +1,7 @@
 @extends('Admin.partials.master')
-@section('title', 'برندها')
+@section('title')
+    {{ __('برندها') }}
+@endsection
 @section('content')
 
 <!-- Content Row -->
@@ -22,10 +24,10 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">نام</th>
-                        <th scope="col">اسلاگ</th>
-                        <th scope="col">وضعیت</th>
-                        <th scope="col">عملیات</th>
+                        <th scope="col">{{ __('نام') }}</th>
+                        <th scope="col">{{ __('اسلاگ') }}</th>
+                        <th scope="col">{{ __('وضعیت') }}</th>
+                        <th scope="col">{{ __('عملیات') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,8 +54,22 @@
                                     {{ __('عملیات') }}
                                 </button>
                                 <div class="dropdown-menu text-center p-3">
-                                    <a class="btn btn-sm my-1 btn-info" href="#">{{ __('ویرایش') }}</a>
-                                    <a class="btn btn-sm my-1 btn-danger" href="#">{{ __('حذف') }}</a>
+                                    <a class="dropdown-item d-flex justify-content-between text-success" href="{{ route('admin.brands.show', $brand->id) }}">
+                                        <i class="fa fw-fw fa-eye"></i>
+                                        {{ __('جزئیات') }}
+                                    </a>
+                                    <a class="dropdown-item d-flex justify-content-between text-primary" href="{{ route('admin.brands.edit', $brand->id) }}">
+                                        <i class="fa fw-fw fa-pen"></i>
+                                        {{ __('ویرایش') }}
+                                    </a>
+                                    <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item d-flex justify-content-between text-danger">
+                                            <i class="fa fw-fw fa-trash"></i>
+                                            {{ __('حذف') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </td>
@@ -61,6 +77,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ $brands->links('vendor\pagination\bootstrap-4') }}
         </div>
     </div>
 </div>

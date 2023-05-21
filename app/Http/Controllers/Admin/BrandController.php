@@ -14,7 +14,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::latest()->paginate(20);
+        return view('Admin.Pages.Brands.index',compact(['brands']));
+
     }
 
     /**
@@ -40,9 +42,12 @@ class BrandController extends Controller
             'is_active'     =>      $storeBrandRequest->input('is_active')
         ]);
 
-        #_________________________________________ pass message and redirect
-        return redirect()->route('admin.brands.index')->with('success',$message);
+        #_________________________________________ Sweet Alert
+        alert()->success('گزارش وضعیت',$message);
 
+
+        #_________________________________________ pass message and redirect
+        return redirect()->route('admin.brands.index');
     }
 
     /**

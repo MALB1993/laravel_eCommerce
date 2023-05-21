@@ -28,6 +28,50 @@
         <span> {{ __('برندها') }} </span></a>
     </li>
 
+    <!-- Nav Item - Attributes -->
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.attributes.index') }}">
+        <i class="fas fa-tag"></i>
+        <span> {{ __('برندها') }} </span></a>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
+        aria-controls="collapsePages">
+        <i class="fas fa-fw fa-socks"></i>
+        <span>{{ __('محصولات') }}</span>
+      </a>
+      <div id="collapseProducts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          {{-- Attribute Sidebar Item --}}
+          <h6 class="collapse-header"> {{ __('ویژگی ها') }} : </h6>
+          <a class="collapse-item" href="{{ route('admin.attributes.index') }}">
+            <i class="fa fa-eye"></i>
+            {{ __('نمایش ویژگی ها') }}
+          </a>
+          <a class="collapse-item" href="{{ route('admin.attributes.create') }}">
+            <i class="fa fa-plus"></i>
+            {{ __('ایجاد ویژگی') }}
+          </a>
+
+          {{-- divider --}}
+          <div class="collapse-divider"></div>
+
+          {{-- Brand Sidebar Item --}}
+          <h6 class="collapse-header"> {{ __('برندها') }} : </h6>
+          <a class="collapse-item" href="{{ route('admin.brands.index') }}">
+            <i class="fa fa-eye"></i>
+            {{ __('نمایش برندها') }}
+          </a>
+          <a class="collapse-item" href="{{ route('admin.brands.create') }}">
+            <i class="fa fa-plus"></i>
+            {{ __('ایجاد برند') }}
+          </a>
+        </div>
+      </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

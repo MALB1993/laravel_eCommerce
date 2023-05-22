@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,6 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
     Route::resource('brands', BrandController::class);
     # ____________________ Attribute
     Route::resource('attributes', AttributeController::class);
+    # ____________________ Categories
+    Route::resource('categories', CategoryController::class);
 });

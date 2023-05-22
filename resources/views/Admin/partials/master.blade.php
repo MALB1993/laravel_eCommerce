@@ -19,6 +19,8 @@
   <!-- sweet alert -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
 
+  <!-- sweet alert -->
+  <link rel="stylesheet" href="{{ asset('/admin/css/bootstrap-select.min.css') }}">
 </head>
 
 <body id="page-top">
@@ -79,6 +81,10 @@
 
   <!-- sweet alert -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
+  <!-- sweet alert -->
+  <script src="{{ asset('/admin/js/bootstrap-select.min.js') }}"></script>
+  <script src="{{ asset('/admin/js/bootstrap-select-fa_IR.js') }}"></script>
 
   {{-- scripts --}}
   @yield('scripts')

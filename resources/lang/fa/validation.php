@@ -188,6 +188,11 @@ return [
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
         'is_active' =>  'وضعیت',
+        'slug'  =>  'اسلاک',
+        'attribute_id'  =>  'ویژگی ها',
+        'attribute_is_filter_ids'   =>  'انتخاب ویژگی قابل فیلتر',
+        'variation_id'  =>  'انتخاب ویژگی قابل فیلتر',
+        'description'   =>  'توضیحات',
     ],
 
 ];

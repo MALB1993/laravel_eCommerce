@@ -94,7 +94,7 @@
                         <option value="0">{{ __('بدون والد') }}</option>
                         {{-- Get parent category items --}}
                         @foreach ($parentCategories as $parentCategory)
-                        <option value="{{ $parentCategory->id }}">{{ __($parentCategory) }}</option>
+                        <option value="{{ $parentCategory->id }}">{{ __($parentCategory->name) }}</option>
                         @endforeach
                         {{-- End Get parent category items --}}
                     </select>
@@ -116,7 +116,7 @@
                 {{-- attribute ids --}}
                 <div class="col-3">
                     <label for="attributeSelect">{{ __('ویژگی ها') }}</label>
-                    <select class="selectpicker form-control" name="attribute_id[]" id="attributeSelect" multiple="">
+                    <select class="selectpicker form-control" name="attribute_ids[]" id="attributeSelect" multiple="">
                         @foreach ($attributes as $attribute)
                         <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                         @endforeach
@@ -144,7 +144,7 @@
 
                 {{-- category icon input --}}
                 <div class="col">
-                    <label for="icon">{{ __('نام برند') }}</label>
+                    <label for="icon">{{ __('کلاس آیکون') }}</label>
                     <input type="text" name="icon" id="icon" class="form-control"
                         placeholder="{{ __('ایکون دسته بندی را انتخاب کنید') }}" value="{{ old('icon')}}" />
                 </div>

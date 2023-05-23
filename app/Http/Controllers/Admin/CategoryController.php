@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Attribute;
 use App\Models\Category;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,16 +17,18 @@ class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return Factory|Application|View|\Illuminate\Contracts\Foundation\Application
      */
-    public function index()
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('Admin.Pages.Categories.index');
     }
 
     /**
      * Show the form for creating a new resource.
+     * @return Factory|Application|View|\Illuminate\Contracts\Foundation\Application
      */
-    public function create()
+    public function create(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         #_________________________ Get parent categories
         $parentCategories = Category::query()->where('parent_id', 'LIKE', 0)->get();
@@ -35,8 +41,10 @@ class CategoryController extends Controller
 
     /**
      *Store a newly created resource in storage.
+     * @param StoreCategoryRequest $storeCategoryRequest
+     * @return RedirectResponse
      */
-    public function store(StoreCategoryRequest $storeCategoryRequest)
+    public function store(StoreCategoryRequest $storeCategoryRequest): RedirectResponse
     {
 
 
@@ -79,7 +87,7 @@ class CategoryController extends Controller
         }
 
         #_________________________________________[ if every thing passed ]
-        
+
         #_________________________________________ variables
         $message = 'دسته بندی شما به درستی ذخیره شد';
 

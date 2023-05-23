@@ -7,6 +7,9 @@ use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use App\Models\Brand;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -14,11 +17,11 @@ class BrandController extends Controller
 
     /**
      **Display a listing of the resource.
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      */
-    public function index()
+    public function index(): View|Factory
     {
-        $brands = Brand::latest()->paginate(5);
+        $brands = Brand::query()->latest()->paginate(5);
         return view('Admin.Pages.Brands.index',compact(['brands']));
 
     }
@@ -26,21 +29,20 @@ class BrandController extends Controller
 
     /**
      **Show the form for creating a new resource.
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      */
-    public function create()
+    public function create(): View|Factory
     {
-        //
         return view('Admin.Pages.Brands.create');
     }
 
 
     /**
      **Store a newly created resource in storage.
-     * @param \App\Http\Requests\StoreBrandRequest $storeBrandRequest
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param StoreBrandRequest $storeBrandRequest
+     * @return RedirectResponse|mixed
      */
-    public function store(StoreBrandRequest $storeBrandRequest)
+    public function store(StoreBrandRequest $storeBrandRequest): mixed
     {
         #_________________________________________ variables
         $message = 'برند شما به درستی ذخیره شد .';
@@ -64,10 +66,10 @@ class BrandController extends Controller
 
     /**
      ** Display the specified resource.
-     * @param \App\Models\Brand $brand
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Brand $brand
+     * @return Factory|View
      */
-    public function show(Brand $brand)
+    public function show(Brand $brand): View|Factory
     {
         return view('Admin.Pages.Brands.show', compact(['brand']));
     }
@@ -75,18 +77,21 @@ class BrandController extends Controller
 
     /**
      **Show the form for editing the specified resource.
-     * @param \App\Models\Brand $brand
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Brand $brand
+     * @return Factory|View
      */
-    public function edit(Brand $brand)
+    public function edit(Brand $brand): View|Factory
     {
         return view('Admin.Pages.Brands.edit', compact(['brand']));
     }
 
     /**
      * Update the specified resource in storage.
+     * @param UpdateBrandRequest $updateBrandRequest
+     * @param Brand $brand
+     * @return RedirectResponse
      */
-    public function update(UpdateBrandRequest $updateBrandRequest, Brand $brand)
+    public function update(UpdateBrandRequest $updateBrandRequest, Brand $brand): RedirectResponse
     {
         #_________________________________________ variables
         $message = 'برند شما به درستی ویرایش شد .';
@@ -110,10 +115,10 @@ class BrandController extends Controller
 
     /**
      **Remove the specified resource from storage.
-     * @param \App\Models\Brand $brand
-     * @return void
+     * @param Brand $brand
+     * @return RedirectResponse
      */
-    public function destroy(Brand $brand)
+    public function destroy(Brand $brand): RedirectResponse
     {
         #_________________________________________ variables
         $message = 'برند شما به درستی حذف شد .';

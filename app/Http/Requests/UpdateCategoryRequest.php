@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 class UpdateCategoryRequest extends FormRequest
@@ -25,7 +26,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name'                     =>   ['required','string','min:4','max:50'],
-            'slug'                     =>   ['required','min:4','max:50'],
+            'slug'                     =>   ['required','min:4','max:50',Rule::unique('categories')->ignore($this->category)],
             'attribute_ids'            =>   ['required'],
             'attribute_is_filter_ids'  =>   ['required'],
             'variation_id'             =>   ['required','numeric'],

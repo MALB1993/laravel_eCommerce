@@ -30,6 +30,7 @@ return new class extends Migration
             $table->unsignedInteger('delivery_amount')->default(0);
             $table->unsignedInteger('delivery_amount_per_pro')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

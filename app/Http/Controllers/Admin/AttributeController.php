@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttributeRequest;
 use App\Http\Requests\UpdateAttributeRequest;
 use App\Models\Attribute;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 
 class AttributeController extends Controller
@@ -13,20 +16,20 @@ class AttributeController extends Controller
 
     /**
      **Display a listing of the resource.
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      */
-    public function index()
+    public function index(): View|Factory
     {
-        $attributes = Attribute::latest()->paginate(5);
+        $attributes = Attribute::query()->latest()->paginate(5);
         return view('Admin.Pages.Attributes.index',compact(['attributes']));
     }
 
 
     /**
      **Show the form for creating a new resource.
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      */
-    public function create()
+    public function create(): View|Factory
     {
         return view('Admin.Pages.Attributes.create');
     }
@@ -34,10 +37,10 @@ class AttributeController extends Controller
 
     /**
      **Store a newly created resource in storage.
-     * @param \App\Http\Requests\StoreAttributeRequest $storeAttributeRequest
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param StoreAttributeRequest $storeAttributeRequest
+     * @return RedirectResponse
      */
-    public function store(StoreAttributeRequest $storeAttributeRequest)
+    public function store(StoreAttributeRequest $storeAttributeRequest): RedirectResponse
     {
 
         #_________________________________________ variables
@@ -60,31 +63,31 @@ class AttributeController extends Controller
 
     /**
      **Display the specified resource.
-     * @param \App\Models\Attribute $attribute
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Attribute $attribute
+     * @return Factory|View
      */
-    public function show(Attribute $attribute)
+    public function show(Attribute $attribute): View|Factory
     {
         return view('Admin.Pages.Attributes.show', compact(['attribute']));    }
 
 
     /**
      **Show the form for editing the specified resource.
-     * @param \App\Models\Attribute $attribute
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Attribute $attribute
+     * @return Factory|View
      */
-    public function edit(Attribute $attribute)
+    public function edit(Attribute $attribute): View|Factory
     {
         return view('Admin.Pages.Attributes.edit', compact(['attribute']));    }
 
 
     /**
      **Update the specified resource in storage.
-     * @param \App\Http\Requests\UpdateAttributeRequest $updateAttributeRequest
-     * @param \App\Models\Attribute $attribute
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param UpdateAttributeRequest $updateAttributeRequest
+     * @param Attribute $attribute
+     * @return RedirectResponse
      */
-    public function update(UpdateAttributeRequest $updateAttributeRequest, Attribute $attribute)
+    public function update(UpdateAttributeRequest $updateAttributeRequest, Attribute $attribute): RedirectResponse
     {
         #_________________________________________ variables
         $message = 'ویژگی شما به درستی ویرایش شد .';
@@ -106,10 +109,10 @@ class AttributeController extends Controller
 
     /**
      **Remove the specified resource from storage.
-     * @param \App\Models\Attribute $attribute
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param Attribute $attribute
+     * @return RedirectResponse
      */
-    public function destroy(Attribute $attribute)
+    public function destroy(Attribute $attribute): RedirectResponse
     {
         #_________________________________________ variables
         $message = 'ویژگی شما به درستی حذف شد .';

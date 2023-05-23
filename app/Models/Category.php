@@ -17,5 +17,8 @@ class Category extends Model
      */
     protected $table = 'categories';
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
+use JetBrains\PhpStorm\ArrayShape;
 
 class Brand extends Model
 {
@@ -18,6 +19,9 @@ class Brand extends Model
      */
     protected $table = 'brands';
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
 
@@ -26,6 +30,9 @@ class Brand extends Model
      * Summary of sluggable
      * @return array<array>
      */
+    #[ArrayShape([
+        'slug' => "string[]"
+    ])]
     public function sluggable(): array
     {
         return [

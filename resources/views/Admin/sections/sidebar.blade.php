@@ -68,6 +68,20 @@
             <i class="fa fa-plus"></i>
             {{ __('ایجاد دسته بندی') }}
           </a>
+
+        {{-- divider --}}
+        <div class="collapse-divider"></div>
+
+        {{-- tags Sidebar Item --}}
+        <h6 class="collapse-header"> {{ __('تگ ها') }} : </h6>
+        <a class="collapse-item" href="{{ route('admin.tags.index') }}">
+            <i class="fa fa-eye"></i>
+            {{ __('نمایش تگ ها') }}
+        </a>
+        <a class="collapse-item" href="{{ route('admin.tags.create') }}">
+            <i class="fa fa-plus"></i>
+            {{ __('ایجاد تگ') }}
+        </a>
         </div>
       </div>
     </li>

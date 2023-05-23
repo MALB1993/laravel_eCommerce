@@ -21,7 +21,16 @@ class CategoryController extends Controller
      */
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Admin.Pages.Categories.index');
+        #_______________________________________________ Get categories record
+        $categories = Category::query()->latest()->paginate(5);
+
+        #_______________________________________________ View return and pass categories to view
+        return view(
+            'Admin.Pages.Categories.index',
+            compact([
+                'categories'
+            ])
+        );
     }
 
     /**
@@ -57,6 +66,7 @@ class CategoryController extends Controller
                 'parent_id'     =>         $storeCategoryRequest->input('parent_id'),
                 'name'          =>         $storeCategoryRequest->input('name'),
                 'slug'          =>         $storeCategoryRequest->input('slug'),
+                'is_active'     =>         $storeCategoryRequest->input('is_active'),
                 'description'   =>         $storeCategoryRequest->input('description'),
                 'icon'          =>         $storeCategoryRequest->input('icon'),
             ]);

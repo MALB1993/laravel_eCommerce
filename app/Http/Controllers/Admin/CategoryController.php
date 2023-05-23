@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Attribute;
 use App\Models\Category;
 use Illuminate\Contracts\View\Factory;
@@ -120,8 +121,10 @@ class CategoryController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param Category $category
+     * @return Factory|Application|View|\Illuminate\Contracts\Foundation\Application
      */
-    public function edit(Category $category)
+    public function edit(Category $category): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
 
         #_________________________ Get parent categories
@@ -136,9 +139,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $updateCategoryRequest, Category $category)
     {
-        //
+        dd($updateCategoryRequest->all());
     }
 
     /**

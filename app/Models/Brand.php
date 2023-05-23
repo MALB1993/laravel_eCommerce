@@ -50,7 +50,7 @@ class Brand extends Model
      * @param mixed $is_active
      * @return string
      */
-    public function getIsActiveAttribute($is_active)
+    public function getIsActiveAttribute(mixed $is_active): string
     {
         return $is_active ? 'فعال' : 'غیر فعال';
     }

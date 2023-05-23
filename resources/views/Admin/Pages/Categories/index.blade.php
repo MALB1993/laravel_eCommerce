@@ -38,9 +38,9 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
                         @if($category->parent_id === 0)
-                            <td>{{ $category->name }}</td>
-                        @else
-                            <td>{{ $category->parent->name }}</td>
+                            <td>{{ __('بدون والد') }}</td>
+                            @else
+                        <td>{{ $category->parent->name }}</td>
                         @endif
                         <td>
                             {{-- add color if active text green or deactive text danger --}}

@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
                 $attribute->categories()->attach($category->id, [
                     'is_filter'     =>      in_array($attributeId, $storeCategoryRequest->input('attribute_is_filter_ids')) ? 1 : 0,
-                    'is_variation'  =>      $storeCategoryRequest->input('variation_id') ? 1 : 0,
+                    'is_variation'  =>      $storeCategoryRequest->input('variation_id') === $attributeId ? 1 : 0,
                 ]);
             }
 
@@ -109,19 +109,28 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     **Display the specified resource.
+     * @param Category $category
+     * @return Factory|Application|View|\Illuminate\Contracts\Foundation\Application
      */
-    public function show(string $id)
+    public function show(Category $category): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        return view('Admin.Pages.Categories.show',compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+
+        #_________________________ Get parent categories
+        $parentCategories = Category::query()->where('parent_id', 'LIKE', 0)->get();
+
+        #_________________________ Get Attributes
+        $attributes = Attribute::query()->orderBy('id','desc')->get();
+
+        return view('Admin.Pages.Categories.edit',compact(['category', 'parentCategories', 'attributes']));
     }
 
     /**

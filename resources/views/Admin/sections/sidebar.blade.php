@@ -21,20 +21,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Nav Item - Brands -->
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.brands.index') }}">
-        <i class="fas fa-store"></i>
-        <span> {{ __('برندها') }} </span></a>
-    </li>
-
-    <!-- Nav Item - Attributes -->
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.attributes.index') }}">
-        <i class="fas fa-tag"></i>
-        <span> {{ __('برندها') }} </span></a>
-    </li>
-
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
@@ -67,6 +53,20 @@
           <a class="collapse-item" href="{{ route('admin.brands.create') }}">
             <i class="fa fa-plus"></i>
             {{ __('ایجاد برند') }}
+          </a>
+
+        {{-- divider --}}
+          <div class="collapse-divider"></div>
+
+          {{-- Categories Sidebar Item --}}
+          <h6 class="collapse-header"> {{ __('دسته بندی') }} : </h6>
+          <a class="collapse-item" href="{{ route('admin.categories.index') }}">
+            <i class="fa fa-eye"></i>
+            {{ __('نمایش دسته بندی') }}
+          </a>
+          <a class="collapse-item" href="{{ route('admin.categories.create') }}">
+            <i class="fa fa-plus"></i>
+            {{ __('ایجاد دسته بندی') }}
           </a>
         </div>
       </div>

@@ -30,7 +30,7 @@ class StoreCategoryRequest extends FormRequest
             'attribute_is_filter_ids'  =>   ['required'],
             'variation_id'             =>   ['required','numeric'],
             'icon'                     =>   ['nullable','string'],
-            'description'              =>   ['nullable','alpha:ascii'],
+            'description'              =>   ['nullable'],
         ];
     }
 }

@@ -116,7 +116,7 @@
                 {{-- attribute ids --}}
                 <div class="col-3">
                     <label for="attributeSelect">{{ __('ویژگی ها') }}</label>
-                    <select class="selectpicker form-control" name="attribute_ids[]" id="attributeSelect" multiple="">
+                    <select class="selectpicker form-control" name="attribute_ids[]" id="attributeSelect" multiple="" data-live-search="true">
                         @foreach ($attributes as $attribute)
                         <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                         @endforeach
@@ -127,7 +127,7 @@
                 {{-- attribute ids --}}
                 <div class="col-3">
                     <label for="attributeIdFilterSelect">{{ __('انتخاب ویژگی قابل فیلتر') }}</label>
-                    <select class="selectpicker form-control" name="attribute_is_filter_ids[]" id="attributeIdFilterSelect" multiple="">
+                    <select class="selectpicker form-control" name="attribute_is_filter_ids[]" id="attributeIdFilterSelect" multiple="" data-live-search="true">
 
                     </select>
                 </div>
@@ -135,8 +135,8 @@
 
                 {{-- attribute ids --}}
                 <div class="col-3">
-                    <label for="variationSelect">{{ __('انتخاب ویژگی قابل فیلتر') }}</label>
-                    <select class="form-control" name="variation_id" id="variationSelect">
+                    <label for="variationSelect">{{ __('ویژگی متغیر') }}</label>
+                    <select class="form-control" name="variation_id" id="variationSelect" data-live-search="true">
 
                     </select>
                 </div>

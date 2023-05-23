@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -17,8 +18,9 @@ class StoreCategoryRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array
      */
+    #[ArrayShape(['name' => "string[]", 'slug' => "string[]", 'attribute_ids' => "string[]", 'attribute_is_filter_ids' => "string[]", 'variation_id' => "string[]", 'icon' => "string[]", 'description' => "string[]"])]
     public function rules(): array
     {
         return [

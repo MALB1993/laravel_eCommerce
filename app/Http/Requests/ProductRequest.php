@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $primary_image
+ */
 class ProductRequest extends FormRequest
 {
     /**
@@ -11,18 +14,35 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array
      */
     public function rules(): array
     {
         return [
-            //
+            'name'                          =>     ['required'],
+            'brand_id'                      =>     ['required'],
+            'is_active'                     =>     ['required'],
+            'tag_ids'                       =>     ['required'],
+            'description'                   =>     ['required'],
+            'primary_image'                 =>     ['required','mimes:jpg,jpeg,png,webp,svg,gif'],
+            'images'                        =>     ['required'],
+            'images.*'                      =>     ['mimes:jpg,jpeg,png,webp,svg,gif'],
+            'category_id'                   =>     ['required'],
+            'attribute_ids'                 =>     ['required'],
+            'attribute_ids.*'               =>     ['required'],
+            'variation_values'              =>     ['required'],
+            'variation_values.*.*'          =>     ['required'],
+            'variation_values.price.*'      =>     ['integer'],
+            'variation_values.quantity.*'   =>     ['integer'],
+            'delivery_amount'               =>     ['required','integer'],
+            'delivery_amount_per_product'   =>     ['nullable','integer'],
+
         ];
     }
 }

@@ -3,6 +3,7 @@
     {{ __('ایجاد محصول جدید') }}
 @endsection
 @section('scripts')
+    <script src="{{ asset('/admin/assets/CzMore/jquery.czMore-latest.js') }}"></script>
     <script>
         //__________________________________ brand Selected
         $('#BrandSelect').selectpicker({
@@ -26,7 +27,59 @@
             let fileName = $(this).val();
             // replace The "Choose a file" label
             $(this).next(".custom-file-label").html(fileName);
-        })
+        });
+
+
+        //__________________________________ Category Selected
+        $('#categorySelect').selectpicker({
+            'title' : 'دسته بندی محصول را انتخاب کنید'
+        });
+
+        $("#variationContainer").hide();
+
+        $('#categorySelect').on('changed.bs.select', function (){
+            let categoryId = $(this).val();
+
+            $.get(`{{ url('/admin-panel/management/category-attributes/${categoryId}') }}`, function (response, status){
+                if(status === 'success')
+                {
+                    $("#variationContainer").fadeIn();
+
+                    $('#attributes').find('div').remove();
+
+                    response.attributes.forEach( attribute => {
+                        let attributeFormGroup =  $('<div/>', {
+                            class : 'form-group col-md-3'
+                        });
+
+                        attributeFormGroup.append($('<label/>', {
+                            for : attribute.name,
+                            text : attribute.name
+                        }));
+
+                        attributeFormGroup.append($('<input/>', {
+                            type : 'text',
+                            class : 'form-control',
+                            id : attribute.name,
+                            name : `attribute_ids[${attribute.id}]`
+                        }));
+
+                        $('#attributes').append(attributeFormGroup);
+
+                    });
+
+                    $('#variationName').text(response.variation.name);
+
+                }else{
+                    alert('مشکلی پیش آمده است');
+                }
+            }).fail(function (){
+                alert('مشکلی در دریافت لیست ویژگی ها');
+            });
+        });
+
+        $("#czContainer").czMore();
+
     </script>
 @endsection
 @section('content')
@@ -126,6 +179,128 @@
                 </div>
                 {{-- end Product image input --}}
 
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                {{-- product and attributes --}}
+                <div class="col-md-12">
+                    <h6 class="font-weight-bold">
+                        <i class="fa fa-fw fa-pen mx-2"></i>
+                        {{__('دسته بندی و ویژگی ها')}}
+                    </h6>
+                </div>
+                {{-- End Product images --}}
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            {{-- Product tag ids --}}
+                            <div class="col-3">
+                                <label for="categorySelect">{{ __('تگ ها') }}</label>
+                                <select class="selectpicker form-control bg-light" name="category_id" id="categorySelect" data-live-search="true">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" class="d-flex justify-content-center">
+                                            {{ $category->name }} - {{ $category->parent->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- end Product tag ids --}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{-- attributes container --}}
+                        <div class="col-md-12 my-3" id="attributesContainer">
+                            <div id="attributes" class="row d-flex justify-content-center">
+
+                            </div>
+                        </div>
+                        {{-- End attributes container --}}
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+                {{-- product and attributes --}}
+                <div class="col-md-12" id="variationContainer">
+                    <h6>
+                        <i class="fa fa-fw fa-pen mx-2"></i>
+                        <span>{{__('افزودن قیمت و موجودی برای متغییر :')}}</span>
+                        <span id="variationName" class="font-weight-bold"></span>
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="czContainer" class="row">
+                                <div id="first">
+                                    <div class="recordset d-flex justify-content-between mx-auto my-2">
+                                        <div class="row">
+                                            {{--  Product   value --}}
+                                            <div class="col">
+                                                <label for="value">{{ __('نام') }}</label>
+                                                <input type="text" name="variation_values[value][]" id="value" class="form-control" dir="auto"/>
+                                            </div>
+                                            {{-- end Product value   --}}
+
+                                            {{--  Product price --}}
+                                            <div class="col">
+                                                <label for="price">{{ __('قیمت') }}</label>
+                                                <input type="text" name="variation_values[price][]" id="price" class="form-control" dir="auto"/>
+                                            </div>
+                                            {{-- end Product price   --}}
+
+                                            {{--  Product quantity --}}
+                                            <div class="col">
+                                                <label for="quantity">{{ __('تعداد') }}</label>
+                                                <input type="number" name="variation_values[quantity][]" id="quantity" class="form-control" dir="ltr"/>
+                                            </div>
+                                            {{-- end Product quantity   --}}
+
+                                            {{--  Product quantity --}}
+                                            <div class="col">
+                                                <label for="sku">{{ __('شناسه انبار') }}</label>
+                                                <input type="number" name="variation_values[sku][]" id="sku" class="form-control" dir="ltr"/>
+                                            </div>
+                                            {{-- end Product sku   --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- The elements you want repeated must be wrapped in an element with id="recordset" -->
+                        </div>
+                    </div>
+                </div>
+                {{-- End Product images --}}
+
+
+
+            </div>
+            <div class="row">
+                {{-- product and attributes --}}
+                <div class="col-md-12" id="variationContainer">
+                    <h6>
+                        <i class="fa fa-fw fa-caravan mx-2"></i>
+                        <span>{{__('افزودن هزینه ارسال :')}}</span>
+                        <span id="variationName" class="font-weight-bold"></span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{-- brand Product   --}}
+                            <div class="col">
+                                <label for="delivery_amount">{{ __('هزینه ارسال :') }}</label>
+                                <input type="text" name="delivery_amount" id="delivery_amount" class="form-control" placeholder="{{ __('هزینه ارسال') }}" value="{{ old('delivery_amount')}}"/>
+                            </div>
+                            {{-- end Product   --}}
+                        </div>
+                        <div class="col-md-3">
+                            {{-- brand Product   --}}
+                            <div class="col">
+                                <label for="delivery_amount_per_product">{{ __('هزینه ارسال به ازای محصول اضافی :') }}</label>
+                                <input type="text" name="delivery_amount_per_product" id="delivery_amount_per_product" class="form-control" placeholder="{{ __('هزینه ارسال به ازای محصول اضافی') }}" value="{{ old('name')}}" />
+                            </div>
+                            {{-- end Product   --}}
+                        </div>
+                    </div>
+                </div>
             </div>
             {{-- button --}}
             <div class="my-4">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,12 +28,15 @@ class ProductController extends Controller
     public function create(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         #_____________________________ Brands
-        $brands = Brand::query()->where('is_active','!=',0)->latest()->get();
+        $brands = Brand::query()->where('is_active',1)->latest()->get();
 
         #_____________________________ Tags
-        $tags = Tag::query()->where('is_active','!=',0)->latest()->get();
+        $tags = Tag::query()->where('is_active',1)->latest()->get();
 
-        return view('Admin.Pages.Products.create',compact(['brands', 'tags']));
+        #_____________________________ Categories
+        $categories = Category::query()->where('parent_id', '!=', 0)->get();
+
+        return view('Admin.Pages.Products.create',compact(['brands', 'tags', 'categories']));
     }
 
     /**

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+/**
+ * @method static findOrFail(mixed $attributeId)
+ */
 class Attribute extends Model
 {
     use HasFactory, SoftDeletes;

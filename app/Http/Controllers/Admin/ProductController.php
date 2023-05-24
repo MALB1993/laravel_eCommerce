@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -42,9 +44,17 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $productRequest)
     {
-        dd($request->all());
+
+        $productRequest->primary_image->move(
+            public_path(
+                env('PRODUCT_IMAGE_PRIMARY')
+            ),
+            generateFileName(
+                $productRequest->primary_image->getClientOriginalName()
+            )
+        );
     }
 
     /**

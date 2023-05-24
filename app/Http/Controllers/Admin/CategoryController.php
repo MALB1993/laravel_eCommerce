@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\ArrayShape;
 
 class CategoryController extends Controller
 {
@@ -75,7 +76,7 @@ class CategoryController extends Controller
             ]);
 
             foreach ($storeCategoryRequest->input('attribute_ids') as $attributeId) {
-                $attribute =  Attribute::query()->findOrFail($attributeId);
+                $attribute =  Attribute::findOrFail($attributeId);
 
                 $attribute->categories()->attach($category->id, [
                     'is_filter'     =>      in_array($attributeId, $storeCategoryRequest->input('attribute_is_filter_ids')) ? 1 : 0,
@@ -142,8 +143,11 @@ class CategoryController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param UpdateCategoryRequest $updateCategoryRequest
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function update(UpdateCategoryRequest $updateCategoryRequest, Category $category)
+    public function update(UpdateCategoryRequest $updateCategoryRequest, Category $category): RedirectResponse
     {
 
 
@@ -164,7 +168,7 @@ class CategoryController extends Controller
 
             $category->attributes()->detach();
             foreach ($updateCategoryRequest->input('attribute_ids') as $attributeId) {
-                $attribute =  Attribute::query()->findOrFail($attributeId);
+                $attribute =  Attribute::findOrFail($attributeId);
 
                 $attribute->categories()->attach($category->id, [
                     'is_filter'     =>      in_array($attributeId, $updateCategoryRequest->input('attribute_is_filter_ids')) ? 1 : 0,
@@ -207,5 +211,18 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    #[ArrayShape([
+            'attributes' => "\Illuminate\Database\Eloquent\Collection",
+            'variation' => "mixed|null"
+        ])
+    ]
+    public function getCategoryAttributes(Category $category): array
+    {
+        $attributes =  $category->attributes()->wherePivot('is_variation', 0)->get();
+        $variations =  $category->attributes()->wherePivot('is_variation', 1)->first();
+
+        return ['attributes' => $attributes , 'variation' => $variations];
     }
 }

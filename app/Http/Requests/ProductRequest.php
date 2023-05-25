@@ -43,7 +43,7 @@ class ProductRequest extends FormRequest
             'description'                   =>     ['required'],
             'primary_image'                 =>     ['required','mimes:jpg,jpeg,png,webp,svg,gif'],
             'images'                        =>     ['required'],
-            'images.*'                      =>     ['mimes:jpg,jpeg,png,webp,svg,gif'],
+            'images.*'                      =>     ['mimes:jpg,jpeg,png,webp,svg,gif,webm'],
             'category_id'                   =>     ['required'],
             'attribute_ids'                 =>     ['required'],
             'attribute_ids.*'               =>     ['required'],

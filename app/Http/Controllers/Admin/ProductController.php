@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +27,8 @@ class ProductController extends Controller
      */
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Admin.Pages.Products.index');
+        $products = Product::latest()->paginate(20);
+        return view('Admin.Pages.Products.index',compact(['products']));
     }
 
     /**
@@ -49,8 +51,10 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param ProductRequest $productRequest
+     * @return RedirectResponse
      */
-    public function store(ProductRequest $productRequest)
+    public function store(ProductRequest $productRequest): RedirectResponse
     {
         #______________________________________ try and catch for create category and pivot table
         try {
@@ -127,10 +131,12 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
+     * @param Product $product
+     * @return Factory|Application|View|\Illuminate\Contracts\Foundation\Application
      */
-    public function show(string $id)
+    public function show(Product $product): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        return view('Admin.Pages.Products.show',compact('product'));
     }
 
     /**

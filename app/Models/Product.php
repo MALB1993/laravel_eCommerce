@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @method static create(string[] $array)
+ */
 class Product extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
@@ -33,5 +36,11 @@ class Product extends Model
                 'source'    =>  'name'
             ]
         ];
+    }
+
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'product_tag');
     }
 }

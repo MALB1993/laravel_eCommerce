@@ -193,6 +193,16 @@ return [
         'attribute_is_filter_ids'   =>  'انتخاب ویژگی قابل فیلتر',
         'variation_id'  =>  'انتخاب ویژگی قابل فیلتر',
         'description'   =>  'توضیحات',
+        'brand_id'   =>  'برندها',
+        'tag_ids'   =>  'تگ ها',
+        'primary_image'   =>  'تصویر اصلی',
+        'images'   =>  'تصاویر',
+        'category_id'   =>  'دسته بندی',
+        'attribute_ids'   =>  'ویژگی ها',
+        'attribute_ids.*'   =>  'زیرمجوعه ویژگی ها',
+        'variation_values'   =>  'مغادیر متنوع',
+        'variation_values.*'   =>  'زیرمجموعه مغادیر متنوع',
+        'delivery_amount'   =>  'هزینه ارسال',
     ],
 
 ];

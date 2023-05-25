@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  *@param mixed $id
+ * @method static find(mixed $category_id)
  */
 class Category extends Model
 {

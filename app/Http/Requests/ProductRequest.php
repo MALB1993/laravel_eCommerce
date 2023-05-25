@@ -6,6 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @property mixed $primary_image
+ * @property mixed $images
+ * @property mixed $name
+ * @property mixed $brand_id
+ * @property mixed $category_id
+ * @property mixed $description
+ * @property mixed $is_active
+ * @property mixed $delivery_amount
+ * @property mixed $delivery_amount_per_pro
+ * @property mixed $attribute_ids
+ * @property mixed $variation_values
+ * @property mixed $tag_ids
  */
 class ProductRequest extends FormRequest
 {

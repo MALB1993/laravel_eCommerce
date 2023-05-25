@@ -195,7 +195,7 @@
                         <div class="col-md-12 d-flex justify-content-center">
                             {{-- Product tag ids --}}
                             <div class="col-3">
-                                <label for="categorySelect">{{ __('تگ ها') }}</label>
+                                <label for="categorySelect">{{ __('دسته بندی') }}</label>
                                 <select class="selectpicker form-control bg-light" name="category_id" id="categorySelect" data-live-search="true">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" class="d-flex justify-content-center">
@@ -294,8 +294,8 @@
                         <div class="col-md-3">
                             {{-- brand Product   --}}
                             <div class="col">
-                                <label for="delivery_amount_per_product">{{ __('هزینه ارسال به ازای محصول اضافی :') }}</label>
-                                <input type="text" name="delivery_amount_per_product" id="delivery_amount_per_product" class="form-control" placeholder="{{ __('هزینه ارسال به ازای محصول اضافی') }}" value="{{ old('name')}}" />
+                                <label for="delivery_amount_per_pro">{{ __('هزینه ارسال به ازای محصول اضافی :') }}</label>
+                                <input type="text" name="delivery_amount_per_pro" id="delivery_amount_per_pro" class="form-control" placeholder="{{ __('هزینه ارسال به ازای محصول اضافی') }}" value="{{ old('name')}}" />
                             </div>
                             {{-- end Product   --}}
                         </div>

@@ -95,6 +95,125 @@
                     <input type="text" class="form-control" disabled value="{{ $product->delivery_amount_per_pro }}">
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>
+                        <i class="fa fa-fw fa-pen mx-2"></i>
+                        <span>{{__('نمایش ویژگی ها')}}</span>
+                        <span id="variationName" class="font-weight-bold"></span>
+                    </h6>
+                </div>
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        <div class="row">
+                            @foreach ($productAttributes as $productAttribute)
+                                <div class="col-md-3">
+                                    <label>{{ $productAttribute->attribute->name }}</label>
+                                    <input type="text" class="form-control" value="{{ $productAttribute->value }}" />
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row my-3">
+                            @foreach ($productVariations as $variation)
+                                <div class="col-md-12 my-1">
+                                    <div class="card">
+                                        <div class="card-header d-flex justify-content-between">
+                                            <p>قیمت و موجودی و سایز  : {{ $variation->value }}</p>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#collapse-{{$variation->id}}">
+                                                {{ __('نمایش') }}
+                                            </button>
+                                        </div>
+                                        <div class="collapse" id="collapse-{{$variation->id}}">
+                                            <div class="card-body">
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('شناسه انبار :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->sku }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('موجودی :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->quantity }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('قیمت :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->price }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    @if (is_numeric($variation->value))
+                                                        <span class="col">{{ __('سایز :') }}</span>
+                                                        @else
+                                                        <span> class="col"{{ __('اندازه') }}</span>
+                                                    @endif
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->value }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('قیمت حراجی :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->sale_price }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('تاریخ شروع حراجی :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->date_on_sale_from == null ? '00/00/00' : verta($variation->date_on_sale_from) }}</span>
+                                                </p>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="col">{{ __('تاریخ پایان حراجی :') }}</span>
+                                                    <span class="border-bottom border-dark col w-75 mb-3"></span>
+                                                    <span class="col text-left">{{ $variation->date_on_sale_to == null ? '00/00/00' : verta($variation->date_on_sale_to) }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>
+                        <i class="fa fa-fw fa-pen mx-2"></i>
+                        <span>{{__('تصاویر')}}</span>
+                        <span id="variationName" class="font-weight-bold"></span>
+                    </h6>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ __('تصویر شاخص') }}
+                        </div>
+                        <div class="card-img-top">
+                            <img src="{{ url(env('PRODUCT_IMAGE_PRIMARY').'/'.$product->primary_image) }}" alt="{{ $product->name }}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ __('تصاویر محصول') }}
+                        </div>
+                    </div>
+                </div>
+                @foreach ($images as $image)
+                <div class="col-md-3 my-2">
+                    <div class="card-img-top">
+                        @if(strpos($image->image,'.webm'))
+                        <video controls autoplay class="img-fluid">
+                            <source src="{{ url(env('PRODUCT_IMAGE_PRIMARY'). $image->image) }}" type="video/mp4">
+                        </video>
+                        @else
+                        <img src="{{ url(env('PRODUCT_IMAGE_PRIMARY').$image->image) }}" alt="{{ $product->name }}" class="img-fluid">
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection

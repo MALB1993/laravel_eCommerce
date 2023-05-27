@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\ProductImage;
+use App\Models\ProductAttribute;
+use App\Models\ProductVariation;
 use JetBrains\PhpStorm\ArrayShape;
+use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static create(string[] $array)
@@ -41,13 +45,22 @@ class Product extends Model
         ];
     }
 
+    /**
+     * @param $is_active
+     * @return string
+     */
+    public function getIsActiveAttribute($is_active): string
+    {
+        return $is_active ? 'فعال' : 'غیرفعال';
+    }
+
 
     /**
      * @return BelongsToMany
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class,'product_tag');
+        return $this->belongsToMany(Tag::class, 'product_tag');
     }
 
     /**
@@ -66,13 +79,25 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+
     /**
-     * @param $is_active
-     * @return string
+     * @return HasMany
      */
-    public function getIsActiveAttribute($is_active): string
+    public function attributes(): HasMany
     {
-        return $is_active ? 'فعال' : 'غیرفعال';
+        return $this->hasMany(ProductAttribute::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function variations(): HasMany
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

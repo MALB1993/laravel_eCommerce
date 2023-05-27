@@ -136,7 +136,11 @@ class ProductController extends Controller
      */
     public function show(Product $product): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Admin.Pages.Products.show',compact('product'));
+        $productAttributes = $product->attributes()->with('attribute')->get();
+        $productVariations = $product->variations;
+        
+        $images = $product->images;
+        return view('Admin.Pages.Products.show',compact(['product','productAttributes','productVariations','images']));
     }
 
     /**

@@ -39,17 +39,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h5 class="mb-0 text-gray-800">پنل ادمین</h5>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>دانلود گزارش</a>
-                    </div>
-
-                    <hr>
-
-                    <!-- content -->
+                <div class="container-fluid text-right">
                     @yield('content')
                 </div>
                 <!-- /.container-fluid -->

@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::latest()->paginate(10, ['*'], __('brands'));
+        $brands = Brand::latest()->paginate(5, ['*'], __('brands'));
         return view('admin.brands.index',[
             'brands'    =>  $brands,
         ]);
@@ -48,28 +48,51 @@ class BrandController extends Controller
         return redirect()->route('admin-panel.brands.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * Brand of show
+     * @param \App\Models\Brand $brand
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(string $id)
+    public function show(Brand $brand)
     {
-        //
+        return view('admin.brands.show',[
+            'brand' => $brand
+        ]);
     }
 
+
+
     /**
-     * Update the specified resource in storage.
+     * Summary of edit
+     * @param \App\Models\Brand $brand
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function update(Request $request, string $id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.brands.edit',[
+            'brand' => $brand
+        ]);
+    }
+
+
+    public function update(Request $request, Brand $brand)
+    {
+        $request->validate([
+            'name'      =>  ['required', 'string', 'min:3', 'max:30'],
+            'is_active' =>  ['required', 'boolean']
+        ]);
+
+        $brand->update([
+            'name'          =>  $request->input('name'),
+            'is_active'     =>  $request->input('is_active'),
+        ]);
+
+        $brand->update();
+
+        Alert::toast(__('edit brands successfully !'), 'success');
+
+        return redirect()->route('admin-panel.brands.index');
     }
 
     /**

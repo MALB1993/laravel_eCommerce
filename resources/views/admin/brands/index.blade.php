@@ -31,11 +31,15 @@
                 <tbody>
                     @foreach ($brands as $key => $brand)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $brands->firstItem() + $key }}</td>
                             <td>{{ $brand->name }}</td>
                             <td>{{ $brand->slug }}</>
                             <td>{{ Verta($brand->created_at) }}</td>
-                            <td>{{ $brand->is_active }}</td>
+                            <td>
+                                <p class="{{ $brand->getRawOriginal('is_active') ? "text-success" : "text-danger" }}">
+                                    {{ $brand->is_active }}
+                                </p>
+                            </td>
                             <td>
                                 <!-- Example single danger button -->
                                 <div class="btn-group">
@@ -58,8 +62,10 @@
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
+            <div dir="ltr" class="col-md-12 d-flex justify-content-center">
+                {{ $brands->links('pagination::bootstrap-4') }}
+            </div>
         </div>
 
 

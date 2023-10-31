@@ -16,6 +16,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('/admin/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{{ asset('admin/fonts/shabnam/fonts.css') }}">
     @yield('stylesheet')
 </head>
 

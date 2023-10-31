@@ -1,4 +1,4 @@
-@extends('home.layouts.master')
+@extends('admin.layouts.master')
 
 @section('title', __('dashboard managements'))
 
@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    
+
 @endsection
 
 @section('javascript')

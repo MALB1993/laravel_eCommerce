@@ -86,14 +86,14 @@
                 <h6 class="dropdown-header">{{ __('message centeres') }}</h6>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="home/img/undraw_profile_1.svg" alt="...">
+                        <img class="rounded-circle" src="{{ asset('/admin/img/profile.svg') }}" alt="...">
                         <div class="status-indicator bg-success"></div>
                     </div>
                     <div class="font-weight-bold">
                         <div class="text-truncate">
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus quasi repudiandae quos?
                         </div>
-                        <div class="small text-gray-500">{{ Carbon/Carbon::now() }}</div>
+                        <div class="small text-gray-500">{{ Carbon\Carbon::now() }}</div>
                     </div>
                 </a>
 
@@ -107,7 +107,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                <img class="img-profile rounded-circle" src="{{ asset('/admin/img/profile.svg') }}">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Mostafa Alaeddin</span>
             </a>
             <!-- Dropdown - User Information -->

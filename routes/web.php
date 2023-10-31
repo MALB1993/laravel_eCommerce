@@ -19,5 +19,5 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard-managements',function(){
-    return view('home.index');
+    return view('admin.index');
 });

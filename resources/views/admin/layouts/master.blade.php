@@ -12,10 +12,10 @@
     <title>{{ __('Brand') }} - @yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('/home/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('/home/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('/admin/css/sb-admin-2.css') }}" rel="stylesheet">
     @yield('stylesheet')
 </head>
 
@@ -25,7 +25,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('home.components.sidebar')
+        @include('admin.components.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -35,7 +35,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('home.components.topbar')
+                @include('admin.components.topbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -58,13 +58,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>کپی رایت &copy; در تاریخ 1402</span>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.components.footer')
             <!-- End of Footer -->
 
         </div>
@@ -98,14 +92,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('/home/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/home/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('/home/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ asset('/home/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('/admin/js/sb-admin-2.min.js') }}"></script>
 
     @yield('javascript')
 </body>

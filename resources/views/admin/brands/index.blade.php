@@ -36,15 +36,15 @@
                             <td>
                                 <!-- Example single danger button -->
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     {{ __('Action') }}
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin-panel.brands.edit', ['brand' => $brand->slug]) }}">
+                                        <a class="dropdown-item text-primary" href="{{ route('admin-panel.brands.edit', ['brand' => $brand->slug]) }}">
                                             <i class="fa fa-fw fa-pen"></i>
                                             {{ __('Edit') }}
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('admin-panel.brands.show',['brand' => $brand->slug]) }}">
+                                        <a class="dropdown-item text-info" href="{{ route('admin-panel.brands.show',['brand' => $brand->slug]) }}">
                                             <i class="fa fa-fw fa-eye"></i>
                                             {{ __('Show Content') }}
                                         </a>

@@ -117,6 +117,7 @@
     "Aruba": "آروبا",
     "Assign All Abilities": "همه توانایی‌ها را اختصاص دهید",
     "Attach": "ضمیمه کردن",
+    "Attribute" : "ویژگی",
     "Attach & Attach Another": "ضمیمه کردن و ضمیمه کردن یک مورد دیگر",
     "Attach :resource": "ضمیمه کردن :resource",
     "Attach files by dragging & dropping, selecting or pasting them.": "فایل ها را با کشیدن و رهاکردن، انتخاب کردن یا چسباندن ضمیمه کنید.",
@@ -235,6 +236,7 @@
     "Created.": "ایجاد شد.",
     "Croatia": "کرواسی",
     "create brands successfully !" : "برند جدید به درستی اضافه شد !",
+    "create attributes successfully !" : "ویژگی جدید به درستی اضافه شد !",
     "CSV (.csv)": "CSV (.csv)",
     "Cuba": "کوبا",
     "Curaçao": "کوراسائو",
@@ -412,6 +414,7 @@
     "India": "هند",
     "Indiana": "ایندیانا",
     "Index brands" : "نمایش برندها",
+    "Index attributes" : "نمایش ویژگی ها",
     "Indonesia": "اندونزی",
     "Invoice": "صورتحساب",
     "Invoices": "صورتحساب‌ها",
@@ -1154,5 +1157,7 @@
     "exit" : "خروج",
     "brands" : "برندها",
     "create brands" : "ایجاد برند جدید",
-    "Write your brand name" : "نام برند خود را بنویسید"
+    "Write your brand name" : "نام برند خود را بنویسید",
+    "Write your attribute name" : "نام ویژگی خود را بنویسید"
+    
 }

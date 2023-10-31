@@ -32,6 +32,14 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            {{-- name --}}
+            <div class="form-group">
+                <label for="name">{{ __("created_at") }}</label>
+                <input type="text" name="name" id="name" placeholder="{{ __('Write your brand name') }}" class="form-control @error('name') is-invalid @enderror" value="{{ Verta($brand->created_at) }}" @disabled(true) dir="auto">
+                @error('name')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
 
             {{-- buttons --}}
             <div class="btn-group" dir="ltr">

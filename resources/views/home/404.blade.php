@@ -9,13 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>{{ __('laravel ecommerce') }}</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/home/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ asset('/home/css/sb-admin-2.css') }}" rel="stylesheet">
 
 </head>
 
@@ -154,7 +154,7 @@
                                     </div>
                                     <div>
                                         <div class="small text-gray-500">32 دقیقه پیش</div>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و 
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">نمایش تمام خبرها</a>
@@ -182,7 +182,7 @@
                                     </div>
                                     <div class="font-weight-bold">
                                         <div class="text-truncate">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و 
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
                                         </div>
                                         <div class="small text-gray-500">35 دقیقه پیش</div>
                                     </div>
@@ -232,16 +232,14 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h5 class="mb-0 text-gray-800">پنل ادمین</h5>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>دانلود گزارش</a>
+                    <!-- 404 Error Text -->
+                    <div class="text-center">
+                        <div class="error mx-auto" data-text="404">{{ __('404') }}</div>
+                        <p class="lead text-gray-800 mb-5">{{ __('Page Not Found') }}</p>
+                        <p class="text-gray-500 mb-0">{{ __('It looks like you found a glitch in the matrix...') }}</p>
+                        <a href="index.html">← {{ __('Back to Dashboard') }}</a>
                     </div>
-
-                    <hr>
-
-                    <!-- content -->
-
+                    
                 </div>
                 <!-- /.container-fluid -->
 
@@ -289,14 +287,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/home/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/home/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('/home/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="{{ asset('/home/js/sb-admin-2.min.js') }}"></script>
 
 
 </body>

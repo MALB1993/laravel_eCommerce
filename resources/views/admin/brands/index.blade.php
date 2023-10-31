@@ -5,7 +5,10 @@
 @section('content')
     <div class="col-md-12">
         <div class="d-sm-flex align-items-center justify-content-between mb-4 bg-white p-2 shadow rounded">
-            <h5 class="font-weight-bold">{{ __('Index brands') }} <span class="badge badge-success">{{ $brands->total() }}</span></h5>
+            <h5 class="font-weight-bold">
+                {{ __('Index brands') }}
+                <sup class="badge badge-success">{{ $brands->total() }}</sup>
+            </h5>
             <a href="{{ route('admin-panel.brands.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-eye fa-sm text-white-50"></i>
                 {{ __('create brands') }}

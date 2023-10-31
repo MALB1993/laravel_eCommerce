@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AttributeController extends Controller
@@ -15,7 +16,7 @@ class AttributeController extends Controller
     public function index()
     {
         $attributes = Attribute::latest()->paginate(5, ['*'], __('attribute'));
-        return view('admin.attributes.index',[
+        return view('admin.attributes.index', [
             'attributes'    =>  $attributes,
         ]);
     }
@@ -44,7 +45,6 @@ class AttributeController extends Controller
         Alert::toast(__('create attributes successfully !'), 'success');
 
         return redirect()->route('admin-panel.attributes.index');
-
     }
 
     /**
@@ -52,7 +52,7 @@ class AttributeController extends Controller
      */
     public function show(Attribute $attribute)
     {
-        return view('admin.attributes.show',['attribute' => $attribute]);
+        return view('admin.attributes.show', ['attribute' => $attribute]);
     }
 
     /**
@@ -60,7 +60,7 @@ class AttributeController extends Controller
      */
     public function edit(Attribute $attribute)
     {
-        //
+        return view('admin.attributes.edit', ['attribute' => $attribute]);
     }
 
     /**
@@ -68,7 +68,19 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
-        //
+        $request->validate([
+            'name'  =>  'required|min:1|max:20|string|'. Rule::unique('attributes','name')->ignore($attribute->id)
+        ]);
+
+        $attribute->update([
+            'name'  =>  $request->input('name')
+        ]);
+
+        $attribute->update();
+
+        Alert::toast(__('edit attributes successfully !'), 'success');
+
+        return redirect()->route('admin-panel.attributes.index');
     }
 
     /**

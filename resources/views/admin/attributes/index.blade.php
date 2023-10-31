@@ -1,17 +1,17 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Index brands'))
+@section('title', __('Index attributes'))
 
 @section('content')
     <div class="col-md-12">
         <div class="d-sm-flex align-items-center justify-content-between mb-4 bg-white p-2 shadow rounded">
             <h5 class="font-weight-bold">
-                {{ __('Index brands') }}
-                <sup class="badge badge-success">{{ $brands->total() }}</sup>
+                {{ __('Index attributes') }}
+                <sup class="badge badge-success">{{ $attributes->total() }}</sup>
             </h5>
             <a href="{{ route('admin-panel.brands.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-eye fa-sm text-white-50"></i>
-                {{ __('create brands') }}
+                {{ __('create attributes') }}
             </a>
         </div>
 
@@ -21,25 +21,17 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('Name') }}</th>
-                        <th>{{ __('Slug') }}</th>
                         <th>{{ __('created_at') }}</th>
-                        <th>{{ __('Is active') }}</th>
                         <th>{{ __('Action') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($brands as $key => $brand)
+                    @foreach ($attributes as $key => $attribute)
                         <tr>
-                            <td>{{ $brands->firstItem() + $key }}</td>
-                            <td>{{ $brand->name }}</td>
-                            <td>{{ $brand->slug }}</>
-                            <td>{{ Verta($brand->created_at) }}</td>
-                            <td>
-                                <p class="{{ $brand->getRawOriginal('is_active') ? "text-success" : "text-danger" }}">
-                                    {{ $brand->is_active }}
-                                </p>
-                            </td>
+                            <td>{{ $attributes->firstItem() + $key }}</td>
+                            <td>{{ $attribute->name }}</td>
+                            <td>{{ Verta($attribute->created_at) }}</td>
                             <td>
                                 <!-- Example single danger button -->
                                 <div class="btn-group">
@@ -47,11 +39,11 @@
                                     {{ __('Action') }}
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item text-primary" href="{{ route('admin-panel.brands.edit', ['brand' => $brand->slug]) }}">
+                                        <a class="dropdown-item text-primary" href="{{ route('admin-panel.attributes.edit', ['attribute' => $attribute->name]) }}">
                                             <i class="fa fa-fw fa-pen"></i>
                                             {{ __('Edit') }}
                                         </a>
-                                        <a class="dropdown-item text-info" href="{{ route('admin-panel.brands.show',['brand' => $brand->slug]) }}">
+                                        <a class="dropdown-item text-info" href="{{ route('admin-panel.attributes.show',['attribute' => $attribute->name]) }}">
                                             <i class="fa fa-fw fa-eye"></i>
                                             {{ __('Show Content') }}
                                         </a>
@@ -64,7 +56,7 @@
                 </tbody>
             </table>
             <div dir="ltr" class="col-md-12 d-flex justify-content-center">
-                {{ $brands->links('pagination::bootstrap-4') }}
+                {{ $attributes->links('pagination::bootstrap-4') }}
             </div>
         </div>
 

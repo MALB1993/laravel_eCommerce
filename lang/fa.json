@@ -118,6 +118,7 @@
     "Assign All Abilities": "همه توانایی‌ها را اختصاص دهید",
     "Attach": "ضمیمه کردن",
     "Attribute" : "ویژگی",
+    "Attributes" : "ویژگی ها",
     "Attach & Attach Another": "ضمیمه کردن و ضمیمه کردن یک مورد دیگر",
     "Attach :resource": "ضمیمه کردن :resource",
     "Attach files by dragging & dropping, selecting or pasting them.": "فایل ها را با کشیدن و رهاکردن، انتخاب کردن یا چسباندن ضمیمه کنید.",
@@ -1157,6 +1158,7 @@
     "exit" : "خروج",
     "brands" : "برندها",
     "create brands" : "ایجاد برند جدید",
+    "create attributes" : "ایجاد ویژگی جدید",
     "Write your brand name" : "نام برند خود را بنویسید",
     "Write your attribute name" : "نام ویژگی خود را بنویسید"
     

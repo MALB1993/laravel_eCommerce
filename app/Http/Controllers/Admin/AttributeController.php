@@ -14,7 +14,10 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        //
+        $attributes = Attribute::latest()->paginate(5, ['*'], __('attribute'));
+        return view('admin.attributes.index',[
+            'attributes'    =>  $attributes,
+        ]);
     }
 
     /**
@@ -49,7 +52,7 @@ class AttributeController extends Controller
      */
     public function show(Attribute $attribute)
     {
-        //
+        return view('admin.attributes.show',['attribute' => $attribute]);
     }
 
     /**

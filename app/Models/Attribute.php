@@ -14,4 +14,10 @@ class Attribute extends Model
     protected $table = "attributes";
     
     protected $fillable = ['name'];
+
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

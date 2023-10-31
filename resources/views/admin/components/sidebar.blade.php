@@ -12,8 +12,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item {{ request()->is('*/management') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin-panel.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>داشبورد</span>
         </a>
@@ -24,8 +24,15 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        وبلاگ
+        {{ __('Store') }}
     </div>
+
+    <li class="nav-item {{ request()->is('*/brands') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin-panel.brands.index') }}">
+            <i class="fa fa-fw fa-store"></i>
+            <span>{{ __('brands') }}</span>
+        </a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">

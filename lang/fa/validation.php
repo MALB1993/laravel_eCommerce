@@ -187,6 +187,7 @@ return [
         'last_name' => 'نام خانوادگی',
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
+        'is_active' => 'وضعیت نمایش'
     ],
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -28,7 +29,18 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      =>  ['required', 'string', 'min:3', 'max:30'],
+            'is_active' =>  ['required','boolean']
+        ]);
+
+        Brand::create([
+            'name'          =>  $request->input('name'),
+            'is_active'     =>  $request->input('is_active'),
+        ]);
+
+        return redirect()->route('admin-panel.brands.index');
+
     }
 
     /**

@@ -6,9 +6,9 @@
     <div class="col-md-12">
         <div class="d-sm-flex align-items-center justify-content-between mb-4 bg-white p-2 shadow rounded">
             <h5 class="font-weight-bold">{{ __('brands') }}</h5>
-            <a href="{{ route('admin-panel.brands.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus fa-sm text-white-50"></i>
-                {{ __('create brands') }}
+            <a href="{{ route('admin-panel.brands.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-eye fa-sm text-white-50"></i>
+                {{ __('Index brands') }}
             </a>
         </div>
 
@@ -32,7 +32,7 @@
                         <option value="1">{{ __('Enable') }}</option>
                         <option value="0">{{ __('Disable') }}</option>
                     </select>
-                    @error('name')
+                    @error('is_active')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>

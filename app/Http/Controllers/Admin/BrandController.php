@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BrandController extends Controller
 {
@@ -13,7 +14,10 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::latest()->paginate(10, ['*'], __('brands'));
+        return view('admin.brands.index',[
+            'brands'    =>  $brands,
+        ]);
     }
 
     /**
@@ -31,7 +35,7 @@ class BrandController extends Controller
     {
         $request->validate([
             'name'      =>  ['required', 'string', 'min:3', 'max:30'],
-            'is_active' =>  ['required','boolean']
+            'is_active' =>  ['required', 'boolean']
         ]);
 
         Brand::create([
@@ -39,8 +43,9 @@ class BrandController extends Controller
             'is_active'     =>  $request->input('is_active'),
         ]);
 
-        return redirect()->route('admin-panel.brands.index');
+        Alert::toast(__('create brands successfully !'), 'success');
 
+        return redirect()->route('admin-panel.brands.index');
     }
 
     /**

@@ -32,4 +32,19 @@ class Brand extends Model
             ]
         ];
     }
+
+
+    /**
+     * Summary of getRouteKeyName
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function getIsActiveAttribute($is_active)
+    {
+        return  $is_active ? __('Enable') : __('Disable');
+    }
 }

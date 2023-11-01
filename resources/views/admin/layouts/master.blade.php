@@ -93,6 +93,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('/admin/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/bootstrap-select-1.13.14/bootstrap-select-1.13.14/dist/js/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('admin/vendor/bootstrap-select-1.13.14/bootstrap-select-1.13.14/dist/js/i18n/defaults-fa_IR.js') }}"></script>
     @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
     @yield('javascript')
 </body>

@@ -12,12 +12,22 @@ class Attribute extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "attributes";
-    
+
     protected $fillable = ['name'];
 
 
     public function getRouteKeyName()
     {
         return 'name';
+    }
+
+
+    /**
+     * Summary of categories
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'attribute_category');
     }
 }

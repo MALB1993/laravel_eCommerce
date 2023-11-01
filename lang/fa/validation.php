@@ -180,14 +180,21 @@ return [
     */
 
     'attributes' => [
-        'name' => 'نام',
-        'username' => 'نام کاربری',
-        'email' => 'ایمیل',
-        'first_name' => 'نام',
-        'last_name' => 'نام خانوادگی',
-        'password' => 'رمز عبور',
-        'password_confirmation' => 'تاییدیه رمز عبور',
-        'is_active' => 'وضعیت نمایش'
+        'name'                         =>      'نام',
+        'username'                     =>      'نام کاربری',
+        'email'                        =>      'ایمیل',
+        'first_name'                   =>      'نام',
+        'last_name'                    =>      'نام خانوادگی',
+        'password'                     =>      'رمز عبور',
+        'password_confirmation'        =>      'تاییدیه رمز عبور',
+        'is_active'                    =>      'وضعیت نمایش',
+        'slug'                         =>      'اسلاگ',
+        'parent_id'                    =>      'وضعیت دسته بندی',
+        'attribute_ids'                =>      'ویژگی ها',
+        'attribute_is_filter_ids'      =>      'ویژگی های قابل فیلتر',
+        'variation_id'                 =>      'ویژگی تغییر پذیر',
+        'icon'                         =>      'آیکون',
+        'description'                  =>      'توضیحات'
     ],
 
 ];

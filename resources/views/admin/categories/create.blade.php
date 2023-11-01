@@ -58,8 +58,7 @@
                     {{-- is active option --}}
                     <div class="form-group col-md-3">
                         <label for="name">{{ __('Is active') }}</label>
-                        <select name="is_active" id="is_active"
-                            class="form-control form-select @error('is_active') is-invalid @enderror">
+                        <select name="is_active" id="is_active" class="form-control form-select @error('is_active') is-invalid @enderror">
                             <option selected disabled>{{ __('Choose an option') }}</option>
                             <option value="1">{{ __('Enable') }}</option>
                             <option value="0">{{ __('Disable') }}</option>
@@ -75,12 +74,12 @@
                     {{-- attributes --}}
                     <div class="form-group col-md-3">
                         <label for="attributeSelect">{{ __('Attribute') }}</label>
-                        <select class="selectpicker @error('attribute') is-invalid @enderror" name="attribute_ids[]" id="attributeSelect" multiple>
+                        <select class="selectpicker @error('attribute_ids') is-invalid @enderror" name="attribute_ids[]" id="attributeSelect" multiple>
                             @foreach ($attributes as $attribute)
                                 <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                             @endforeach
                         </select>
-                        @error('attribute')
+                        @error('attribute_ids')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -97,8 +96,8 @@
                     {{-- variations --}}
                     <div class="form-group col-md-3">
                         <label for="variationSelect">{{ __('Variation') }}</label>
-                        <select class="selectpicker @error('varition_id') is-invalid @enderror" name="varition_id" id="variationSelect"></select>
-                        @error('varition_id')
+                        <select class="selectpicker @error('variation_id') is-invalid @enderror" name="variation_id" id="variationSelect"></select>
+                        @error('variation_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

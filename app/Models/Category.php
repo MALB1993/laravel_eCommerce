@@ -21,4 +21,20 @@ class Category extends Model
         'description'
     ];
 
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class,'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class,'parent_id');
+    }
+
+    public function getIsActiveAttribute($is_active)
+    {
+        return $is_active ? __('Enable') : __('Disable');
+    }
+
 }

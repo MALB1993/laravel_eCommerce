@@ -154,7 +154,9 @@
                         @enderror
                     </div>
 
+                    <div class="row" id="attributeContainer">
 
+                    </div>
 
                 </div>
 
@@ -222,18 +224,33 @@
 
             if(status == 'success')
             {
-                console.log(response);
+                // remove attribute categories
+                $("#attributeContainer").find('div').remove();
+
+                // append attribute inputs
+                response.attributes.forEach( (attribute)=>{
+                    // create form group
+                    let attributeFormGroup  =   $('<div/>',{class : "form-group col-md-3"});
+
+                    // create form label
+                    let attributeFormLabel  =   attributeFormGroup.append($('<label/>',{for: attribute.name , text : attribute.name}));
+
+                    // create form input
+                    attributeFormGroup.append($('<input/>',{ class : "form-control", type: "text", id: attribute.name, name : `attribute_ids[${attribute.id}]`}));
+
+                    // append all label and input to attribute containers
+                    $("#attributeContainer").append(attributeFormGroup);
+                });
+
             }
             else
             {
-                alert('moshkel dar daryaft list !');
+                console.warn('moshkel dar daryaft etelaat');
             }
 
         }).fail(function(){
-            alert('moshkel dar daryaft list !');
+            console.error('moshkel dar daryaft list');
         });
-
-        console.log(categoryId);
     });
 
 </script>

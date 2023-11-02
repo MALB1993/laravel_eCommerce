@@ -177,9 +177,11 @@ class CategoryController extends Controller
     }
 
 
+
     /**
      * Summary of getCategoryAttribute
      * @param \App\Models\Category $category
+     * @return array
      */
     public function getCategoryAttribute(Category $category)
     {

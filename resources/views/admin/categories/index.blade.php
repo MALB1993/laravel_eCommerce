@@ -36,7 +36,7 @@
                             <td class="text-right"><a href="{{ route('admin-panel.categories.show',['category' => $category->id]) }}" target="_blank" rel="noopener noreferrer">{{ $category->name }}</a></td>
                             <td class="text-left">{{ $category->slug }}</>
                             @if ($category->parent_id === 0)
-                                <td>{{ $category->name }}</td>
+                                <td>{{ __('Without a father') }}</td>
                                 @else
                                 <td>{{ $category->parent->name }}</td>
                             @endif

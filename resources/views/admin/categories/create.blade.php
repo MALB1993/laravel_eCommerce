@@ -96,7 +96,7 @@
                     {{-- variations --}}
                     <div class="form-group col-md-3">
                         <label for="variationSelect">{{ __('Variation') }}</label>
-                        <select class="selectpicker @error('variation_id') is-invalid @enderror" name="variation_id" id="variationSelect"></select>
+                        <select class="selectpicker @error('variation_id') is-invalid @enderror" name="is_variation" id="variationSelect"></select>
                         @error('variation_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

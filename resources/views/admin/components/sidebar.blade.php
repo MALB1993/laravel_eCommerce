@@ -43,8 +43,9 @@
         <div id="collapseProducts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{{ __('Attribute') }}</h6>
-                <a class="collapse-item" href="{{ route('admin-panel.attributes.index') }}">{{ __('Index attributes') }}</a>
-                <a class="collapse-item" href="{{ route('admin-panel.attributes.create') }}">{{ __('create attributes') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.attributes.index') }}">{{ __('Attributes') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.categories.index') }}">{{ __('categories') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.tags.index') }}">{{ __('Tags') }}</a>
             </div>
         </div>
     </li>

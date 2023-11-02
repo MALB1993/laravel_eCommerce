@@ -53,7 +53,6 @@
                     <div class="form-group col-md-3">
                         <label for="brand_id">{{ __("Brand") }}</label>
                         <select name="brand_id" id="brand_id" class="form-control form-select @error('brand_id') is-invalid @enderror">
-                            <option selected disabled>{{ __('Choose an option') }}</option>
                             @foreach ($brands as $brand)
                                 <option value="{{ $brand->id }}">{{ __($brand->name) }}</option>
                             @endforeach
@@ -67,7 +66,6 @@
                     <div class="form-group col-md-3">
                         <label for="name">{{ __('Is active') }}</label>
                         <select name="is_active" id="is_active" class="form-control form-select @error('is_active') is-invalid @enderror">
-                            <option selected disabled>{{ __('Choose an option') }}</option>
                             <option value="1">{{ __('Enable') }}</option>
                             <option value="0">{{ __('Disable') }}</option>
                         </select>
@@ -144,7 +142,6 @@
                     <div class="form-group col-md-12">
                         <label for="categorySelect">{{ __("Brand") }}</label>
                         <select name="category_id" id="categorySelect" class="form-control form-select @error('category_id') is-invalid @enderror">
-                            <option selected disabled>{{ __('Choose an option') }}</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }} -  {{ $category->parent->name }}</option>
                             @endforeach
@@ -153,12 +150,28 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                </div>
+                <div class="row my-2" id="attributeRow">
 
-                    <div class="row" id="attributeContainer">
+                    <div class="col-md-12">
+                        <div class="row" id="attributeContainer">
 
+                        </div>
                     </div>
 
+                    <div class="col-md-12">
+                        <hr>
+                        <h6>
+                            <b>
+                                {{ __('Add price and inventory for variable') }}
+                                <span class="text-success font-wight-bold" id="variationName"></span>
+                                :
+                            </b>
+                        </h6>
+                    </div>
                 </div>
+
+
 
                 {{-- buttons --}}
 
@@ -190,13 +203,20 @@
         multipleSeparator: " | ",
         title: "{{ __('Please select at least one brand.') }}"
     });
+    // status
+    $('#is_active').selectpicker({
+        liveSearch: true,
+        liveSearchPlaceholder: "{{ __('Searching') }}",
+        multipleSeparator: " | ",
+        title: "{{ __('Please select at least one ability.') }}"
+    });
 
-    // brands
+    // categories
     $('#categorySelect').selectpicker({
         liveSearch: true,
         liveSearchPlaceholder: "{{ __('Searching') }}",
         multipleSeparator: " | ",
-        title: "{{ __('Please select at least one categories') }}"
+        title: "{{ __('Please select at least one categories.') }}"
     });
 
     $('#tagSelect').selectpicker({
@@ -217,6 +237,7 @@
     });
 
     // attribute select jquery
+    $("#attributeRow").hide();
     $('#categorySelect').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
         let categoryId = $(this).val();
 
@@ -224,6 +245,8 @@
 
             if(status == 'success')
             {
+                // console.log(response);
+                $("#attributeRow").fadeIn();
                 // remove attribute categories
                 $("#attributeContainer").find('div').remove();
 
@@ -242,6 +265,7 @@
                     $("#attributeContainer").append(attributeFormGroup);
                 });
 
+                $("#variationName").text(response.variations.name);
             }
             else
             {

@@ -37,4 +37,13 @@ class Category extends Model
         return $is_active ? __('Enable') : __('Disable');
     }
 
+    /**
+     * Summary of categories
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function attributes()
+    {
+        return $this->belongsToMany(Attribute::class, 'attribute_category');
+    }
+
 }

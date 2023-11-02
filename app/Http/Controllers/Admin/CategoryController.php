@@ -96,7 +96,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('admin.categories.show',[
+            'category' => $category
+        ]);
     }
 
     /**
@@ -122,4 +124,5 @@ class CategoryController extends Controller
     {
         //
     }
+    
 }

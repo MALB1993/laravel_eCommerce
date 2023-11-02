@@ -88,6 +88,7 @@
             <hr>
             {{-- attribute category --}}
             <div class="row my-2">
+
                 {{-- attribute --}}
                 <div class="col-md-3">
                     <label for="attribute">{{ __('Attribute') }}</label>
@@ -129,15 +130,15 @@
 
             </div>
 
-
             {{-- buttons --}}
             <div class="btn-group my-2" dir="ltr">
 
                 <a href="{{ url()->previous() }}" class="btn btn-dark">
                     {{ __('Go back') }}
                 </a>
-                
+
             </div>
+
         </div>
     </div>
 

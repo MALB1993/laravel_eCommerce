@@ -45,5 +45,6 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
     // products
     Route::resource('products',ProductController::class);
+    Route::get('/category-attributes-list/{category}',[CategoryController::class,'getCategoryAttribute']);
 
 });

@@ -50,8 +50,8 @@
                     </div>
 
                     {{-- brands --}}
-                    <div class="form-group">
-                        <label for="name">{{ __("Brand") }}</label>
+                    <div class="form-group col-md-3">
+                        <label for="brand_id">{{ __("Brand") }}</label>
                         <select name="brand_id" id="brand_id" class="form-control form-select @error('brand_id') is-invalid @enderror">
                             <option selected disabled>{{ __('Choose an option') }}</option>
                             @foreach ($brands as $brand)
@@ -90,7 +90,7 @@
                     </div>
 
                     {{-- description --}}
-                    <div class="col-md-12">
+                    <div class="form-group col-md-12">
                         <label for="description">{{ __('Description') }}</label>
                         <textarea name="description" id="description" cols="30" rows="3" class="form-control @error('description') is-invalid @enderror" placeholder="{{ __('Write Description') }}">{{ old('description') }}</textarea>
                         @error('description')
@@ -128,6 +128,33 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="row">
+                    {{-- divider --}}
+                    <div class="col-md-12">
+                        <hr>
+                        <h6>
+                            <b>{{ __('Categories and Attributes') }}</b>
+                        </h6>
+                    </div>
+
+
+                    {{-- category id --}}
+                    <div class="form-group col-md-12">
+                        <label for="categorySelect">{{ __("Brand") }}</label>
+                        <select name="category_id" id="categorySelect" class="form-control form-select @error('category_id') is-invalid @enderror">
+                            <option selected disabled>{{ __('Choose an option') }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }} -  {{ $category->parent->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+
 
                 </div>
 
@@ -162,6 +189,14 @@
         title: "{{ __('Please select at least one brand.') }}"
     });
 
+    // brands
+    $('#categorySelect').selectpicker({
+        liveSearch: true,
+        liveSearchPlaceholder: "{{ __('Searching') }}",
+        multipleSeparator: " | ",
+        title: "{{ __('Please select at least one categories') }}"
+    });
+
     $('#tagSelect').selectpicker({
         liveSearch: true,
         liveSearchPlaceholder: "{{ __('Searching') }}",
@@ -179,6 +214,27 @@
         $(this).next('.custom-file-label').html(fileName)
     });
 
+    // attribute select jquery
+    $('#categorySelect').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+        let categoryId = $(this).val();
+
+        $.get(`{{ url('/admin-panel/management/category-attributes-list/${categoryId}') }}` , function (response, status) {
+
+            if(status == 'success')
+            {
+                console.log(response);
+            }
+            else
+            {
+                alert('moshkel dar daryaft list !');
+            }
+
+        }).fail(function(){
+            alert('moshkel dar daryaft list !');
+        });
+
+        console.log(categoryId);
+    });
 
 </script>
 @endsection

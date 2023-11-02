@@ -176,4 +176,20 @@ class CategoryController extends Controller
         //
     }
 
+
+    /**
+     * Summary of getCategoryAttribute
+     * @param \App\Models\Category $category
+     */
+    public function getCategoryAttribute(Category $category)
+    {
+        $attributes = $category->attributes()->wherePivot('is_variation',0)->get();
+        $variations = $category->attributes()->wherePivot('is_variation',1)->first();
+
+        return [
+            'attributes'    =>      $attributes,
+            'variations'    =>      $variations
+        ];
+    }
+
 }

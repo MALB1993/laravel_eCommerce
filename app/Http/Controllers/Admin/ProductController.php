@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,7 +24,23 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        // brands
+        $brands = Brand::query()->where('is_active',1)->get();
+
+        //tags
+        $tags  = Tag::all();
+
+        // categories
+        $categories = Category::query()->where('parent_id','!=',0)->get();
+
+
+        return view('admin.products.create',[
+            'brands'     =>  $brands,
+            'tags'       =>  $tags,
+            'categories' =>  $categories,
+        ]);
+
+
     }
 
     /**

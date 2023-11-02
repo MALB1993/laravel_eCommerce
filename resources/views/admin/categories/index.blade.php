@@ -22,7 +22,7 @@
                         <th>#</th>
                         <th>{{ __('Name') }}</th>
                         <th>{{ __('Slug') }}</th>
-                        <th>{{ __('Parent id') }}</th>
+                        <th>{{ __('Father') }}</th>
                         <th>{{ __('Is active') }}</th>
                         <th>{{ __('created_at') }}</th>
                         <th>{{ __('Action') }}</th>

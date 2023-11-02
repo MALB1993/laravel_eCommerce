@@ -13,7 +13,7 @@
         </div>
 
         <div class="my-2 bg-white border shadow rounded p-4">
-            
+
             <form action="{{ route('admin-panel.categories.update',['category' => $category->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -39,12 +39,11 @@
                     {{-- parent's --}}
                     <div class="form-group col-md-3">
                         <label for="parent_id">{{ __('Is active') }}</label>
-                        <select name="parent_id" id="parent_id"
-                            class="form-control form-select @error('parent_id') is-invalid @enderror">
+                        <select name="parent_id" id="parent_id" class="form-control form-select @error('parent_id') is-invalid @enderror">
                             <option disabled>{{ __('Choose an option') }}</option>
                             <option value="0">{{ __('Without a father') }}</option>
                             @foreach ($parentCategories as $parentCategory)
-                                <option value="{{ $category->parent_id === $parentCategory->id ? 'selected' : '' }}">{{ $parentCategory->name }}</option>
+                                <option value="{{ $parentCategory->id }}" {{ $category->parent_id === $parentCategory->id ? 'selected' : '' }} >{{ $parentCategory->name }}</option>
                             @endforeach
                         </select>
                         @error('parent_id')

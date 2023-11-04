@@ -132,7 +132,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $productAttributes = $product->attributes()->with('attribute')->get();
+
+        return view('admin.products.show',[
+            'product' => $product,
+            'productAttributes' =>  $productAttributes
+        ]);
     }
 
     /**

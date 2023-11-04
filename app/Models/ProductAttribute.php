@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Attribute;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +29,25 @@ class ProductAttribute extends Model
     public function getIsActiveAttribute($is_active)
     {
         return  $is_active ? __('Enable') : __('Disable');
+    }
+
+
+    /**
+     * Summary of attribute
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
+
+    /**
+     * Summary of attribute
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
 }

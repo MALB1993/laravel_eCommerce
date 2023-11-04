@@ -1,17 +1,17 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Index tags'))
+@section('title', __('Index products'))
 
 @section('content')
     <div class="col-md-12">
         <div class="d-sm-flex align-items-center justify-content-between mb-4 bg-white p-2 shadow rounded">
             <h5 class="font-weight-bold">
-                {{ __('Index tags') }}
-                <sup class="badge badge-success">{{ $tags->total() }}</sup>
+                {{ __('Index products') }}
+                {{-- <sup class="badge badge-success">{{ $products->total() }}</sup> --}}
             </h5>
-            <a href="{{ route('admin-panel.tags.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <a href="{{ route('admin-panel.products.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-eye fa-sm text-white-50"></i>
-                {{ __('create tags') }}
+                {{ __('create products') }}
             </a>
         </div>
 
@@ -27,23 +27,11 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($tags as $key => $tag)
-                        <tr>
-                            <td>{{ $tags->firstItem() + $key }}</td>
-                            <td>{{ $tag->name }}</td>
-                            <td>{{ Verta($tag->created_at) }}</td>
 
-                            <td>
-                                <a href="{{ route('admin-panel.tags.edit',['tag' => $tag->id]) }}">
-                                    <i class="fa fa-fw fa-pen-nib"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
                 </tbody>
             </table>
             <div dir="ltr" class="col-md-12 d-flex justify-content-center">
-                {{ $tags->links('pagination::bootstrap-4') }}
+
             </div>
         </div>
 

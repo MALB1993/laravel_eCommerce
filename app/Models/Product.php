@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory , SoftDeletes, Sluggable;
 
     protected $table = "products";
 
@@ -25,6 +27,45 @@ class Product extends Model
         'delivery_amount_per_product'
     ];
 
-    
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+
+    /**
+     * Summary of getRouteKeyName
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
+     * Summary of getIsActiveAttribute
+     * @param mixed $is_active
+     * @return array|string|null
+     */
+    public function getIsActiveAttribute($is_active)
+    {
+        return  $is_active ? __('Enable') : __('Disable');
+    }
+
+
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'product_tag');
+    }
 
 }

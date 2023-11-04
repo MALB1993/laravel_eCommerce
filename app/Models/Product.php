@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductAttribute;
+use App\Models\ProductImage;
+use App\Models\ProductVariation;
 use App\Models\Tag;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -101,6 +103,24 @@ class Product extends Model
     public function attributes()
     {
         return $this->hasMany(ProductAttribute::class);
+    }
+
+    /**
+     * Summary of attributes
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    /**
+     * Summary of attributes
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 
 }

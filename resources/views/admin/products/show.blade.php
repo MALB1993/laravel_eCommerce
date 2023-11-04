@@ -121,6 +121,90 @@
                     </div>
                 @endforeach
 
+                <hr>
+
+                @foreach ($productVariations as $key => $productVariation)
+                    <div class="col-md-12">
+                        <hr>
+                        <button class="btn btn-sm btn-light my-2" type="button" data-toggle="collapse" data-target="#collapseExample_{{ $key }}" aria-expanded="false" aria-controls="collapseExample_{{ $key }}">
+                            {{ __('Price and inventory subject to change') }} : {{ $productVariation->value }}
+                        </button>
+
+                        <div class="collapse" id="collapseExample_{{ $key }}">
+                            <div class="card card-body">
+
+                                <div class="row">
+                                    {{-- price --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Price') }}</label>
+                                        <input type="text" value="{{ number_format($productVariation->price) }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                    {{-- quantity --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Quantity') }}</label>
+                                        <input type="text" value="{{ number_format($productVariation->quantity) }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                    {{-- sku --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Sku') }}</label>
+                                        <input type="text" value="{{ $productVariation->sku }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                    {{-- sale price --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Sale price') }}</label>
+                                        <input type="text" value="{{ number_format($productVariation->sale_price) }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                    {{-- date on sale from --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Date on sale from') }}</label>
+                                        <input type="text" value="{{ $productVariation->date_on_sale_from == null ? null : Verta($productVariation->date_on_sale_from) }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                    {{-- date on sale to --}}
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('Date on sale to') }}</label>
+                                        <input type="text" value="{{ $productVariation->date_on_sale_to == null ? null : Verta($productVariation->date_on_sale_to) }}" class="form-control" b; @disabled(true) dir="auto">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
+            </div>
+
+
+            <div class="row my-2">
+                {{-- divider --}}
+                <div class="col-md-12">
+                    <hr>
+                    <h6>
+                        <b>{{ __('Images') }}</b>
+                    </h6>
+                </div>
+
+                <div class="col-md-12 border p-3">
+                    <p>{{ __('Primary image') }}</p>
+                    <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH') .$product->primary_image ) }}" alt="" width="200" height="200" class="img-thumbnail img-fluid">
+                </div>
+
+                <hr>
+
+                <div class="col-md-12 border p-3 my-2">
+                    <p>{{ __('Images') }}</p>
+                    @foreach ($product->images as $item)
+                        <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH') .$item->image ) }}" alt="" width="200" height="200" class="img-thumbnail img-fluid mx-auto my-1">
+                    @endforeach
+                </div>
+
 
             </div>
 

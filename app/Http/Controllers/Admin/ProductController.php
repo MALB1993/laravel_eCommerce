@@ -133,10 +133,12 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $productAttributes = $product->attributes()->with('attribute')->get();
+        $productVariations = $product->variations;
 
         return view('admin.products.show',[
             'product' => $product,
-            'productAttributes' =>  $productAttributes
+            'productAttributes' =>  $productAttributes,
+            'productVariations' =>  $productVariations
         ]);
     }
 

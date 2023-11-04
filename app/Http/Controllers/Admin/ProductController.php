@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -70,7 +71,12 @@ class ProductController extends Controller
             'variation_values.sku.*'        =>  'required|string',
             'delivery_amount_per_product'   =>  'nullable|integer',
         ]);
+
+        $fileNamePrimaryImage = generateFileName($request->primary_image->getClientOriginalName());
+
+
         dd("Done !");
+
     }
 
     /**

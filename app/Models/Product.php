@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Tag;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,6 +68,28 @@ class Product extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class,'product_tag');
+    }
+
+
+
+
+    /**
+     * Summary of brand
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+
+    /**
+     * Summary of category
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }

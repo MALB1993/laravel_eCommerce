@@ -48,7 +48,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name'                          =>  'required',
+            'brand_id'                      =>  'required',
+            'is_active'                     =>  'required',
+            'tag_ids'                       =>  'required',
+            'description'                   =>  'required',
+            'primary_image'                 =>  'required|mimes:jpg,jpeg,png,svg,webp',
+            'images'                        =>  'required|array',
+            'images.*'                      =>  'required|mimes:jpg,jpeg,png,svg,webp',
+            'category_id'                   =>  'required',
+            'attribute_ids.*'               =>  'required',
+            'delivery_amount'               =>  'required|integer',
+            'variation_values'              =>  'required',
+            'variation_values.*'            =>  'required|array',
+            'variation_values.*.*'          =>  'required',
+            'variation_values.price.*'      =>  'required|integer',
+            'variation_values.quantity.*'   =>  'required|integer',
+            'variation_values.value.*'      =>  'required|string',
+            'variation_values.sku.*'        =>  'required|string',
+            'delivery_amount_per_product'   =>  'nullable|integer',
+        ]);
+        dd("Done !");
     }
 
     /**

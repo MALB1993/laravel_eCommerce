@@ -77,7 +77,7 @@
                     {{-- tags --}}
                     <div class="form-group col-md-3">
                         <label for="attributeSelect">{{ __('Tags') }}</label>
-                        <select class="selectpicker @error('attribute_ids') is-invalid @enderror" name="tag_ids[]" id="tagSelect" multiple>
+                        <select class="selectpicker @error('tag_ids') is-invalid @enderror" name="tag_ids[]" id="tagSelect" multiple>
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
@@ -109,21 +109,26 @@
 
                     {{-- primary image --}}
                     <div class="form-group col-md-6">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="primary_image" name="primary_image" aria-describedby="primary_image">
-                                <label class="custom-file-label" for="primary_image">{{ __('Choose File') }}</label>
-                            </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('primary_image') is-invalid @enderror" id="primary_image" name="primary_image" aria-describedby="primary_image">
+                            <label class="custom-file-label" for="primary_image">{{ __('Choose File') }}</label>
+                        </div>
+                        @error('primary_image')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     {{-- images --}}
                     <div class="form-group col-md-6">
                         <div class="input-group mb-3" dir="ltr">
-
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="images" name="images[]" aria-describedby="images" multiple="true ">
+                                <input type="file" class="custom-file-input @error('images') is-invalid @enderror" id="images" name="images[]" aria-describedby="images" multiple="true ">
                                 <label class="custom-file-label" for="images">{{ __('Choose Files') }}</label>
                             </div>
                         </div>
+                        @error('images')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                 </div>
@@ -151,6 +156,7 @@
                         @enderror
                     </div>
                 </div>
+
                 <div class="row my-2" id="attributeRow">
 
                     <div class="col-md-12">
@@ -169,9 +175,68 @@
                             </b>
                         </h6>
                     </div>
+                    <div class="col-md-12 p-0">
+                        <div id="czContainer">
+                            <div id="first">
+                                <div class="recordset">
+                                    <div class="row">
+                                        {{-- variation_values[value] --}}
+                                        <div class="form-group col-md-3">
+                                            <label for="variation_values">{{ __("Name") }}</label>
+                                            <input type="text" name="variation_values[value][]" class="form-control dir="auto">
+                                        </div>
+
+                                        {{-- variation_values[price] --}}
+                                        <div class="form-group col-md-3">
+                                            <label for="variation_values">{{ __("Price") }}</label>
+                                            <input type="text" name="variation_values[price][]" class="form-control dir="auto">
+                                        </div>
+
+                                        {{-- variation_values[quantity] --}}
+                                        <div class="form-group col-md-3">
+                                            <label for="variation_values">{{ __("Quantity") }}</label>
+                                            <input type="text" name="variation_values[quantity][]"class="form-control" dir="auto">
+                                        </div>
+
+                                        {{-- variation_values[sku] --}}
+                                        <div class="form-group col-md-3">
+                                            <label for="variation_values">{{ __("Sku") }}</label>
+                                            <input type="text" name="variation_values[sku][]" class="form-control" dir="auto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="row">
+                    {{-- divider --}}
+                    <div class="col-md-12">
+                        <hr>
+                        <h6>
+                            <b>{{ __('Delivery amount') }}</b>
+                        </h6>
+                    </div>
 
+                    {{-- deliviry amount --}}
+                    <div class="form-group col-md-3">
+                        <label for="delivery_amount">{{ __("Delivery amount") }}</label>
+                        <input type="text" name="delivery_amount" id="delivery_amount" placeholder="{{ __('Write') }} {{ __('Delivery amount') }}" value="{{ old('delivery_amount') }}" class="form-control @error('delivery_amount') is-invalid @enderror">
+                        @error('delivery_amount')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    {{-- deliviry amount per product --}}
+                    <div class="form-group col-md-3">
+                        <label for="delivery_amount_per_product">{{ __("Delivery amount per product") }}</label>
+                        <input type="text" name="delivery_amount_per_product" id="delivery_amount_per_product" placeholder="{{ __('Write') }} {{ __('Delivery amount per product') }} " value="{{ old('delivery_amount_per_product') }}" class="form-control @error('delivery_amount_per_product') is-invalid @enderror">
+                        @error('delivery_amount_per_product')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                </div>
 
                 {{-- buttons --}}
 
@@ -277,5 +342,6 @@
         });
     });
 
+    $("#czContainer").czMore();
 </script>
 @endsection

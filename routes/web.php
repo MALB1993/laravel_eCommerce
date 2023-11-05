@@ -51,4 +51,6 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::delete('/products/{product}/images-destroy',[ProductImageController::class,'destroy'])->name('products.image.destroy');
     Route::put('/products/{product}/images-set-primary',[ProductImageController::class,'set_primary'])->name('products.image.set_primary');
     Route::post('/products/{product}/images-add',[ProductImageController::class,'add'])->name('products.image.add');
+    Route::get('/products/{product}/edit-category',[ProductController::class,'edit_category'])->name('products.category.edit');
+    Route::put('/products/{product}/update-category',[ProductController::class,'update_category'])->name('products.category.update');
 });

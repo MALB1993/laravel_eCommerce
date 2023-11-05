@@ -32,4 +32,20 @@ class ProductAttributeController extends Controller
             ]);
         }
     }
+
+
+    public function change($attributes, $product)
+    {
+        ProductAttribute::where('product_id',$product->id)->delete();
+
+        foreach($attributes as $key => $attribute)
+        {
+            ProductAttribute::create([
+                'product_id'    =>  $product->id,
+                'attribute_id'  =>  $key,
+                'value'         =>  $attribute
+            ]);
+        }
+    }
+
 }

@@ -66,7 +66,7 @@
                                             <i class="fa fa-fw fa-pen"></i>
                                             {{ __('Edit') }} {{ __('Images') }}
                                         </a>
-                                        <a class="dropdown-item text-dark" href="">
+                                        <a class="dropdown-item text-dark" href="{{ route('admin-panel.products.category.edit',['product' => $product->slug]) }}">
                                             <i class="fa fa-fw fa-pen"></i>
                                             {{ __('Edit') }} {{ __('Attribute') }} - {{ __('Category') }}
                                         </a>

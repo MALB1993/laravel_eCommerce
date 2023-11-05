@@ -242,4 +242,62 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function edit_category(Request $request, Product $product)
+    {
+        // categories
+        $categories = Category::query()->where('parent_id','!=',0)->get();
+        return view('admin.products.edit_category',[
+            'product'       =>  $product,
+            'categories'    =>  $categories
+        ]);
+    }
+
+    public function update_category(Request $request, Product $product)
+    {
+        // dd($request->all());
+
+
+        $request->validate([
+            'category_id'                   =>  'required',
+            'attribute_ids.*'               =>  'required',
+            'variation_values'              =>  'required',
+            'variation_values.*'            =>  'required|array',
+            'variation_values.*.*'          =>  'required',
+            'variation_values.price.*'      =>  'required|integer',
+            'variation_values.quantity.*'   =>  'required|integer',
+            'variation_values.value.*'      =>  'required|string',
+            'variation_values.sku.*'        =>  'required|string',
+        ]);
+
+        try {
+
+            \Illuminate\Support\Facades\DB::beginTransaction();
+
+
+
+            $product->update([
+                'category_id'  =>  $request->category_id,
+            ]);
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->change($request->attribute_ids,$product);
+
+            $category = Category::query()->find($request->category_id);
+            $productVariationController = new ProductVariationController();
+            $productVariationController->change($request->variation_values,$category->attributes()->wherePivot('is_variation',1)->first()->id ,$product);
+
+            $product->tags()->sync($request->tag_ids);
+            \Illuminate\Support\Facades\DB::commit();
+
+        } catch (\Exception $ex) {
+           \Illuminate\Support\Facades\DB::rollBack();
+            Alert::toast(__('Difficulty updated product') . $ex->getMessage() , 'danger');
+            return redirect()->back();
+        }
+
+        Alert::toast(__('edit products successfully !'), 'success');
+        return redirect()->route('admin-panel.products.index');
+
+    }
 }

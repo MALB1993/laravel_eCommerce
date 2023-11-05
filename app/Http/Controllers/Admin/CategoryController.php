@@ -47,9 +47,11 @@ class CategoryController extends Controller
             'name'                      =>    'required|min:3|max:200|string',
             'slug'                      =>    'required|min:3|max:200|unique:categories,slug',
             'parent_id'                 =>    'required|integer',
-            'attribute_ids'             =>    'required',
-            'attribute_is_filter_ids'   =>    'required',
-            'is_variation'              =>    'required',
+            'attribute_ids'             =>    'required|array',
+            'attribute_ids.*'           =>    'required|exists:attributes,id|integer',
+            'attribute_is_filter_ids'   =>    'required|array',
+            'attribute_is_filter_ids.*' =>    'required|exists:attributes,id|integer',
+            'is_variation'              =>    'required|exists:attributes,id|integer',
             'icon'                      =>    'nullable',
             'description'               =>    'nullable',
             'is_active'                 =>    'required|boolean'
@@ -123,11 +125,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name'                      =>    'required|min:3|max:200|string',
-            'slug'                      =>    'required|min:3|max:200|unique:categories,slug,'.$category->id,
+            'slug'                      =>    'required|min:3|max:200|unique:categories,slug',
             'parent_id'                 =>    'required|integer',
-            'attribute_ids'             =>    'required',
-            'attribute_is_filter_ids'   =>    'required',
-            'is_variation'              =>    'required',
+            'attribute_ids'             =>    'required|array',
+            'attribute_ids.*'           =>    'required|exists:attributes,id|integer',
+            'attribute_is_filter_ids'   =>    'required|array',
+            'attribute_is_filter_ids.*' =>    'required|exists:attributes,id|integer',
+            'is_variation'              =>    'required|exists:attributes,id|integer',
             'icon'                      =>    'nullable',
             'description'               =>    'nullable',
             'is_active'                 =>    'required|boolean'

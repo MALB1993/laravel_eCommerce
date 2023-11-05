@@ -67,13 +67,24 @@
                 {{-- created_at --}}
                 <div class="col-md-3 form-group">
                     <label>{{ __('created_at') }}</label>
+                    <div class="div-disabled form-control text-right">
+                        @foreach ($product->tags as $tag)
+                            {{ $tag->name }} {{ $loop->last ? "" : "|" }}
+                        @endforeach
+                    </div>
+                </div>
+
+
+                {{-- created_at --}}
+                <div class="col-md-3 form-group">
+                    <label>{{ __('created_at') }}</label>
                     <div class="div-disabled form-control text-left">
                         {{ Verta($product->created_at) }}
                     </div>
                 </div>
 
 
-                {{-- created_at --}}
+                {{-- description --}}
                 <div class="col-md-12 form-group">
                     <label>{{ __('Description') }}</label>
                     <textarea @disabled(true) class="form-control" cols="3" rows="5">{{ $product->description }}</textarea>
@@ -167,7 +178,7 @@
                                     {{-- date on sale to --}}
                                     <div class="form-group col-md-4">
                                         <label>{{ __('Date on sale to') }}</label>
-                                        <input type="text" value="{{ $productVariation->date_on_sale_to == null ? null : Verta($productVariation->date_on_sale_to) }}" class="form-control" b; @disabled(true) dir="auto">
+                                        <input type="text" value="{{ $productVariation->date_on_to_from == null ? null : Verta($productVariation->date_on_to_from) }}" class="form-control" b; @disabled(true) dir="auto">
                                     </div>
 
                                 </div>

@@ -12,11 +12,24 @@ class ProductAttributeController extends Controller
     {
         foreach($attributes as $key => $attribute)
         {
-           ProductAttribute::create([
-               'product_id'    =>  $product->id,
-               'attribute_id'  =>  $key,
-               'value'         =>  $attribute
-           ]);
+            ProductAttribute::create([
+                'product_id'    =>  $product->id,
+                'attribute_id'  =>  $key,
+                'value'         =>  $attribute
+            ]);
+        }
+    }
+
+
+    public function update($attributesIds)
+    {
+        foreach($attributesIds as $key => $value)
+        {
+            $productAttributes = ProductAttribute::findOrFail($key);
+
+            $productAttributes->update([
+                'value' =>  $value
+            ]);
         }
     }
 }

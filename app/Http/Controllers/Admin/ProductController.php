@@ -19,8 +19,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Summary of index
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -31,7 +33,8 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Summary of create
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -54,8 +57,11 @@ class ProductController extends Controller
 
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Summary of store
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -127,8 +133,11 @@ class ProductController extends Controller
         return redirect()->route('admin-panel.products.index');
     }
 
+
     /**
-     * Display the specified resource.
+     * Summary of show
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Product $product)
     {
@@ -142,12 +151,25 @@ class ProductController extends Controller
         ]);
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Summary of edit
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Product $product)
     {
-        //
+        $brands = Brand::all();
+        $tags = Tag::all();
+        $productAttributes = $product->attributes()->with('attribute')->get();
+        $productVariations = $product->variations;
+        return view('admin.products.edit',[
+            'product'   =>  $product,
+            'brands'    =>  $brands,
+            'tags'      =>  $tags,
+            'productAttributes' =>  $productAttributes,
+            'productVariations' =>  $productVariations
+        ]);
     }
 
     /**
@@ -155,7 +177,62 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+
+        $request->validate([
+            'name'                                   =>       'required|string|min:5|max:200',
+            'brand_id'                               =>       'required|exists:brands,id|integer',
+            'is_active'                              =>       'required|boolean',
+            'tag_ids'                                =>       'required|array',
+            'tag_ids.*'                              =>       'required|exists:tags,id|integer',
+            'description'                            =>       'required|string|min:300|max:2000',
+            'delivery_amount'                        =>       'required|integer',
+            'delivery_amount_per_product'            =>       'nullable|integer',
+            'attribute_values'                       =>       'required',
+            'variation_values'                       =>       'required',
+            'variation_values.*.price'               =>       'required|integer',
+            'variation_values.*.quantity'            =>       'required|integer',
+            'variation_values.*.sku'                 =>       'required|string',
+            'variation_values.*.sale_price'          =>       'required|integer',
+            'variation_values.*.date_on_sale_from'   =>       'nullable|date',
+            'variation_values.*.date_on_sale_to'     =>       'nullable|date',
+        ]);
+
+
+        try {
+
+            \Illuminate\Support\Facades\DB::beginTransaction();
+
+
+
+            $product->update([
+            'name'                              =>  $request->name,
+            'brand_id'                          =>  $request->brand_id,
+            'description'                       =>  $request->description,
+            'is_active'                         =>  $request->is_active,
+            'delivery_amount'                   =>  $request->delivery_amount,
+            'delivery_amount_per_product'       =>  $request->delivery_amount_per_product,
+            ]);
+
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->update($request->attribute_values);
+
+
+            $productVariationController = new ProductVariationController();
+            $productVariationController->update($request->variation_values);
+
+            $product->tags()->sync($request->tag_ids);
+            \Illuminate\Support\Facades\DB::commit();
+
+        } catch (\Exception $ex) {
+           \Illuminate\Support\Facades\DB::rollBack();
+            Alert::toast(__('Difficulty updated product') . $ex->getMessage() , 'danger');
+            return redirect()->back();
+        }
+
+        Alert::toast(__('edit products successfully !'), 'success');
+        return redirect()->route('admin-panel.products.index');
+
     }
 
     /**

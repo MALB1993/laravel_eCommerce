@@ -143,7 +143,7 @@ class ProductImageController extends Controller
             \Illuminate\Support\Facades\DB::commit();
 
         } catch (\Exception $ex) {
-           \Illuminate\Support\Facades\DB::rollBack();
+            \Illuminate\Support\Facades\DB::rollBack();
             Alert::toast(__('Difficulty creating product images') . $ex->getCode() , 'danger');
             return redirect()->back();
         }

@@ -19,12 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
 Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function(){
 
     // for index panel  - dashboard
@@ -53,4 +47,13 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::post('/products/{product}/images-add',[ProductImageController::class,'add'])->name('products.image.add');
     Route::get('/products/{product}/edit-category',[ProductController::class,'edit_category'])->name('products.category.edit');
     Route::put('/products/{product}/update-category',[ProductController::class,'update_category'])->name('products.category.update');
+});
+
+
+Route::prefix('/')->name('home.')->group(function(){
+
+    Route::get('/',function(){
+        return view('home.index');
+    })->name('index');
+
 });

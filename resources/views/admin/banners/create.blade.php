@@ -22,7 +22,7 @@
 @section('content')
     <div class="col-md-12">
         <div class="d-sm-flex align-items-center justify-content-between mb-4 bg-white p-2 shadow rounded">
-            <h5 class="font-weight-bold">{{ __('Tags') }}</h5>
+            <h5 class="font-weight-bold">{{ __('Banner') }}</h5>
             <a href="{{ route('admin-panel.banners.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-eye fa-sm text-white-50"></i>
                 {{ __('Index banner') }}
@@ -70,8 +70,8 @@
                         <label for="is_active">{{ __("Is active") }}</label>
                         <select name="is_active" id="is_active" class="form-control form-select @error('is_active') is-invalid @enderror">
                             <option selected disabled>{{ __('Choose an option') }}</option>
-                            <option value="1">{{ __('Enable') }}</option>
-                            <option value="0">{{ __('Disable') }}</option>
+                            <option value="1" {{ old(is_active) == 1 ? 'selected' : '' }} >{{ __('Enable') }}</option>
+                            <option value="0" {{ old(is_active) == 0 ? 'selected' : '' }} >{{ __('Disable') }}</option>
                         </select>
                         @error('is_active')
                             <small class="text-danger">{{ $message }}</small>
@@ -80,7 +80,7 @@
 
                     {{-- type --}}
                     <div class="form-group col-md-3">
-                        <label for="type">{{ __('Priority') }}</label>
+                        <label for="type">{{ __('Type') }}</label>
                         <input type="text" name="type" id="type" class="form-control @error('type') is-invalid @enderror" value="{{ old('type') }}" dir="auto">
                         @error('type')
                             <small class="text-danger">{{ $message }}</small>

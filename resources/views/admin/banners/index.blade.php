@@ -20,23 +20,45 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Images') }}</th>
+                        <th>{{ __('Title') }}</th>
+                        <th>{{ __('Type') }}</th>
+                        <th>{{ __('Is active') }}</th>
                         <th>{{ __('created_at') }}</th>
                         <th>{{ __('Action') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($banners as $key => $tag)
+                    @foreach ($banners as $key => $banner)
                         <tr>
                             <td>{{ $banners->firstItem() + $key }}</td>
-                            <td>{{ $tag->name }}</td>
-                            <td>{{ Verta($tag->created_at) }}</td>
+                            <td>
+                                <img src="{{ asset(env('IMAGE_UPLOAD_PATH').'/banners/'.$banner->image) }}" alt="" class="img-fluid img-thumbnail" width="100" height="100">
+                            </td>
+                            <td>{{ $banner->title }}</td>
+                            <td>{{ $banner->type }}</td>
+                            <td>{{ $banner->is_active }}</td>
+                            <td>{{ Verta($banner->created_at) }}</td>
 
                             <td>
-                                <a href="{{ route('admin-panel.banners.edit',['tag' => $tag->id]) }}">
-                                    <i class="fa fa-fw fa-pen-nib"></i>
-                                </a>
+                                <!-- Example single danger button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    {{ __('Action') }}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item text-primary" href="{{ route('admin-panel.banners.edit', ['banner' => $banner->id]) }}">
+                                            <i class="fa fa-fw fa-pen"></i>
+                                            {{ __('Edit') }}
+                                        </a>
+                                        <a class="dropdown-item text-info" href="{{ route('admin-panel.banners.show',['banner' => $banner->id]) }}">
+                                            <i class="fa fa-fw fa-eye"></i>
+                                            {{ __('Show Content') }}
+                                        </a>
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                     @endforeach

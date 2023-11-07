@@ -21,9 +21,9 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->string('type');
 
-            $table->string('button_text');
-            $table->string('button_link');
-            $table->string('button_icon');
+            $table->string('button_text')->nullable();
+            $table->string('button_link')->nullable();
+            $table->string('button_icon')->nullable();
             
             $table->timestamps();
         });

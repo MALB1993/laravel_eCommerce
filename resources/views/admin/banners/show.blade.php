@@ -89,7 +89,7 @@
                     @error('text')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
-                </div>  
+                </div>
 
                 <div class="form-group col-md-12 my-2">
                     <hr />
@@ -100,9 +100,16 @@
 
             {{-- buttons --}}
             <div class="btn-group" dir="ltr">
+
                 <a href="{{ url()->previous() }}" class="btn btn-dark">
                     {{ __('Go back') }}
                 </a>
+
+                <form action="{{ route('admin-panel.banners.destroy',['banner' => $banner->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">{{ __("Delete") }}</button>
+                </form>
             </div>
         </div>
     </div>

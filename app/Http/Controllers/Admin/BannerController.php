@@ -124,11 +124,16 @@ class BannerController extends Controller
 
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Summary of destroy
+     * @param \App\Models\Banner $banner
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+        Alert::toast(__('delete banner successfully !'),'success');
+        return redirect()->route('admin-panel.banners.index');
     }
 }

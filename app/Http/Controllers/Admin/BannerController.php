@@ -105,10 +105,9 @@ class BannerController extends Controller
         {
             $uploadBanner = new ProductImageController();
             $fileNameImage = $uploadBanner->uploadBanner($request->image);
-
-            $banner->image = $fileNameImage['fileNameBanner'];
         }
 
+        $banner->image          =   $request->has('image') ? $fileNameImage['fileNameBanner'] : $banner->image;
         $banner->title          =   $request->input('title');
         $banner->text           =   $request->input('text');
         $banner->priority       =   $request->input('priority');

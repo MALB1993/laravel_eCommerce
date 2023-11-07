@@ -27,13 +27,6 @@
         {{ __('Store') }}
     </div>
 
-    <li class="nav-item {{ request()->is('*/brands') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin-panel.brands.index') }}">
-            <i class="fa fa-fw fa-store"></i>
-            <span>{{ __('brands') }}</span>
-        </a>
-    </li>
-
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
@@ -45,8 +38,22 @@
                 <h6 class="collapse-header">{{ __('Attribute') }}</h6>
                 <a class="collapse-item" href="{{ route('admin-panel.products.index') }}">{{ __('Products') }}</a>
                 <a class="collapse-item" href="{{ route('admin-panel.attributes.index') }}">{{ __('Attributes') }}</a>
-                <a class="collapse-item" href="{{ route('admin-panel.categories.index') }}">{{ __('categories') }}</a>
                 <a class="collapse-item" href="{{ route('admin-panel.tags.index') }}">{{ __('Tags') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.brands.index') }}">{{ __('brands') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.categories.index') }}">{{ __('categories') }}</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>{{ __('Settings') }}</span>
+        </a>
+        <div id="collapseSettings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('admin-panel.banners.index') }}">{{ __('Index banners') }}</a>
             </div>
         </div>
     </li>

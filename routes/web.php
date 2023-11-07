@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -47,6 +48,9 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::post('/products/{product}/images-add',[ProductImageController::class,'add'])->name('products.image.add');
     Route::get('/products/{product}/edit-category',[ProductController::class,'edit_category'])->name('products.category.edit');
     Route::put('/products/{product}/update-category',[ProductController::class,'update_category'])->name('products.category.update');
+
+    // banners
+    Route::resource('banners', BannerController::class);
 });
 
 

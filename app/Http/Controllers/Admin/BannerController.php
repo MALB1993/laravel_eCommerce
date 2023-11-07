@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BannerController extends Controller
@@ -45,11 +47,11 @@ class BannerController extends Controller
             'button_icon'   =>  'nullable|string'
         ]);
 
-        $fileBannerImage = generateFileName($request->image->getClientOriginalName());
-        $request->image->move(public_path(env('IMAGE_UPLOAD_PATH')."/banners/"),$fileBannerImage);
+        $uploadBanner = new ProductImageController();
+        $fileNameImage = $uploadBanner->uploadBanner($request->image);
 
         Banner::create([
-            'image'        =>   $fileBannerImage,
+            'image'        =>   $fileNameImage['fileNameBanner'],
             'title'        =>   $request->input('title'),
             'text'         =>   $request->input('text'),
             'priority'     =>   $request->input('priority'),
@@ -78,7 +80,7 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        //
+        return view('admin.banners.edit',['banner' => $banner]);
     }
 
     /**
@@ -86,7 +88,41 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        //
+
+        $request->validate([
+            'image'         =>      'nullable|mimes:jpg,jpeg,png,svg,webp',
+            'title'         =>      'nullable|string|min:3|max:100|unique:banners,title,'.$banner->id,
+            'text'          =>      'nullable|string|max:1000',
+            'priority'      =>      'nullable|integer',
+            'is_active'     =>      'required|boolean',
+            'type'          =>      'required|string',
+            'button_text'   =>      'nullable|string',
+            'button_link'   =>      'nullable|string',
+            'button_icon'   =>      'nullable|string'
+        ]);
+
+        if($request->has('image'))
+        {
+            $uploadBanner = new ProductImageController();
+            $fileNameImage = $uploadBanner->uploadBanner($request->image);
+
+            $banner->image = $fileNameImage['fileNameBanner'];
+        }
+
+        $banner->title          =   $request->input('title');
+        $banner->text           =   $request->input('text');
+        $banner->priority       =   $request->input('priority');
+        $banner->is_active      =   $request->input('is_active');
+        $banner->type           =   $request->input('type');
+        $banner->button_text    =   $request->input('button_text');
+        $banner->button_link    =   $request->input('button_link');
+        $banner->button_icon    =   $request->input('button_icon');
+
+
+        $banner->update();
+        Alert::toast(__('edit banner successfully !'),'success');
+        return redirect()->route('admin-panel.banners.index');
+
     }
 
     /**

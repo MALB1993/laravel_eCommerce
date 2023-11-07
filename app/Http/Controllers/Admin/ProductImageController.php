@@ -100,6 +100,12 @@ class ProductImageController extends Controller
     }
 
 
+    /**
+     * Summary of add
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     */
     public function add(Request $request ,Product $product)
     {
 
@@ -151,6 +157,16 @@ class ProductImageController extends Controller
         Alert::toast(__('edit product image successfully !'), 'success');
         return redirect()->back();
 
+    }
+
+
+
+    public function uploadBanner($banner_image)
+    {
+        $fileNameBanner = generateFileName($banner_image->getClientOriginalName());
+        $banner_image->move(public_path(env('IMAGE_UPLOAD_PATH').'banners/'),$fileNameBanner);
+
+        return ['fileNameBanner' => $fileNameBanner];
     }
 
 }

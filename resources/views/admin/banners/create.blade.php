@@ -70,8 +70,8 @@
                         <label for="is_active">{{ __("Is active") }}</label>
                         <select name="is_active" id="is_active" class="form-control form-select @error('is_active') is-invalid @enderror">
                             <option selected disabled>{{ __('Choose an option') }}</option>
-                            <option value="1" {{ old(is_active) == 1 ? 'selected' : '' }} >{{ __('Enable') }}</option>
-                            <option value="0" {{ old(is_active) == 0 ? 'selected' : '' }} >{{ __('Disable') }}</option>
+                            <option value="1" {{ old('is_active') == 1 ? 'selected' : '' }} >{{ __('Enable') }}</option>
+                            <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }} >{{ __('Disable') }}</option>
                         </select>
                         @error('is_active')
                             <small class="text-danger">{{ $message }}</small>

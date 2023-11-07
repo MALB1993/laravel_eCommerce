@@ -13,6 +13,17 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ __('categories') }}
+                    </a>
+                    <ul class="dropdown-menu bg-success text-right" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
                 <li><a class="nav-link" href="shop.html">Shop</a></li>
                 <li><a class="nav-link" href="about.html">About us</a></li>
                 <li><a class="nav-link" href="services.html">Services</a></li>

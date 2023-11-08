@@ -1214,7 +1214,7 @@
         </div>
     </div>
 
-    <div class="testimonial-area pt-80 pb-95 section-margin-1" style="background-image: url(assets/img/bg/bg-1.jpg);">
+    <div class="testimonial-area pt-80 pb-95 section-margin-1" style="background-image: url(home/assets/img/bg/bg-1.jpg);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 ml-auto mr-auto">

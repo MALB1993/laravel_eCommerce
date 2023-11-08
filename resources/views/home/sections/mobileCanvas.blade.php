@@ -23,66 +23,23 @@
                             <a href="index.html"> صفحه ای اصلی </a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="shop.html">فروشگاه</a>
+                            <a href="#">فروشگاه</a>
+                            @php
+                            $parentCategories = App\Models\Category::query()->where('parent_id',0)->get();
+                            @endphp
                             <ul class="dropdown">
+                                @foreach ($parentCategories as $parentCategory)
                                 <li class="menu-item-has-children">
                                     <a href="#">مردانه</a>
                                     <ul class="dropdown">
-                                        <li><a href="shop.html"> پیراهن </a></li>
-                                        <li>
-                                            <a href="#"> تی شرت </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> پالتو </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> لباس راحتی </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">لباس زیر</a>
-                                        </li>
+                                        @foreach ($parentCategory->children as $childCategory)
+                                            <li>
+                                                <a href="#">{{ $childCategory->name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">زنانه</a>
-                                    <ul class="dropdown">
-                                        <li>
-                                            <a href="product-details.html"> مانتو </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> شومیز </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> دامن </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">پالتو </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">لباس راحتی</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#"> بچه گانه </a>
-                                    <ul class="dropdown">
-                                        <li>
-                                            <a href="#"> ست لباس </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> شلوارک </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> ژاکت </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> ست نوزاد </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> پیراهن </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @endforeach
                             </ul>
                         </li>
 

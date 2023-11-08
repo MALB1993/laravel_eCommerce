@@ -31,6 +31,7 @@
 
         {{-- header --}}
         @include('home.sections.header')
+        @include('home.sections.mobileCanvas')
 
         @yield('content')
 

@@ -12,6 +12,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Product extends Model
 {
@@ -30,6 +31,16 @@ class Product extends Model
         'is_active',
         'delivery_amount',
         'delivery_amount_per_product'
+    ];
+
+    /**
+     * Summary of appends
+     * @var array
+     */
+    protected $appends = [
+        'quantity_check',
+        'price_check',
+        'sale_check'
     ];
 
     /**
@@ -64,6 +75,35 @@ class Product extends Model
     public function getIsActiveAttribute($is_active)
     {
         return  $is_active ? __('Enable') : __('Disable');
+    }
+
+    /**
+     * Summary of getIsQuantityCheckAttribute
+     * @return Model|\Illuminate\Database\Eloquent\Relations\HasMany|int|object|null
+     */
+    public function getQuantityCheckAttribute()
+    {
+        return  $this->variations()->where('quantity','>',0)->first() ?? 0;
+    }
+
+
+    /**
+     * Summary of getSalePriceAttribute
+     * @return Model|\Illuminate\Database\Eloquent\Relations\HasMany|bool|object|null
+     */
+    public function getSalePriceAttribute()
+    {
+        return  $this->variations()->where('quantity','>',0)->where('sale_price','!=',null)->where('date_on_sale_from','<',Carbon::now())->where('date_on_sale_to','>',Carbon::now())->orderBy('sale_price')->first() ?? false;
+    }
+
+
+    /**
+     * Summary of getPriceCheckAttribute
+     * @return Model|\Illuminate\Database\Eloquent\Relations\HasMany|bool|object|null
+     */
+    public function getSaleCheckAttribute()
+    {
+        return  $this->variations()->where('quantity','>',0)->orderBy('price')->first() ?? false;
     }
 
 

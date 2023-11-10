@@ -1,5 +1,7 @@
 @extends('home.layouts.master')
-
+@section('stylesheet')
+    <link rel="stylesheet" href="{{ asset('home/assets/vendor/fontawesome-free/css/all.min.css') }}">
+@endsection
 @section('content')
     {{-- sliders --}}
     <div class="slider-area section-padding-1">
@@ -158,20 +160,7 @@
                                                 @endif
                                             </div>
                                             <div class="ht-product-ratting-wrap">
-                                                <span class="ht-product-ratting">
-                                                    <span class="ht-product-user-ratting" style="width: 100%;">
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                    </span>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </span>
+                                                <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="3"></div>
                                             </div>
                                         </div>
 
@@ -1416,12 +1405,8 @@
                                         @endif
                                     </div>
                                     <div class="pro-details-rating-wrap">
-                                        <div class="pro-details-rating">
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
+                                        <div class="mx-2">
+                                            <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="3"></div>
                                         </div>
                                         <span>3 دیدگاه</span>
                                     </div>
@@ -1533,8 +1518,9 @@
     <!-- Modal end -->
 
 @endsection
-
 @section('javascript')
+    <script src="{{ asset('home/assets/vendor/rating-star-icons/dist/rating.js') }}"></script>
+    <script src="{{ asset('home/assets/vendor/fontawesome-free/js/all.min.js') }}"></script>
     <script>
         $('.variation_select').on('change',function(){
             let variation = JSON.parse(this.value);

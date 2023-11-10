@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductAttribute;
 use App\Models\ProductImage;
+use App\Models\ProductRate;
 use App\Models\ProductVariation;
 use App\Models\Tag;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -163,4 +164,14 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+
+
+    /**
+     * Summary of rates
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rates()
+    {
+        return $this->hasMany(ProductRate::class);
+    }
 }

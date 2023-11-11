@@ -140,11 +140,11 @@
                                                 @if ($product->quantity_check)
                                                     @if($product->sale_check)
                                                         <span class="new">
-                                                            {{ number_format($product->sale_check->sale_price) }}
+                                                            {{ number_format($product->sale_check->price) }}
                                                             {{ __('Toman') }}
                                                         </span>
                                                         <span class="old">
-                                                            {{ number_format($product->sale_check->price) }}
+                                                            {{ number_format($product->sale_check->sale_price) }}
                                                             {{ __('Toman') }}
                                                         </span>
                                                         @else
@@ -1019,11 +1019,11 @@
                                         @if ($product->quantity_check)
                                             @if($product->sale_check)
                                                 <span class="new">
-                                                    {{ number_format($product->sale_check->sale_price) }}
+                                                    {{ number_format($product->sale_check->price) }}
                                                     {{ __('Toman') }}
                                                 </span>
                                                 <span class="old">
-                                                    {{ number_format($product->sale_check->price) }}
+                                                    {{ number_format($product->sale_check->sale_price) }}
                                                     {{ __('Toman') }}
                                                 </span>
                                                 @else
@@ -1120,7 +1120,7 @@
                                         <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
                                     </div>
                                     @foreach ($product->images as $key => $image)
-                                    <div id="pro-primary-{{ $key + 2 }}" class="tab-pane fade">
+                                    <div id="pro-primary-{{ $image->id }}" class="tab-pane fade">
                                         <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
                                     </div>
                                     @endforeach
@@ -1134,7 +1134,7 @@
                                             <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
                                         </a>
                                         @foreach ($product->images as $key => $image)
-                                        <a data-toggle="tab" href="#pro-primary-{{ $key + 2 }}">
+                                        <a data-toggle="tab" href="#pro-primary-{{ $image->id }}">
                                             <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
                                         </a>
                                         @endforeach

@@ -28,12 +28,12 @@
                                     <ul class="mega-menu">
                                         @foreach ($parentCategories as $parentCategory)
                                             <li>
-                                                <a class="menu-title" href="#">{{ $parentCategory->name }}</a>
+                                                <a class="menu-title" href="{{ route('home.categories.show',['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
 
                                                 <ul>
                                                     @foreach ($parentCategory->children as $childCategory)
                                                         <li>
-                                                            <a href="#">{{ $childCategory->name }}</a>
+                                                            <a href="{{ route('home.categories.show',['category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -43,13 +43,13 @@
                                 </li>
 
                                 <li class="angle-shape">
-                                    <a href="index.html"> صفحه اصلی </a>
+                                    <a href="{{ route('home.index') }}">{{ __('Original') }}</a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
-
+                
                 <div class="col-xl-3 col-lg-3">
                     <div class="header-right-wrap pt-40">
                         <div class="header-search">

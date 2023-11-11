@@ -27,13 +27,12 @@
                             {{-- search --}}
                             <div class="sidebar-widget">
                                 <div class="pro-sidebar-search mb-50 mt-25 position-relative">
-                                    {{-- <form class="pro-sidebar-search-form" action="#"> --}}
+                                    <div>
                                         <input type="text" placeholder="{{ __('Search') }}" dir="rtl" class="form-control">
                                         <button class="position-absolute btn btn-md btn-dark" style="left: 2px; top: 2px">
                                             <i class="sli sli-magnifier"></i>
                                         </button>
-
-                                    {{-- </form> --}}
+                                    </div>
                                 </div>
                             </div>
 
@@ -100,13 +99,13 @@
 
                             <div class="select-shoing-wrap">
                                 <div class="shop-select">
-                                    <i>
-                                        <option value=""> مرتب سازی </option>
-                                        <option value=""> بیشترین قیمت </option>
-                                        <option value=""> کم ترین قیمت </option>
-                                        <option value=""> جدیدترین </option>
-                                        <option value=""> قدیمی ترین </option>
-                                    </i>
+                                    <select class="form-control">
+                                        <option value="">{{ __('Ordering') }} &#x2BB6; </option>
+                                        <option value="">{{ __('The highest price') }}</option>
+                                        <option value="">{{ __('Lowest price') }}</option>
+                                        <option value="">{{ __('The newest') }}</option>
+                                        <option value="">{{ __('The oldest') }}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -11,8 +11,13 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        $attributes = $category->attributes()->where('is_filter','LIKE',1)->with('values')->get();
+        $variation = $category->attributes()->where('is_variation','LIKE',1)->with('variationsValues')->first();
+
         return view('home.categories.show',[
-            'category'  =>  $category
+            'category'      =>  $category,
+            'attributes'    =>  $attributes,
+            'variation'     =>  $variation
         ]);
     }
 }

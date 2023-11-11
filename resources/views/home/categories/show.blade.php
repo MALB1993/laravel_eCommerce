@@ -63,7 +63,8 @@
                                             @foreach ($attribute->values as $value)
                                                 <li>
                                                     <div class="sidebar-widget-list-left">
-                                                        <input type="checkbox" name="attribute[{{ $attribute->id }}]" value="{{ $value->value }}" onchange="filter()"> <a href="#">{{ $value->value }}</a>
+                                                        <input type="checkbox" class="attribute-{{ $attribute->id }}" value="{{ $value->value }}" onchange="filter()" {{ (request()->has('attribute.'.$attribute->id) && in_array($value->value, explode('-',request()->attribute[$attribute->id]))) ? 'checked' : '' }}  />
+                                                        <a href="#">{{ $value->value }}</a>
                                                         <span class="checkmark"></span>
                                                     </div>
                                                 </li>
@@ -202,7 +203,11 @@
             </div>
         </div>
 
+        @foreach ($attributes as $attribute)
+            <input type="hidden" id="filter-attribute-{{$attribute->id}}" name="attribute[{{$attribute->id}}]">
+        @endforeach
         <input type="hidden" id="filter-variation" name="variation">
+
     </form>
 
     <!-- Modal -->
@@ -348,22 +353,43 @@
 
         function filter()
         {
+            let attributes = @json($attributes);
+
+            attributes.map(attribute => {
+                let valueAttribute = $(`.attribute-${attribute.id}:checked`).map(function(){
+                return this.value;
+            }).get().join('-');
+
+            if(valueAttribute == ""){
+                $(`#filter-attribute-${attribute.id}`).prop('disabled', true);
+            }else{
+
+                $(`#filter-attribute-${attribute.id}`).val(valueAttribute);
+            }
+        });
+
             let variation = $(".variation:checked").map(function(){
                 return this.value;
             }).get().join('-');
 
-            if(variation == "")
-            {
+            if(variation == ""){
                 $("#filter-variation").prop('disabled', true);
             }else{
 
                 $("#filter-variation").val(variation);
             }
-
-            // console.log(variation);
-
             $("#filter-form").submit();
         }
+
+        $("#filter-form").on('submit',function(event){
+            event.preventDefault();
+            let currentUrl = "{{ url()->current() }}";
+            let url =   currentUrl + "?" + decodeURIComponent($(this).serialize());
+
+            $(location).attr('href',url);
+
+        });
+
 
         $('.variation_select').on('change', function() {
             let variation = JSON.parse(this.value);

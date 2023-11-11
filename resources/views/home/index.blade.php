@@ -910,7 +910,7 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="/home/assets/img/icon-img/testi.png" alt="" />
+                                <img src="{{ asset('/home/assets/img/icon-img/testi.png') }}" alt="" />
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
@@ -926,7 +926,7 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="/home/assets/img/icon-img/testi.png" alt="" />
+                                <img src="{{ asset('/home/assets/img/icon-img/testi.png') }}" alt="" />
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
@@ -965,7 +965,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="/home/assets/img/icon-img/free-shipping.png" alt="" />
+                            <img src="{{ asset('/home/assets/img/icon-img/free-shipping.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -976,7 +976,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40 pl-50">
                         <div class="feature-icon">
-                            <img src="/home/assets/img/icon-img/support.png" alt="" />
+                            <img src="{{ asset('/home/assets/img/icon-img/support.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -987,7 +987,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="/home/assets/img/icon-img/security.png" alt="" />
+                            <img src="{{ asset('/home/assets/img/icon-img/security.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>

@@ -22,16 +22,29 @@ class Category extends Model
     ];
 
 
+    /**
+     * Summary of parent
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function parent()
     {
         return $this->belongsTo(Category::class,'parent_id');
     }
 
+    /**
+     * Summary of children
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function children()
     {
         return $this->hasMany(Category::class,'parent_id');
     }
 
+    /**
+     * Summary of getIsActiveAttribute
+     * @param mixed $is_active
+     * @return array|string|null
+     */
     public function getIsActiveAttribute($is_active)
     {
         return $is_active ? __('Enable') : __('Disable');
@@ -46,4 +59,12 @@ class Category extends Model
         return $this->belongsToMany(Attribute::class, 'attribute_category');
     }
 
+    /**
+     * Summary of children
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

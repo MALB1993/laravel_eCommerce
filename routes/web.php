@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Home\HomeController;
-use \App\Http\Controllers\Home\CategoryController as HomeCategoryController;
+use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
+use App\Http\Controllers\Home\ProductController     as HomeProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,7 +61,7 @@ Route::prefix('/')->name('home.')->group(function(){
 
     Route::get('/',[HomeController::class,'index'])->name('index');
     Route::get('/categories/{category:slug}',[HomeCategoryController::class,'show'])->name('categories.show');
-
+    Route::get('/products/{product:slug}',[HomeProductController::class,'show'])->name('products.show');
 
 });
 

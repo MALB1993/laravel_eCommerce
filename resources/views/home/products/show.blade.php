@@ -3,11 +3,11 @@
 @section('title', $product->name)
 
 @section('stylesheet')
-    <link rel="stylesheet" href="{{ asset('home/assets/vendor/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/home/assets/vendor/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
-    
+
 <div class="breadcrumb-area pt-35 pb-35 bg-gray" style="direction: rtl;">
     <div class="container">
         <div class="breadcrumb-content text-center">
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                     @endif
-                    
+
                     <div class="pro-details-meta">
                         <span>{{ __('Category') }} :</span>
                         <ul>
@@ -133,15 +133,15 @@
                     </div>
                     <div id="gallery" class="mt-20 product-dec-slider">
                         @foreach ($product->images as $image)
-                            <a 
-                                data-image      ="{{ asset(env('IMAGE_UPLOAD_PATH').'products/images/'.$image->image)  }}" 
+                            <a
+                                data-image      ="{{ asset(env('IMAGE_UPLOAD_PATH').'products/images/'.$image->image)  }}"
                                 data-zoom-image ="{{ asset(env('IMAGE_UPLOAD_PATH').'products/images/'.$image->image)  }}">
-                                <img src        ="{{ asset(env('IMAGE_UPLOAD_PATH').'products/images/'.$image->image)  }}" 
-                                
+                                <img src        ="{{ asset(env('IMAGE_UPLOAD_PATH').'products/images/'.$image->image)  }}"
+
                                 alt="" width="90">
                             </a>
                         @endforeach
-                        
+
                     </div>
                 </div>
             </div>
@@ -156,15 +156,15 @@
             <div class="col-lg-8 col-md-8">
                 <div class="description-review-wrapper">
                     <div class="description-review-topbar nav">
-                        <a class="active" data-toggle="tab" href="#des-details1"> توضیحات </a>
+                        <a class="{{ (count($errors) > 0) ? '' : 'active' }}" data-toggle="tab" href="#des-details1"> توضیحات </a>
                         <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
-                        <a data-toggle="tab" href="#des-details2">
+                        <a class="{{ (count($errors) > 0) ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
                             دیدگاه
                             (3)
                         </a>
                     </div>
                     <div class="tab-content description-review-bottom">
-                        <div id="des-details1" class="tab-pane active">
+                        <div id="des-details1" class="tab-pane {{ (count($errors) > 0) ? '' : 'active' }}">
                             <div class="product-description-wrapper">
                                 <p class="text-right">
                                     {{ $product->description }}
@@ -183,7 +183,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div id="des-details2" class="tab-pane">
+                        <div id="des-details2" class="tab-pane {{ (count($errors) > 0) ? 'active' : '' }} ">
 
                             <div class="review-wrapper">
                                 <div class="single-review">
@@ -209,96 +209,33 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="{{ asset('home/assets/img/product-details/client-2.jpg') }}" alt="">
-                                    </div>
-                                    <div class="review-content">
-                                        <p class="text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                            ستون و سطرآنچنان که لازم است
-                                        </p>
-                                        <div class="review-top-wrap text-right">
-                                            <div class="review-name">
-                                                <h4> علی شیخ </h4>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="{{ asset('home/assets/img/product-details/client-3.jpg') }}" alt="">
-                                    </div>
-                                    <div class="review-content text-right">
-                                        <p class="text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                            ستون و سطرآنچنان که لازم است
-                                        </p>
-                                        <div class="review-top-wrap">
-                                            <div class="review-name">
-                                                <h4> علی شیخ </h4>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
-                            <div class="ratting-form-wrapper text-right">
+                            <div class="ratting-form-wrapper text-right" id="show-errors-comment">
                                 <span> نوشتن دیدگاه </span>
 
                                 <div class="star-box-wrap">
-                                    <div class="single-ratting-star">
-                                        <i class="sli sli-star"></i>
-                                    </div>
-                                    <div class="single-ratting-star">
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                    </div>
-                                    <div class="single-ratting-star">
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                    </div>
-                                    <div class="single-ratting-star">
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                    </div>
-                                    <div class="single-ratting-star">
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
-                                    </div>
+                                    <div id="dataReadonlyReview" data-rating-stars="5" data-rating-value="3" data-rating-input="#dataReadonlyInput"></div>
                                 </div>
 
                                 <div class="ratting-form">
-                                    <form action="#">
+                                    <form action="{{ route('home.comment.store',['product' => $product->id]) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style mb-20">
                                                     <label> متن دیدگاه : </label>
-                                                    <textarea name="Your Review"></textarea>
+                                                    <textarea name="text" class="@error('text') in-invalid @enderror">{{ old('text') }}</textarea>
+                                                    @error('text')
+                                                        <div class="input-error-validation">
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
+
+                                            <input type="hidden" id="dataReadonlyInput" name="rate" value="{{ old('rate') ? old('rate') : 0 }}">
 
                                             <div class="col-lg-12">
                                                 <div class="form-submit">
@@ -310,7 +247,7 @@
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -464,17 +401,18 @@
         </div>
     </div>
 </div>
-<!-- Modal end -->    
+<!-- Modal end -->
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('home/assets/vendor/rating-star-icons/dist/rating.js') }}"></script>
-    <script src="{{ asset('home/assets/vendor/fontawesome-free/js/all.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="{{ asset('/home/assets/vendor/rating-star-icons/dist/rating.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <script>
         $('.variation_select').on('change',function(){
             let variation = JSON.parse(this.value);
             let variationPriceDiv  = $('.variation_price');
-            
+
             variationPriceDiv.empty();
 
             if(variation.is_sale){

@@ -32,20 +32,36 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input type="text" name="user-name" placeholder="ایمیل">
-                                        <input type="password" name="user-password" placeholder="رمز عبور">
+                                    <form action="{{ route('login') }}" method="post">
+                                        @csrf
+                                        @method('POST')
+
+                                        <input name="email" placeholder="{{ __('Email') }}" type="email" value="{{ old('email') }}" class="@error('email') is-invalid mb-1 @enderror">
+                                        @error('email')
+                                            <div class="input-error-validation">
+                                                <span>{{ $message }}</span>
+                                            </div>
+                                        @enderror
+
+                                        <input type="password" name="password" placeholder="{{ __('Password') }}" class="@error('password') is-invalid mb-1 @enderror">
+                                        @error('password')
+                                        <div class="input-error-validation">
+                                            <span>{{ $message }}</span>
+                                        </div>
+                                        @enderror
+
                                         <div class="button-box">
                                             <div class="login-toggle-btn d-flex justify-content-between">
                                                 <div>
-                                                    <input type="checkbox">
-                                                    <label> مرا بخاطر بسپار </label>
+                                                    <input type="checkbox" name="remember" value="{{ old('remember') ? 'checked' : '' }}">
+                                                    <label>{{ __('Remember Me') }}</label>
                                                 </div>
-                                                <a href="register.html"> فراموشی رمز عبور ! </a>
+                                                <a href="{{ route('password.request') }}">{{ __("Forgot Your Password?") }}</a>
                                             </div>
-                                            <button type="submit">ورود</button>
+                                            <button type="submit">{{ __('Login') }}</button>
                                             <a href="index.html" class="btn btn-google btn-block mt-4">
-                                                <i class="sli sli-social-google"></i> ورود با حساب گوگل
+                                                <i class="sli sli-social-google"></i>
+                                                {{ __('Login with Google') }}
                                             </a>
                                         </div>
                                     </form>

@@ -49,7 +49,7 @@
                         </nav>
                     </div>
                 </div>
-                
+
                 <div class="col-xl-3 col-lg-3">
                     <div class="header-right-wrap pt-40">
                         <div class="header-search">
@@ -130,11 +130,13 @@
                             </button>
                             <div class="setting-content">
                                 <ul class="text-right">
-                                    <li><a href="login.html">ورود</a></li>
-                                    <li>
-                                        <a href="register.html">ایجاد حساب</a>
-                                    </li>
-                                    <li><a href="my-account.html">پروفایل</a></li>
+                                    @guest
+                                        <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                                        <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                                    @endguest
+                                    @auth
+                                        <li><a href="my-account.html">{{ __('Profile') }}</a></li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>

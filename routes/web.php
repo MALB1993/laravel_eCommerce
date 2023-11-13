@@ -4,12 +4,14 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
+use App\Http\Controllers\Home\CommentController     as HomeCommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +56,8 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
     // banners
     Route::resource('banners', BannerController::class);
+    // comments
+    Route::resource('comments', CommentController::class);
 });
 
 
@@ -62,7 +66,10 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('index');
     Route::get('/categories/{category:slug}',[HomeCategoryController::class,'show'])->name('categories.show');
     Route::get('/products/{product:slug}',[HomeProductController::class,'show'])->name('products.show');
-
+    Route::post('/comments/{product:id}',[HomeCommentController::class,'store'])->name('comment.store');
+    Route::get('/test',function(){
+        auth()->logout();
+    });
 });
 
 

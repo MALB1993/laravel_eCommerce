@@ -99,7 +99,15 @@
                                 <a href="#">افزودن به سبد خرید</a>
                             </div>
                             <div class="pro-details-wishlist">
-                                <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                @auth
+                                    @if($product->checkuserWishlist(auth()->user()->id))
+                                        <a title="Add To Wishlist" href="{{ route('home.wishlist-remove',$product->slug) }}"><i class="fas fa-heart" style="color:red;font-size:20px"></i></a>
+                                    @else
+                                        <a title="Add To Wishlist" href="{{ route('home.wishlist-add',$product->slug) }}"><i class="sli sli-heart"></i></a>
+                                    @endif
+                                @else
+                                    <a title="Add To Wishlist" href="{{ route('home.wishlist-add',$product->slug) }}"><i class="sli sli-heart"></i></a>
+                                @endauth
                             </div>
                             <div class="pro-details-compare">
                                 <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
@@ -178,7 +186,7 @@
                                     @foreach ($product->attributes()->with('attribute')->get() as $attribute)
                                         <li>
                                             <span>{{ $attribute->attribute->name }} :</span>
-                                             {{ $attribute->value }}
+                                            {{ $attribute->value }}
                                         </li>
                                     @endforeach
                                 </ul>

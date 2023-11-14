@@ -222,7 +222,159 @@
         <input type="hidden" id="filter-sort-by"    name="sortBy">
         <input type="hidden" id="filter-search"     name="search">
     </form>
+<!-- Modal -->
+@foreach ($products as $product)
+<div class="modal fade" id="productModal_{{$product->id}}" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
+                        <div class="product-details-content quickview-content">
+                            <h2 class="text-right mb-4">{{ $product->name }}</h2>
+                            <div class="product-details-price variation_price">
+                                @if ($product->quantity_check)
+                                    @if($product->sale_check)
+                                        <span class="new">
+                                            {{ number_format($product->sale_check->price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                        <span class="old">
+                                            {{ number_format($product->sale_check->sale_price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                        @else
+                                        <span class="new">
+                                            {{ number_format($product->price_check->price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                    @endif
+                                    @else
+                                    <div class="not-in-stock">
+                                        <p class="text-white">{{ __('Unavailable') }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="pro-details-rating-wrap">
+                                <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{ ceil($product->rates->avg('rate')) }}"></div>
+                                <span class="mx-3">|</span>
+                                <span>
+                                    {{ __('Comments') }}
+                                    :
+                                    {{ $product->approvedComments->count() }}
+                                </span>
+                            </div>
+                            <p class="text-right">
+                                {{ $product->description }}
+                            </p>
+                            <div class="pro-details-list text-right">
+                                <ul class="text-right">
+                                    @foreach ($product->attributes()->with('attribute')->get() as $attribute)
+                                        <li>{{ $attribute->attribute->name }} : {{ $attribute->value }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
+                            @if ($product->quantity_check)
+                                @php
+                                    if($product->sale_check)
+                                    {
+                                        $variationProductSelected = $product->sale_check;
+                                    }else {
+                                        $variationProductSelected = $product->price_check;
+                                    }
+                                @endphp
+                                <div class="pro-details-size-color text-right">
+                                    <div class="pro-details-size w-50">
+                                        <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
+                                        <div class="pro-details-size">
+                                            <select id="" class="form-control variation_select">
+                                                @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
+                                                    <option value="{{ json_encode($variation->only(['id', 'quantity', 'sale_price', 'is_sale', 'price'])) }}" {{ $variationProductSelected->id == $variation->id ? 'selected' : '' }}>{{ $variation->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="pro-details-quality">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box quantity-input" type="text" name="qtybutton" value="1" data-max="5" />
+                                    </div>
+                                    <div class="pro-details-cart">
+                                        <a href="#">افزودن به سبد خرید</a>
+                                    </div>
+                                    <div class="pro-details-wishlist">
+                                        <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                    </div>
+                                    <div class="pro-details-compare">
+                                        <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="pro-details-meta">
+                                <span>{{ __('Category') }} :</span>
+                                <ul>
+                                    <li>
+                                        <a href="#">{{ $product->category->parent->name }} , {{ $product->category->name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pro-details-meta">
+                                <span>{{ __('Tags') }} :</span>
+                                <ul>
+                                    @foreach ($product->tags as $tag)
+                                        <li>
+                                            <a href="#">{{ $tag->name }}</a> {{ $loop->last ? '' : '|' }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="tab-content quickview-big-img">
+                            <div id="pro-{{ $product->id }}" class="tab-pane fade show active">
+                                <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
+                            </div>
+                            @foreach ($product->images as $key => $image)
+                            <div id="pro-primary-{{ $image->id }}" class="tab-pane fade">
+                                <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
+                            </div>
+                            @endforeach
+
+                        </div>
+                        <!-- Thumbnail Large Image End -->
+                        <!-- Thumbnail Image End -->
+                        <div class="quickview-wrap mt-15">
+                            <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
+                                <a class="active" data-toggle="tab" href="#pro-{{ $product->id }}">
+                                    <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
+                                </a>
+                                @foreach ($product->images as $key => $image)
+                                <a data-toggle="tab" href="#pro-primary-{{ $image->id }}">
+                                    <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+<!-- Modal end -->
 
 @endsection
 

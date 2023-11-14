@@ -12,6 +12,7 @@ use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
 use App\Http\Controllers\Home\CommentController     as HomeCommentController;
+use App\Http\Controllers\Home\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,3 +75,7 @@ Route::prefix('/')->name('home.')->group(function(){
 });
 
 
+Route::prefix('/profile')->name('home.')->group(function(){
+    Route::get('/',[UserProfileController::class,'index'])->name('user-profile.index');
+    Route::get('/comments',[UserProfileController::class,'comment'])->name('user-profile.comment');
+});

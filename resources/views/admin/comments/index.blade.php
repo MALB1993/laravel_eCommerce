@@ -41,6 +41,14 @@
                             <td>
                                 <!-- Example single danger button -->
                                 <div class="btn-group" dir="ltr">
+                                    <form action="{{ route('admin-panel.comments.destroy',['comment' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">
+                                            {{ __('Delete') }}
+                                            <i class="fa fa-fw fa-trash"></i>
+                                        </button>
+                                    </form>
                                     <a class="btn btn-sm btn-primary" href="{{ route('admin-panel.comments.edit', ['comment' => $comment->id]) }}">
                                         {{ __('Edit') }}
                                         <i class="fa fa-fw fa-pen"></i>

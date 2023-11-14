@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\ProductRate;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -13,7 +14,11 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::latest()->paginate(5,['*'],'comments');
+
+        return view('admin.comments.index',[
+            'comments'  =>  $comments
+        ]);
     }
 
     /**
@@ -37,7 +42,12 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        $rate = ProductRate::query()->where('user_id',$comment->user->id)->first();
+
+        return view('admin.comments.show',[
+            'comment'   => $comment,
+            'rate'      =>  $rate
+        ]);
     }
 
     /**

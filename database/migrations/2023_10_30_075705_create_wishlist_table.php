@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->primary(['user_id','product_id']);
-            
+
             $table->softDeletes();
             $table->timestamps();
         });

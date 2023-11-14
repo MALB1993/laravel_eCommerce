@@ -58,6 +58,7 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::resource('banners', BannerController::class);
     // comments
     Route::resource('comments', CommentController::class);
+    Route::get('/comments/{comment}/change-approve',[CommentController::class,'changeApprove'])->name('comments.change-approve');
 });
 
 

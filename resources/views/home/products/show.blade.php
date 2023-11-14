@@ -54,7 +54,9 @@
                     <div class="pro-details-rating-wrap">
                         <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{ ceil($product->rates->avg('rate')) }}"></div>
                         <span class="mx-3">|</span>
-                        <span>3 دیدگاه</span>
+                        <span>
+                            {{ __('Comments') }} : {{ $product->approvedComments->count() }}
+                        </span>
                     </div>
                     <p class="text-right">
                         {{ $product->description }}
@@ -159,8 +161,7 @@
                         <a class="{{ (count($errors) > 0) ? '' : 'active' }}" data-toggle="tab" href="#des-details1"> توضیحات </a>
                         <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
                         <a class="{{ (count($errors) > 0) ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
-                            دیدگاه
-                            (3)
+                            {{ __('Comments') }} : {{$product->approvedComments->count() }}
                         </a>
                     </div>
                     <div class="tab-content description-review-bottom">
@@ -186,29 +187,24 @@
                         <div id="des-details2" class="tab-pane {{ (count($errors) > 0) ? 'active' : '' }} ">
 
                             <div class="review-wrapper">
+                                @foreach ($product->approvedComments as $comment)
                                 <div class="single-review">
                                     <div class="review-img">
-                                        <img src="{{ asset('home/assets/img/product-details/client-1.jpg') }}" alt="">
+                                        <img src="{{ $comment->user->avatar == null ? asset('home/assets/img/logo/user.png') : $comment->user->avatar }}" alt="">
                                     </div>
                                     <div class="review-content text-right">
                                         <p class="text-right">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
+                                            {{ $comment->text }}
                                         </p>
                                         <div class="review-top-wrap">
-                                            <div class="review-name">
-                                                <h4> علی شیخ </h4>
+                                            <div class="review-name mt-2">
+                                                <h4>{{ $comment->user->name == null ? __('Client') : $comment->user->name }}</h4>
                                             </div>
-                                            <div class="review-rating">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </div>
+                                            <div class="mx-5" data-rating-readonly="true" data-rating-stars="5" data-rating-value="{{ ceil($comment->user->rates()->where('product_id',$product->id)->avg('rate')) }}"></div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
 
                             <div class="ratting-form-wrapper text-right" id="show-errors-comment">

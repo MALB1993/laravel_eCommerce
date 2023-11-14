@@ -273,4 +273,14 @@ class Product extends Model
     {
         return $this->hasMany(ProductRate::class);
     }
+
+    /**
+     * Summary of comments
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approvedComments()
+    {
+        return $this->hasMany(Comment::class)->where('approved',1);
+    }
+
 }

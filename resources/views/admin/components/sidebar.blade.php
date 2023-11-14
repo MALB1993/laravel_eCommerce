@@ -15,7 +15,7 @@
     <li class="nav-item {{ request()->is('*/management') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin-panel.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>داشبورد</span>
+            <span>{{ __('Dashboard') }}</span>
         </a>
     </li>
 
@@ -60,6 +60,15 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ request()->is('*/comments') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin-panel.comments.index') }}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>{{ __('Comments') }}</span>
+        </a>
+    </li>
+
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

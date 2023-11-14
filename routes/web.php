@@ -13,6 +13,7 @@ use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
 use App\Http\Controllers\Home\CommentController     as HomeCommentController;
 use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Home\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +70,8 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/categories/{category:slug}',[HomeCategoryController::class,'show'])->name('categories.show');
     Route::get('/products/{product:slug}',[HomeProductController::class,'show'])->name('products.show');
     Route::post('/comments/{product:id}',[HomeCommentController::class,'store'])->name('comment.store');
+    Route::get('/add-to-wishlist/{product}',[WishlistController::class,'add'])->name('wishlist-add');
+    Route::get('/remove-to-wishlist/{product}',[WishlistController::class,'remove'])->name('wishlist-remove');
     Route::get('/test',function(){
         auth()->logout();
     });

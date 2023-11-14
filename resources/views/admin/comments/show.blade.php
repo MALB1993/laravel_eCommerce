@@ -37,8 +37,19 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
+            <div class="btn-group" dir="ltr">
 
+                <a href="{{ url()->previous() }}" class="btn btn-dark">
+                    {{ __('Go back') }}
+                </a>
+
+                    @if ($comment->getRawOriginal('approved') == 0)
+                    <a href="{{ route('admin-panel.comments.change-approve',$comment->id) }}" class="btn btn-md btn-success">{{ __('Enable') }}</a>
+                    @else
+                    <a href="{{ route('admin-panel.comments.change-approve',$comment->id) }}" class="btn btn-md btn-danger">{{ __('Disable') }}</a>
+                    @endif
+            </div>
+        </div>
 
     </div>
 

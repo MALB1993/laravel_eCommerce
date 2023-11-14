@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use App\Models\ProductRate;
 use App\Models\ProductVariation;
 use App\Models\Tag;
+use App\Models\Wishlist;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -281,6 +282,17 @@ class Product extends Model
     public function approvedComments()
     {
         return $this->hasMany(Comment::class)->where('approved',1);
+    }
+
+
+    /**
+     * Summary of checkUserWishlist
+     * @param mixed $user_id
+     * @return bool
+     */
+    public function checkUserWishlist($user_id)
+    {
+        return $this->hasMany(Wishlist::class)->where('user_id',$user_id)->exists();
     }
 
 }

@@ -324,7 +324,11 @@
                                     <div class="pro-details-rating-wrap">
                                         <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{ ceil($product->rates->avg('rate')) }}"></div>
                                         <span class="mx-3">|</span>
-                                        <span>3 دیدگاه</span>
+                                        <span>
+                                            {{ __('Comments') }}
+                                            :
+                                            {{ $product->approvedComments->count() }}
+                                        </span>
                                     </div>
                                     <p class="text-right">
                                         {{ $product->description }}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\ProductRate;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CommentController extends Controller
 {
@@ -71,6 +72,23 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        Alert::success(__('Confirm'), __('The comment was correctly deleted !'));
+        return redirect()->route('admin-panel.comments.index');
     }
+
+    public function changeApprove(Request $request, Comment $comment)
+    {
+        if($comment->getRawOriginal('approved') == 0)
+        {
+            $comment->approved = 1;
+        }elseif($comment->getRawOriginal('approved') == 1){
+            $comment->approved = 0;
+        }
+
+        $comment->update();
+        Alert::success(__('Confirm'), __('The situation changed correctly!'));
+        return redirect()->route('admin-panel.comments.index');
+    }
+
 }

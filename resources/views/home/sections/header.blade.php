@@ -135,7 +135,7 @@
                                         <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
                                     @endguest
                                     @auth
-                                        <li><a href="my-account.html">{{ __('Profile') }}</a></li>
+                                        <li><a href="{{ route('home.user-profile.index') }}">{{ __('Profile') }}</a></li>
                                     @endauth
                                 </ul>
                             </div>

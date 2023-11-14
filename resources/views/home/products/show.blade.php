@@ -188,22 +188,22 @@
 
                             <div class="review-wrapper">
                                 @foreach ($product->approvedComments as $comment)
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="{{ $comment->user->avatar == null ? asset('home/assets/img/logo/user.png') : $comment->user->avatar }}" alt="">
-                                    </div>
-                                    <div class="review-content text-right">
-                                        <p class="text-right">
-                                            {{ $comment->text }}
-                                        </p>
-                                        <div class="review-top-wrap">
-                                            <div class="review-name mt-2">
-                                                <h4>{{ $comment->user->name == null ? __('Client') : $comment->user->name }}</h4>
+                                    <div class="single-review">
+                                        <div class="review-img">
+                                            <img src="{{ $comment->user->avatar == null ? asset('home/assets/img/logo/user.png') : $comment->user->avatar }}" alt="">
+                                        </div>
+                                        <div class="review-content text-right">
+                                            <p class="text-right">
+                                                {{ $comment->text }}
+                                            </p>
+                                            <div class="review-top-wrap">
+                                                <div class="review-name mt-2">
+                                                    <h4>{{ $comment->user->name == null ? __('Client') : $comment->user->name }}</h4>
+                                                </div>
+                                                <div class="mx-5" data-rating-readonly="true" data-rating-stars="5" data-rating-value="{{ ceil($comment->user->rates()->where('product_id',$product->id)->avg('rate')) }}"></div>
                                             </div>
-                                            <div class="mx-5" data-rating-readonly="true" data-rating-stars="5" data-rating-value="{{ ceil($comment->user->rates()->where('product_id',$product->id)->avg('rate')) }}"></div>
                                         </div>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
 

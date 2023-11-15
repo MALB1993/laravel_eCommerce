@@ -119,7 +119,7 @@
                         <span>{{ __('Category') }} :</span>
                         <ul>
                             <li>
-                                <a href="#">{{ $product->category->parent->name }} , {{ $product->category->name }}</a>
+                                <a href="{{ route('home.categories.show',['category' => $product->category->slug]) }}">{{ $product->category->parent->name }} , {{ $product->category->name }}</a>
                             </li>
                         </ul>
                     </div>

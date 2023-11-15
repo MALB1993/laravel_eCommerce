@@ -212,6 +212,7 @@
     "Colorado": "کلرادو",
     "Comoros": "مجمع الجزایر قمر",
     "Comments"  : "نظرات",
+    "Compare" : "مقایسه",
     "Confirm": "تایید",
     "Confirm Billing Action": "تایید عملیات صورتحساب",
     "Confirm Password": "تکرار رمزعبور",
@@ -1236,6 +1237,8 @@
     "Your subscription was successfully updated.": "اشتراک شما با موفقیت به روز شد.",
     "Your trial period will expire on ": "دوره آزمایشی شما به پایان می رسد در",
     "Your VAT ID has been updated!": "شماره VAT شما بروزرسانی شد!",
+    "Your product has been added to the comparison list" : "محصول شما به لیست مقایسه اضافه شد",
+    "This product is in your comparison list." : "این محصول در لیست مقایسه شما وجود دارد .",
     "yr": "سال",
     "Yukon": "یوکان",
     "Zambia": "زامبیا",
@@ -1258,6 +1261,8 @@
     "Write your product name" : "نام محصول خود را بنویسید",
     "Write your tag name" : "نام تگ خود را بنویسید",
     "Write your attribute name" : "نام ویژگی خود را بنویسید",
-    "Write your category slug" : "اسلاگ دسته بندی خود را بنویسید"
-
+    "Write your category slug" : "اسلاگ دسته بندی خود را بنویسید",
+    "Warning" : "هشدار",
+    "Your comparison list is empty." : "لیست مقایسه شما خالی است.",
+    "The desired item was successfully deleted" : "آیتم مورد نظر به درستی حذف شد"
 }

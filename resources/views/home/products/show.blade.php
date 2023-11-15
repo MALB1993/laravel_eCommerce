@@ -96,7 +96,7 @@
                                 <input class="cart-plus-minus-box quantity-input" type="text" name="qtybutton" value="1" data-max="5" />
                             </div>
                             <div class="pro-details-cart">
-                                <a href="#">افزودن به سبد خرید</a>
+                                <a href="#" class="btn btn-md btn-dark ">افزودن به سبد خرید</a>
                             </div>
                             <div class="pro-details-wishlist">
                                 @auth
@@ -110,7 +110,9 @@
                                 @endauth
                             </div>
                             <div class="pro-details-compare">
-                                <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                <a href="{{ route('home.compare-add',['product' => $product->slug]) }}">
+                                    <i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">
+                                </a>
                             </div>
                         </div>
                     @endif
@@ -268,7 +270,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="productModal_{{$product->id}}" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -280,94 +282,115 @@
                 <div class="row">
                     <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                         <div class="product-details-content quickview-content">
-                            <h2 class="text-right mb-4">لورم ایپسوم</h2>
-                            <div class="product-details-price">
-                                <span>
-                                    50,000
-                                    تومان
-                                </span>
-                                <span class="old">
-                                    75,000
-                                    تومان
-                                </span>
+                            <h2 class="text-right mb-4">{{ $product->name }}</h2>
+                            <div class="product-details-price variation_price">
+                                @if ($product->quantity_check)
+                                    @if($product->sale_check)
+                                        <span class="new">
+                                            {{ number_format($product->sale_check->price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                        <span class="old">
+                                            {{ number_format($product->sale_check->sale_price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                        @else
+                                        <span class="new">
+                                            {{ number_format($product->price_check->price) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                    @endif
+                                    @else
+                                    <div class="not-in-stock">
+                                        <p class="text-white">{{ __('Unavailable') }}</p>
+                                    </div>
+                                @endif
                             </div>
                             <div class="pro-details-rating-wrap">
-                                <div class="pro-details-rating">
-                                    <i class="sli sli-star yellow"></i>
-                                    <i class="sli sli-star yellow"></i>
-                                    <i class="sli sli-star yellow"></i>
-                                    <i class="sli sli-star"></i>
-                                    <i class="sli sli-star"></i>
-                                </div>
-                                <span>3 دیدگاه</span>
+                                <div data-rating-stars="5" data-rating-readonly="true" data-rating-value="{{ ceil($product->rates->avg('rate')) }}"></div>
+                                <span class="mx-3">|</span>
+                                <span>
+                                    {{ __('Comments') }}
+                                    :
+                                    {{ $product->approvedComments->count() }}
+                                </span>
                             </div>
                             <p class="text-right">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                گرافیک است. چاپگرها
-                                و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                                {{ $product->description }}
                             </p>
                             <div class="pro-details-list text-right">
                                 <ul class="text-right">
-                                    <li>- لورم ایپسوم</li>
-                                    <li>- لورم ایپسوم متن ساختگی</li>
-                                    <li>- لورم ایپسوم متن</li>
+                                    @foreach ($product->attributes()->with('attribute')->get() as $attribute)
+                                        <li>{{ $attribute->attribute->name }} : {{ $attribute->value }}</li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <div class="pro-details-size-color text-right">
-                                <div class="pro-details-size">
-                                    <span>Size</span>
-                                    <div class="pro-details-size-content">
-                                        <ul>
-                                            <li><a href="#">s</a></li>
-                                            <li><a href="#">m</a></li>
-                                            <li><a href="#">l</a></li>
-                                            <li><a href="#">xl</a></li>
-                                            <li><a href="#">xxl</a></li>
-                                        </ul>
+
+                            @if ($product->quantity_check)
+                                @php
+                                    if($product->sale_check)
+                                    {
+                                        $variationProductSelected = $product->sale_check;
+                                    }else {
+                                        $variationProductSelected = $product->price_check;
+                                    }
+                                @endphp
+                                <div class="pro-details-size-color text-right">
+                                    <div class="pro-details-size w-50">
+                                        <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
+                                        <div class="pro-details-size">
+                                            <select id="" class="form-control variation_select">
+                                                @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
+                                                    <option value="{{ json_encode($variation->only(['id', 'quantity', 'sale_price', 'is_sale', 'price'])) }}" {{ $variationProductSelected->id == $variation->id ? 'selected' : '' }}>{{ $variation->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
+
                                 </div>
 
-                                <div class="pro-details-color-wrap">
-                                    <span>Color</span>
-                                    <div class="pro-details-color-content">
-                                        <ul>
-                                            <li class="blue"></li>
-                                            <li class="maroon active"></li>
-                                            <li class="gray"></li>
-                                            <li class="green"></li>
-                                            <li class="yellow"></li>
-                                            <li class="white"></li>
-                                        </ul>
+                                <div class="pro-details-quality">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box quantity-input" type="text" name="qtybutton" value="1" data-max="5" />
+                                    </div>
+                                    <div class="pro-details-cart">
+                                        <a href="#">افزودن به سبد خرید</a>
+                                    </div>
+                                    <div class="pro-details-wishlist">
+                                        @auth
+                                            @if($product->checkuserWishlist(auth()->user()->id))
+                                                <a title="Add To Wishlist" href="{{ route('home.wishlist-remove',$product->slug) }}"><i class="fas fa-heart" style="color:red;font-size:20px"></i></a>
+                                            @else
+                                                <a title="Add To Wishlist" href="{{ route('home.wishlist-add',$product->slug) }}"><i class="sli sli-heart"></i></a>
+                                            @endif
+                                        @else
+                                            <a title="Add To Wishlist" href="{{ route('home.wishlist-add',$product->slug) }}"><i class="sli sli-heart"></i></a>
+                                        @endauth
+                                    </div>
+                                    <div class="pro-details-compare">
+                                        <a href="{{ route('home.compare-add',['product' => $product->slug]) }}">
+                                            <i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">{{ __('Compare') }}</span>
+                                        </a>
                                     </div>
                                 </div>
+                            @endif
 
-                            </div>
-                            <div class="pro-details-quality">
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2" />
-                                </div>
-                                <div class="pro-details-cart">
-                                    <a href="#">افزودن به سبد خرید</a>
-                                </div>
-                                <div class="pro-details-wishlist">
-                                    <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                </div>
-                                <div class="pro-details-compare">
-                                    <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                </div>
-                            </div>
                             <div class="pro-details-meta">
-                                <span>دسته بندی :</span>
+                                <span>{{ __('Category') }} :</span>
                                 <ul>
-                                    <li><a href="#">پالتو</a></li>
+                                    <li>
+                                        <a href="#">{{ $product->category->parent->name }} , {{ $product->category->name }}</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="pro-details-meta">
-                                <span>تگ ها :</span>
+                                <span>{{ __('Tags') }} :</span>
                                 <ul>
-                                    <li><a href="#">لباس, </a></li>
-                                    <li><a href="#">پیراهن</a></li>
-                                    <li><a href="#">مانتو</a></li>
+                                    @foreach ($product->tags as $tag)
+                                        <li>
+                                            <a href="#">{{ $tag->name }}</a> {{ $loop->last ? '' : '|' }}
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -375,27 +398,28 @@
 
                     <div class="col-md-5 col-sm-12 col-xs-12">
                         <div class="tab-content quickview-big-img">
-                            <div id="pro-1" class="tab-pane fade show active">
-                                <img src="{{ asset('home/assets/img/product/quickview-l1.svg') }}" alt="" />
+                            <div id="pro-{{ $product->id }}" class="tab-pane fade show active">
+                                <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
                             </div>
-                            <div id="pro-2" class="tab-pane fade">
-                                <img src="{{ asset('home/assets/img/product/quickview-l2.svg') }}" alt="" />
+                            @foreach ($product->images as $key => $image)
+                            <div id="pro-primary-{{ $image->id }}" class="tab-pane fade">
+                                <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
                             </div>
-                            <div id="pro-3" class="tab-pane fade">
-                                <img src="{{ asset('home/assets/img/product/quickview-l3.svg') }}" alt="" />
-                            </div>
-                            <div id="pro-4" class="tab-pane fade">
-                                <img src="{{ asset('home/assets/img/product/quickview-l2.svg') }}" alt="" />
-                            </div>
+                            @endforeach
+
                         </div>
                         <!-- Thumbnail Large Image End -->
                         <!-- Thumbnail Image End -->
                         <div class="quickview-wrap mt-15">
                             <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
-                                <a class="active" data-toggle="tab" href="#pro-1"><img src="{{ asset('home/assets/img/product/quickview-s1.svg') }}" alt="" /></a>
-                                <a data-toggle="tab" href="#pro-2"><img src="{{ asset('home/assets/img/product/quickview-s2.svg') }}" alt="" /></a>
-                                <a data-toggle="tab" href="#pro-3"><img src="{{ asset('home/assets/img/product/quickview-s3.svg') }}" alt="" /></a>
-                                <a data-toggle="tab" href="#pro-4"><img src="{{ asset('home/assets/img/product/quickview-s2.svg') }}" alt="" /></a>
+                                <a class="active" data-toggle="tab" href="#pro-{{ $product->id }}">
+                                    <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH').$product->primary_image) }}" alt="{{ $product->name }}" />
+                                </a>
+                                @foreach ($product->images as $key => $image)
+                                <a data-toggle="tab" href="#pro-primary-{{ $image->id }}">
+                                    <img src="{{ asset(env('PRODUCT_IMAGE_UPLOAD_PATH'). $image->image) }}" alt="{{ $product->name }}" />
+                                </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

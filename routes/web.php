@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
@@ -66,12 +67,20 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
 Route::prefix('/')->name('home.')->group(function(){
 
+    //================================== home
     Route::get('/',[HomeController::class,'index'])->name('index');
+    //================================== products
     Route::get('/categories/{category:slug}',[HomeCategoryController::class,'show'])->name('categories.show');
     Route::get('/products/{product:slug}',[HomeProductController::class,'show'])->name('products.show');
+    //================================== comments
     Route::post('/comments/{product:id}',[HomeCommentController::class,'store'])->name('comment.store');
+    //================================== wishlist
     Route::get('/add-to-wishlist/{product}',[WishlistController::class,'add'])->name('wishlist-add');
     Route::get('/remove-to-wishlist/{product}',[WishlistController::class,'remove'])->name('wishlist-remove');
+    //================================== compare
+    Route::get('/add-to-compare/{product}',[CompareController::class,'add'])->name('compare-add');
+
+    //================================== test for logout
     Route::get('/test',function(){
         auth()->logout();
     });

@@ -79,11 +79,10 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/remove-to-wishlist/{product}',[WishlistController::class,'remove'])->name('wishlist-remove');
     //================================== compare
     Route::get('/add-to-compare/{product}',[CompareController::class,'add'])->name('compare-add');
+    Route::get('/remove-to-compare/{product}',[CompareController::class,'remove'])->name('compare-remove');
+    Route::get('/compare',[CompareController::class,'index'])->name('compares.index');
 
-    //================================== test for logout
-    Route::get('/test',function(){
-        auth()->logout();
-    });
+
 });
 
 
@@ -92,3 +91,22 @@ Route::prefix('/profile')->name('home.')->group(function(){
     Route::get('/comments',[UserProfileController::class,'comment'])->name('user-profile.comment');
     Route::get('/wishlist',[UserProfileController::class,'wishlist'])->name('user-profile.wishlist');
 });
+
+
+//================================== test for logout
+Route::prefix('/test')->group(function(){
+
+    //================================== logout
+    Route::get('/logout',function(){
+        auth()->logout();
+        return redirect()->back();
+    });
+
+    //================================== compare
+    Route::get('/compare',function(){
+        dd( session()->get('compareProducts') );
+    });
+
+
+});
+

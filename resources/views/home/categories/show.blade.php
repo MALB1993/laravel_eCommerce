@@ -322,7 +322,9 @@
                                         @endauth
                                     </div>
                                     <div class="pro-details-compare">
-                                        <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                        <a href="{{ route('home.compare-add',['product' => $product->slug]) }}">
+                                            <i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">
+                                        </a>
                                     </div>
                                 </div>
                             @endif

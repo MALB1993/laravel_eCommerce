@@ -83,6 +83,7 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/remove-to-compare/{product}',[CompareController::class,'remove'])->name('compare-remove');
     Route::get('/compare',[CompareController::class,'index'])->name('compares.index');
     //================================== cart
+    Route::get('/cart',[CartController::class,'index'])->name('cart.index');
     Route::post('/add-to-cart',[CartController::class,'add'])->name('cart-add');
 
 

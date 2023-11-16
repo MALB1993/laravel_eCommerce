@@ -1264,5 +1264,6 @@
     "Write your category slug" : "اسلاگ دسته بندی خود را بنویسید",
     "Warning" : "هشدار",
     "Your comparison list is empty." : "لیست مقایسه شما خالی است.",
-    "The desired item was successfully deleted" : "آیتم مورد نظر به درستی حذف شد"
+    "The desired item was successfully deleted" : "آیتم مورد نظر به درستی حذف شد",
+    "The number of imported products is not correct" : " تعداد محصولات وارد شده صحیح نمیباشد"
 }

@@ -30,17 +30,22 @@ class CartController extends Controller
 
         $rowId = $Product->id.'-'.$productVariation->id;
         
-        
-        Cart::add([
-            'id'                =>      $rowId,
-            'name'              =>      $Product->name,
-            'price'             =>      $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
-            'quantity'          =>      $request->qtybutton,
-            'attributes'        =>      $productVariation->toArray(),
-            'associatedModel'   =>      $Product
-        ]);
 
-        return redirect()->back();
+        if(Cart::get($rowId) == null){
+            Cart::add([
+                'id'                =>      $rowId,
+                'name'              =>      $Product->name,
+                'price'             =>      $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
+                'quantity'          =>      $request->qtybutton,
+                'attributes'        =>      $productVariation->toArray(),
+                'associatedModel'   =>      $Product
+            ]);
 
+            Alert::success(__('Confirm'), __('Your product has been successfully added to the cart.'));
+            return redirect()->back();
+        }else{
+            Alert::warning(__('Info'), __('Your product has been successfully added to the cart.'));
+            return redirect()->back();
+        }
     }
 }

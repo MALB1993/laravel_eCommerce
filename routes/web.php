@@ -13,6 +13,7 @@ use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
 use App\Http\Controllers\Home\CommentController     as HomeCommentController;
+use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Home\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,8 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/add-to-compare/{product}',[CompareController::class,'add'])->name('compare-add');
     Route::get('/remove-to-compare/{product}',[CompareController::class,'remove'])->name('compare-remove');
     Route::get('/compare',[CompareController::class,'index'])->name('compares.index');
+    //================================== cart
+    Route::post('/add-to-cart',[CartController::class,'add'])->name('cart-add');
 
 
 });

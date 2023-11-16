@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Cart;
 
 class CartController extends Controller
 {
@@ -18,14 +19,28 @@ class CartController extends Controller
             'product_id'    =>  'exists:products,id'
         ]);
 
-        $product = Product::findOrFail($request->product_id);
-        $productVariations = ProductVariation::findOrFail(json_decode($request->variation)->id);
+        $Product = Product::findOrFail($request->product_id);
+        $productVariation = ProductVariation::findOrFail(json_decode($request->variation)->id);
 
-        if($request->qtybutton > $productVariations->quantity)
+        if($request->qtybutton > $productVariation->quantity)
         {
             Alert::error(__('Info'),__('The number of imported products is not correct'));
             return redirect()->back();
         }
+
+        $rowId = $Product->id.'-'.$productVariation->id;
+        
+        
+        Cart::add([
+            'id'                =>      $rowId,
+            'name'              =>      $Product->name,
+            'price'             =>      $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
+            'quantity'          =>      $request->qtybutton,
+            'attributes'        =>      $productVariation->toArray(),
+            'associatedModel'   =>      $Product
+        ]);
+
+        return redirect()->back();
 
     }
 }

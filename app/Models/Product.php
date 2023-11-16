@@ -199,7 +199,7 @@ class Product extends Model
 
 
     /**
-     * Summary of getPriceCheckAttribute
+     * Summary of getSaleCheckAttribute
      * @return Model|\Illuminate\Database\Eloquent\Relations\HasMany|bool|object|null
      */
     public function getSaleCheckAttribute()
@@ -207,6 +207,14 @@ class Product extends Model
         return  $this->variations()->where('quantity','>',0)->orderBy('price')->first() ?? false;
     }
 
+    /**
+     * Summary of getPriceCheckAttribute
+     * @return Model|\Illuminate\Database\Eloquent\Relations\HasMany|bool|object|null
+     */
+    public function getPriceCheckAttribute()
+    {
+        return  $this->variations()->where('quantity','>',0)->orderBy('price')->first() ?? false;
+    }
 
 
     public function tags()

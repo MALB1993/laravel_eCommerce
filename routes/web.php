@@ -110,6 +110,9 @@ Route::prefix('/test')->group(function(){
         dd( session()->get('compareProducts') );
     });
 
-
+    //================================== cart
+    Route::get('/cart',function(){
+        dd( \Cart::getContent());
+    });
 });
 

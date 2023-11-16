@@ -1265,5 +1265,6 @@
     "Warning" : "هشدار",
     "Your comparison list is empty." : "لیست مقایسه شما خالی است.",
     "The desired item was successfully deleted" : "آیتم مورد نظر به درستی حذف شد",
-    "The number of imported products is not correct" : " تعداد محصولات وارد شده صحیح نمیباشد"
+    "The number of imported products is not correct" : " تعداد محصولات وارد شده صحیح نمیباشد",
+    "Your product has been successfully added to the cart." : "محصول شما با موفقیت به سبد خرید اضافه شد."
 }

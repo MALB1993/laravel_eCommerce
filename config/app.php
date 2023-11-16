@@ -162,7 +162,7 @@ return [
 
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
-        
+        Darryldecode\Cart\CartServiceProvider::class, 
         /*
          * Application Service Providers...
          */
@@ -186,6 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ])->toArray(),
 
 ];

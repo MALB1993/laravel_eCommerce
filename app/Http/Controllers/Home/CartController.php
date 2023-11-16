@@ -11,6 +11,12 @@ use Cart;
 
 class CartController extends Controller
 {
+    
+    public function index()
+    {
+        return view('home.carts.index');
+    }
+
     public function add(Request $request)
     {
         $request->validate([

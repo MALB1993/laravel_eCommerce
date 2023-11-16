@@ -1267,5 +1267,6 @@
     "The desired item was successfully deleted" : "آیتم مورد نظر به درستی حذف شد",
     "The number of imported products is not correct" : " تعداد محصولات وارد شده صحیح نمیباشد",
     "Your product has been successfully added to the cart." : "محصول شما با موفقیت به سبد خرید اضافه شد.",
-    "Your product is in the shopping cart." : "محصول شما در سبد خرید وجود دارد."
+    "Your product is in the shopping cart." : "محصول شما در سبد خرید وجود دارد.",
+    "Your shopping cart is empty" : "سبد خرید شما خالی است"
 }

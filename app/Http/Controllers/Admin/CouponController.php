@@ -14,7 +14,10 @@ class CouponController extends Controller
      */
     public function index()
     {
-        //
+        $coupons = Coupon::latest()->paginate(10,['*'],'Coupons');
+        return view('admin.coupons.index',[
+            'coupons'   =>      $coupons
+        ]);
     }
 
     /**

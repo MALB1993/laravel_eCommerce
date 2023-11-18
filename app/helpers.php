@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Coupon;
+use App\Models\Order;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Facades\Verta;
+use RealRashid\SweetAlert\Facades\Alert;
 
 if (!function_exists('generateFileName')) {
     function generateFileName($name)
@@ -53,5 +56,38 @@ if (!function_exists('totalDeliveryAmount')) {
             $totalDeliveryAmount += $item->associatedModel->delivery_amount;
         }
         return $totalDeliveryAmount;
+    }
+}
+
+
+if(!function_exists('checkCoupon'))
+{
+    function checkCoupon($code)
+    {
+        $coupon = Coupon::query()->where('code',$code)->where('expired_at', '>' , Carbon::now())->first();
+        if($coupon === null)
+        {
+            return ['error' => __('This coupon code is invalid.')];
+        }
+
+        if(Order::query()->where('user_id', auth()->id())->where('coupon_id',$coupon->code)->where('payment_status', 1)->exists() )
+        {
+            return ['error' => __('Whoops! This coupon code is invalid.')];
+        }
+
+        if( $coupon->getRawOriginal('type') === 'amount' )
+        {
+            session()->put('coupon' ,[
+                'code'      =>  $coupon->code,
+                'amount'    =>  $coupon->amount
+            ]);
+        }else{
+            $total  = \Cart::getTotal();
+            $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
+            session()->put('coupon' ,[
+                'code'      =>  $coupon->code,
+                'amount'    =>  $coupon->amount
+            ]);
+        }
     }
 }

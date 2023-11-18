@@ -54,4 +54,34 @@ class CartController extends Controller
             return redirect()->back();
         }
     }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'qtybutton' =>  'required'
+        ]);
+
+        foreach($request->qtybutton as $rowId => $quantity)
+        {
+
+            $item = Cart::get($rowId);
+
+            if($quantity > $item->attributes->quantity)
+            {
+                Alert::error(__('Info'),__('The number of imported products is not correct'));
+                return redirect()->back();
+            }else{
+                Cart::update($rowId, [
+                    'quantity'  =>  [
+                        'relative'  =>  false,
+                        'value'     =>  $quantity
+                    ]
+                ]);
+            }
+        }
+
+        Alert::success(__('Confirm'), __('Your shopping cart has been successfully edited'));
+        return redirect()->back();
+
+    }
 }

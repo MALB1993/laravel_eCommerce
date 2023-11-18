@@ -84,4 +84,20 @@ class CartController extends Controller
         return redirect()->back();
 
     }
+
+
+    public function remove($rowId)
+    {
+        Cart::remove($rowId);
+        Alert::success(__('Confirm'), __('Your product has been successfully removed to the cart.'));
+        return redirect()->back();
+    }
+
+
+    public function clear()
+    {
+        Cart::clear();
+        return redirect()->back();
+    }
+
 }

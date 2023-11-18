@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
@@ -36,19 +37,19 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
         return view('admin.index');
     })->name('dashboard');
 
-    // brands
+    //================================== brands
     Route::resource('brands', BrandController::class);
 
-    // attributes
+    //================================== attributes
     Route::resource('attributes',AttributeController::class);
 
-    // categories
+    //================================== categories
     Route::resource('categories',CategoryController::class);
 
-    // tags
+    //================================== tags
     Route::resource('tags',TagController::class);
 
-    // products
+    //================================== products
     Route::resource('products',ProductController::class);
     Route::get('/category-attributes-list/{category}',[CategoryController::class,'getCategoryAttribute']);
     Route::get('/products/{product}/image-edit',[ProductImageController::class,'edit'])->name('products.image.edit');
@@ -58,11 +59,14 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::get('/products/{product}/edit-category',[ProductController::class,'edit_category'])->name('products.category.edit');
     Route::put('/products/{product}/update-category',[ProductController::class,'update_category'])->name('products.category.update');
 
-    // banners
+    //================================== banners
     Route::resource('banners', BannerController::class);
-    // comments
+    //================================== comments
     Route::resource('comments', CommentController::class);
     Route::get('/comments/{comment}/change-approve',[CommentController::class,'changeApprove'])->name('comments.change-approve');
+
+    //================================== coupons
+    Route::resource('coupons',CouponController::class);
 });
 
 

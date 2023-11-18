@@ -115,9 +115,10 @@
                                     <h4 class="cart-bottom-title section-bg-gray"> کد تخفیف </h4>
                                 </div>
                                 <div class="discount-code">
-                                    <p> لورم ایپسوم متن ساختگی با تولید سادگی </p>
-                                    <form>
-                                        <input type="text" required="" name="name">
+                                    <form action="{{ route('home.check-coupon') }}" method="post">
+                                        @csrf
+                                        @method("POST")
+                                        <input type="text" name="code">
                                         <button class="cart-btn-2" type="submit"> ثبت </button>
                                     </form>
                                 </div>

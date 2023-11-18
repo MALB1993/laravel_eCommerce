@@ -147,6 +147,16 @@
                                         </span>
                                     </h5>
                                 @endif
+                                @if (session()->has('coupon'))
+                                    <hr>
+                                    <h5>
+                                        ملبغ کد تخفیف:
+                                        <span class="text-danger">
+                                            {{ number_format(session()->get('coupon.amount')) }}
+                                            {{ __('Toman') }}
+                                        </span>
+                                    </h5>
+                                @endif
                                 <div class="total-shipping">
                                     <h5>
                                         هزینه ارسال :
@@ -164,7 +174,7 @@
                                 <h4 class="grand-totall-title">
                                     جمع کل:
                                     <span>
-                                        {{ number_format(Cart::getTotal() + totalDeliveryAmount()) }}
+                                        {{ number_format(cartTotalAmount()) }}
                                         {{ __('Toman') }}
                                     </span>
                                 </h4>

@@ -60,6 +60,26 @@ if (!function_exists('totalDeliveryAmount')) {
 }
 
 
+if(!function_exists('cartTotalAmount'))
+{
+    function cartTotalAmount()
+    {
+        
+        if(session()->has('coupon'))
+        {
+            if(session()->get('coupon.amount') > \Cart::getTotal() + cartTotalSaleAmount())
+            {
+                return 0;
+            }else{
+                return \Cart::getTotal() + totalDeliveryAmount() - session()->get('coupon.amount');
+            }
+        }else{
+            return \Cart::getTotal() + totalDeliveryAmount();
+        }
+    }
+}
+
+
 if(!function_exists('checkCoupon'))
 {
     function checkCoupon($code)

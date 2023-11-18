@@ -1269,5 +1269,6 @@
     "Your product has been successfully added to the cart." : "محصول شما با موفقیت به سبد خرید اضافه شد.",
     "Your product is in the shopping cart." : "محصول شما در سبد خرید وجود دارد.",
     "Your shopping cart is empty" : "سبد خرید شما خالی است",
-    "Your shopping cart has been successfully edited" : "سبد خرید شما به درستی ویرایش شد"
+    "Your shopping cart has been successfully edited" : "سبد خرید شما به درستی ویرایش شد",
+    "Your product has been successfully removed to the cart." : "محصول شما با موفقیت از سبد خرید حذف شد."
 }

@@ -100,4 +100,30 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function checkCoupon(Request $request)
+    {
+        $request->validate([
+            'code'  =>  'required',
+        ]);
+
+        if(! auth()->check() )
+        {
+            Alert::warning(__('Info'),  __('You must first login in the website'));
+            return redirect()->back();
+        }
+
+        $result =  checkCoupon($request->code);
+        
+        
+
+        if($result != null)
+        {
+            Alert::warning(__('Info'), $result['error'] );
+        }else{
+            Alert::success(__('Confirm'), __('Coupon accepted! The discount will be applied to your next invoice.'));
+        }
+
+        return redirect()->back();
+    }
+
 }

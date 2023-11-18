@@ -84,6 +84,7 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/compare',[CompareController::class,'index'])->name('compares.index');
     //================================== cart
     Route::get('/cart',[CartController::class,'index'])->name('cart.index');
+    Route::put('/cart/update',[CartController::class,'update'])->name('cart.update');
     Route::post('/add-to-cart',[CartController::class,'add'])->name('cart-add');
 
 

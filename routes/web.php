@@ -80,12 +80,14 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::get('/remove-to-wishlist/{product}',[WishlistController::class,'remove'])->name('wishlist-remove');
     //================================== compare
     Route::get('/add-to-compare/{product}',[CompareController::class,'add'])->name('compare-add');
-    Route::get('/remove-to-compare/{product}',[CompareController::class,'remove'])->name('compare-remove');
+    Route::get('/remove-from-compare/{product}',[CompareController::class,'remove'])->name('compare-remove');
     Route::get('/compare',[CompareController::class,'index'])->name('compares.index');
     //================================== cart
     Route::get('/cart',[CartController::class,'index'])->name('cart.index');
     Route::put('/cart/update',[CartController::class,'update'])->name('cart.update');
     Route::post('/add-to-cart',[CartController::class,'add'])->name('cart-add');
+    Route::get('/remove-form-cart/{rowId}',[CartController::class,'remove'])->name('cart.remove');
+    Route::get('/clear-cart',[CartController::class,'clear'])->name('cart.clear');
 
 
 });

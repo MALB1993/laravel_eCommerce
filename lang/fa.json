@@ -661,6 +661,7 @@
     "Oregon": "اورگن",
     "Original": "اصلی",
     "Ordering": "مرتب سازی",
+    "Orders" :  "سفارشات",
     "Our billing management portal allows you to conveniently manage your subscription plan, payment method, and download your recent invoices.": "پرتال مدیریت مالی ما به شما امکان مدیریت طرح اشتراک، روش پرداخت و بارگیری فاکتور های اخیر را به شما می‌دهد.",
     "Our billing management portal allows you to conveniently manage your subscription plan, payment methods, and download your recent invoices.": "پورتال مدیریت صورتحساب ما به شما این امکان را می دهد که به راحتی طرح اشتراک، روش های پرداخت خود را مدیریت کنید و فاکتورهای اخیر خود را دانلود کنید.",
     "Owner": "صاحب",
@@ -1275,6 +1276,7 @@
     "create coupon" : "ایجاد کوپن تخفیف",
     "index coupons" : "نمایش کپن های تخفیف",
     "Max Percentage Amount" : "حداکثر میزان تخفیف",
-    "expired_at" : "تاریخ انقضا"
+    "expired_at" : "تاریخ انقضا",
+    "max_percentage_amount" : "حداکثر میزان تخفیف"
     
 }

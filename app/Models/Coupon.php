@@ -23,4 +23,10 @@ class Coupon extends Model
         'description'
     ];
 
+
+    public function getTypeAttribute($type)
+    {
+        return $type === "amount" ? __("Amount") : __("Percentage");
+    }
+
 }

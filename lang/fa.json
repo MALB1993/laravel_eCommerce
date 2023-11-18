@@ -238,6 +238,7 @@
     "Coupon accepted! The discount will be applied to your next invoice.": "کوپت پذیرفته شد! تخفیف روی فاکتور بعدی شما اعمال خواهد شد.",
     "Coupon applied successfully.": "کوپن با موفقیت اعمال شد.",
     "Coupon Code": "کد کوپن",
+    "Coupon name": "نام کپن تخفیف",
     "Create": "ایجاد",
     "Create & Add Another": "ایجاد و اضافه کردن مورد دیگر",
     "Create :resource": "ایجاد :resource",
@@ -1270,5 +1271,10 @@
     "Your product is in the shopping cart." : "محصول شما در سبد خرید وجود دارد.",
     "Your shopping cart is empty" : "سبد خرید شما خالی است",
     "Your shopping cart has been successfully edited" : "سبد خرید شما به درستی ویرایش شد",
-    "Your product has been successfully removed to the cart." : "محصول شما با موفقیت از سبد خرید حذف شد."
+    "Your product has been successfully removed to the cart." : "محصول شما با موفقیت از سبد خرید حذف شد.",
+    "create coupon" : "ایجاد کوپن تخفیف",
+    "index coupons" : "نمایش کپن های تخفیف",
+    "Max Percentage Amount" : "حداکثر میزان تخفیف",
+    "expired_at" : "تاریخ انقضا"
+    
 }

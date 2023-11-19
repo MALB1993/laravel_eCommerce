@@ -67,7 +67,7 @@ if(!function_exists('cartTotalAmount'))
         
         if(session()->has('coupon'))
         {
-            if(session()->get('coupon.amount') > \Cart::getTotal() + cartTotalSaleAmount())
+            if(session()->get('coupon.amount') > \Cart::getTotal() + totalDeliveryAmount())
             {
                 return 0;
             }else{

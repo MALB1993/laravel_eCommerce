@@ -13,15 +13,13 @@ class UserAddress extends Model
 
 
     protected $fillable = [
-        # require
         'title',
         'address',
         'cellphone',
         'postal_code',
         'province_id',
         'city_id',
-        'user_id',        
-        # optional
+        'user_id',
         'longitude',
         'latitude'
     ];

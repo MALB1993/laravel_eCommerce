@@ -16,11 +16,12 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $provinces   = DB::select('select * from provinces');
-        
+        $addresses  = UserAddress::query()->where('user_id',auth()->id())->get();
+        $provinces  = DB::select('select * from provinces');
         
         return view('home.users_profile.addresses',[
-            'provinces'  =>   $provinces
+            'provinces'     =>      $provinces,
+            'addresses'     =>      $addresses  
         ]);
     }
 
@@ -40,8 +41,9 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validateWithBag('addressesStore',[
-            'title'         =>  'required|min:3|max:100|persian_alpha|unique:user_address,title',
+            'title'         =>  'required|min:3|max:100|persian_alpha|unique:user_addresses,title',
             'cellphone'     =>  'required|ir_mobile',
             'address'       =>  'required|persian_alpha',
             'postal_code'   =>  'required|ir_postal_code',

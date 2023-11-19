@@ -1277,6 +1277,8 @@
     "index coupons" : "نمایش کپن های تخفیف",
     "Max Percentage Amount" : "حداکثر میزان تخفیف",
     "expired_at" : "تاریخ انقضا",
-    "max_percentage_amount" : "حداکثر میزان تخفیف"
+    "max_percentage_amount" : "حداکثر میزان تخفیف",
+    "You have an error" : "شما خطا دارید",
+    "Your address has been saved correctly" : "آدرس شما به درستی ذخیره شد"
     
 }

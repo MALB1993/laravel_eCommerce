@@ -110,6 +110,7 @@ Route::prefix('/profile')->name('home.')->group(function(){
     //================================== addresses
     Route::get('/addresses',[AddressController::class,'index'])->name('user-profile.address.index');
     Route::post('/addresses/store',[AddressController::class,'store'])->name('user-profile.address.store');
+    Route::put('/addresses/update/{address}',[AddressController::class,'update'])->name('user-profile.address.update');
 
     Route::get('/get-province-cities-list',[AddressController::class,'getProvinceCitiesList']);
 });

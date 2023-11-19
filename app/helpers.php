@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\City;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Province;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Facades\Verta;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 if (!function_exists('generateFileName')) {
     function generateFileName($name)
@@ -34,7 +36,6 @@ if (!function_exists('convertShamsiToGeographical')) {
     }
 }
 
-
 if (!function_exists('cartTotalSaleAmount')) {
     function cartTotalSaleAmount()
     {
@@ -59,7 +60,6 @@ if (!function_exists('totalDeliveryAmount')) {
     }
 }
 
-
 if(!function_exists('cartTotalAmount'))
 {
     function cartTotalAmount()
@@ -78,7 +78,6 @@ if(!function_exists('cartTotalAmount'))
         }
     }
 }
-
 
 if(!function_exists('checkCoupon'))
 {
@@ -109,5 +108,21 @@ if(!function_exists('checkCoupon'))
                 'amount'    =>  $coupon->amount
             ]);
         }
+    }
+}
+
+if(!function_exists('province_name'))
+{
+    function province_name($provinceId)
+    {
+        return Province::findOrFail($provinceId)->name;
+    }
+}
+
+if(!function_exists('city_name'))
+{
+    function city_name($cityId)
+    {
+        return City::findOrFail($cityId)->name;
     }
 }

@@ -32,102 +32,127 @@
                         <div class="col-lg-9 col-md-8">
                             <div class="myaccount-content address-content">
                                 <h3> آدرس ها </h3>
-                            
-                                <div>
-                                    <address>
-                                        <p>
-                                            <strong> علی شیخ </strong>
-                                            <span class="mr-2"> عنوان آدرس : <span> منزل </span> </span>
-                                        </p>
-                                        <p>
-                                            خ شهید فلان ، کوچه ۸ فلان ،فرعی فلان ، پلاک فلان
-                                            <br>
-                                            <span> استان : تهران </span>
-                                            <span> شهر : تهران </span>
-                                        </p>
-                                        <p>
-                                            کدپستی :
-                                            89561257
-                                        </p>
-                                        <p>
-                                            شماره موبایل :
-                                            89561257
-                                        </p>
-                            
-                                    </address>
-                                    <a href="#" class="check-btn sqr-btn collapse-address-update">
-                                        <i class="sli sli-pencil"></i>
-                                        ویرایش آدرس
-                                    </a>
-                            
-                                    <div class="collapse-address-update-content">
-                            
-                                        <form action="#">
-                            
+                                <p><strong>{{ auth()->user()->name == null ? __('Client') : auth()->user()->name }}</strong></p>
+                                @foreach ($addresses as $address)
+                                    <div>
+                                        <address>
+                                            <p>
+                                                <span class="mr-2"> عنوان آدرس : <span> {{ $address->title }} </span> </span>
+                                            </p>
+                                            <p>
+                                                {{ $address->address }}
+                                                <br>
+                                                <span>
+                                                    {{ __('State') }} : 
+                                                    {{ province_name($address->province_id) }} 
+                                                </span>
+                                                -
+                                                <span>
+                                                    {{ __('City') }} : 
+                                                    {{ city_name($address->city_id) }} 
+                                                </span>
+                                            </p>
+                                            <p class="d-flex justify-content-between">
+                                                <span>{{ __('Postal Code') }} : </span>
+                                                <span>{{ $address->postal_code }}</span>
+                                            </p>
+                                            <p class="d-flex justify-content-between">
+                                                <span>{{ __('Phone Number') }} : </span>
+                                                <span>{{ $address->cellphone }}</span>
+                                            </p>
+                                
+                                        </address>
+                                        <a data-toggle="collapse" href="#collapse-address-update-content-{{ $address->id }}" class="check-btn sqr-btn collapse-address-update">
+                                            <i class="sli sli-pencil"></i>
+                                            {{ __('Edit') }} {{ __('Address') }}
+                                        </a>
+                                        <div class="collapse border p-2 border-secondary rounded-md m-1" id="collapse-address-update-content-{{ $address->id }}" style="{{ count($errors->addressesUpdate) > 0 && $errors->addressesUpdate->first('address_id') == $address->id ? 'display:block' : '' }}">
+                                
+                                        <form action="{{ route('home.user-profile.address.update', ['address' => $address->id]) }}" method="post">    
+                                            @csrf
+                                            @method('PUT')
+                                
                                             <div class="row">
-                            
+                                                {{-- title --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        عنوان
-                                                    </label>
-                                                    <input type="text" required="" name="title">
+                                                    {{-- title --}}
+                                                    <label for="title">{{ __('Title') }}</label>
+                                                    <input type="text" name="title" id="title" value="{{ $address->title }}" dir="auto"> 
+                                                    @error('title','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
+                                                {{-- cellphone --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        شماره تماس
-                                                    </label>
-                                                    <input type="text">
+                                                    <label for="cellphone">{{ __('Phone Number') }}</label>
+                                                    <input type="text" name="cellphone" value="{{ $address->cellphone }}" dir="ltr">
+                                                    @error('cellphone','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
+
+                                                {{-- province --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        استان
-                                                    </label>
-                                                    <select class="email s-email s-wid">
-                                                        <option>Bangladesh</option>
-                                                        <option>Albania</option>
-                                                        <option>Åland Islands</option>
-                                                        <option>Afghanistan</option>
-                                                        <option>Belgium</option>
+                                                    <label for="province">استان</label>
+                                                    <select name="province_id" id="province" class="province-select">
+                                                        @foreach ($provinces as $province)
+                                                            <option value="{{ $province->id }}" {{ $province->id == $address->province_id ? 'selected' : '' }} >{{ $province->name }}</option>
+                                                        @endforeach
                                                     </select>
+                                                    @error('province_id','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
+                                                {{-- city --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        شهر
-                                                    </label>
-                                                    <select class="email s-email s-wid">
-                                                        <option>Bangladesh</option>
-                                                        <option>Albania</option>
-                                                        <option>Åland Islands</option>
-                                                        <option>Afghanistan</option>
-                                                        <option>Belgium</option>
+                                                    <label for="city">شهر</label>
+                                                    <select id="city" name="city_id" class="city-select">
+                                                        <option value="{{ $address->id }}" selected >{{ city_name($address->id) }}</option>
                                                     </select>
+                                                    @error('city_id','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
+                                                
+                                                {{-- address --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        آدرس
-                                                    </label>
-                                                    <input type="text">
+                                                    <label for="address">آدرس</label>
+                                                    <input type="text" name="address" id="address" value="{{ $address->address }}">
+                                                    @error('address','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
+                                                {{-- postal code --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
-                                                    <label>
-                                                        کد پستی
-                                                    </label>
-                                                    <input type="text">
+                                                    <label for="postal_code">کد پستی</label>
+                                                    <input type="text" name="postal_code" value="{{ $address->postal_code }}" dir="ltr"> 
+                                                    @error('postal_code','addressesUpdate')
+                                                        <div class="input-error-validation">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                            
+
                                                 <div class=" col-lg-12 col-md-12">
-                                                    <button class="cart-btn-2" type="submit"> ویرایش آدرس</button>
+                                                    <button class="cart-btn-2" type="submit"> ثبت آدرس</button>
                                                 </div>
-                            
                                             </div>
-                            
                                         </form>
-                            
+                                
+                                        </div>
                                     </div>
-                            
-                                </div>
-                            
-                                <hr>
+                                    <hr>
+                                @endforeach
                                 <button class="collapse-address-create mt-3" type="submit"> ایجاد آدرس جدید </button>
                                 <div class="collapse-address-create-content" style="{{ count($errors->addressesStore) > 0 ? 'display:block' : '' }}">
                             

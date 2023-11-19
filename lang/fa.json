@@ -1279,6 +1279,7 @@
     "expired_at" : "تاریخ انقضا",
     "max_percentage_amount" : "حداکثر میزان تخفیف",
     "You have an error" : "شما خطا دارید",
-    "Your address has been saved correctly" : "آدرس شما به درستی ذخیره شد"
+    "Your address has been saved correctly" : "آدرس شما به درستی ذخیره شد",
+    "Your address has been updated correctly" : "آدرس شما به درستی به روز شد"
     
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
@@ -100,9 +101,17 @@ Route::prefix('/')->name('home.')->group(function(){
 
 
 Route::prefix('/profile')->name('home.')->group(function(){
+    //================================== index
     Route::get('/',[UserProfileController::class,'index'])->name('user-profile.index');
+    //================================== comments
     Route::get('/comments',[UserProfileController::class,'comment'])->name('user-profile.comment');
+    //================================== whishList
     Route::get('/wishlist',[UserProfileController::class,'wishlist'])->name('user-profile.wishlist');
+    //================================== addresses
+    Route::get('/addresses',[AddressController::class,'index'])->name('user-profile.address.index');
+    Route::post('/addresses/store',[AddressController::class,'store'])->name('user-profile.address.store');
+
+    Route::get('/get-province-cities-list',[AddressController::class,'getProvinceCitiesList']);
 });
 
 

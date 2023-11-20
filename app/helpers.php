@@ -105,6 +105,8 @@ if(!function_exists('cartTotalAmount'))
 
 if(!function_exists('checkCoupon'))
 {
+
+
     /**
      * @return array{error: mixed}
      */

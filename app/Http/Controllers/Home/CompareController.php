@@ -1,10 +1,17 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
 
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application as FoundationApplication;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CompareController extends Controller
@@ -13,9 +20,11 @@ class CompareController extends Controller
 
     /**
      * Summary of index
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|mixed
+     * @return Factory|Application|FoundationApplication|RedirectResponse|View
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function index()
+    public function index(): View|FoundationApplication|Factory|RedirectResponse|Application
     {
         if(session()->has('compareProducts')){
             $products = Product::findOrFail(session()->get('compareProducts'));
@@ -31,10 +40,12 @@ class CompareController extends Controller
 
     /**
      * Summary of add
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param Product $product
+     * @return RedirectResponse
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function add(Product $product)
+    public function add(Product $product): RedirectResponse
     {
 
         if (session()->has('compareProducts')) {
@@ -55,12 +66,14 @@ class CompareController extends Controller
         return redirect()->back();
     }
 
-        /**
+    /**
      * Summary of add
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @param $productId
+     * @return RedirectResponse
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function remove($productId)
+    public function remove($productId): RedirectResponse
     {
 
         if (session()->has('compareProducts'))

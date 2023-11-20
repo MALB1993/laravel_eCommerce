@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static findOrFail(mixed $product_id)
+ * @property mixed $id
  */
 class Product extends Model
 {

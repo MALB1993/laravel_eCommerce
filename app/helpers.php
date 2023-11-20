@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection UnknownColumnInspection */
 /** @noinspection PhpUndefinedMethodInspection */
 /** @noinspection PhpDynamicAsStaticMethodCallInspection */
 
@@ -121,20 +121,14 @@ if(!function_exists('checkCoupon'))
             return ['error' => __('Whoops! This coupon code is invalid.')];
         }
 
-        if( $coupon->getRawOriginal('type') === 'amount' )
-        {
-            session()->put('coupon' ,[
-                'code'      =>  $coupon->code,
-                'amount'    =>  $coupon->amount
-            ]);
-        }else{
-            $total  = Cart::getTotal();
+        if($coupon->getRawOriginal('type') !== 'amount') {
+            $total = Cart::getTotal();
             $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
-            session()->put('coupon' ,[
-                'code'      =>  $coupon->code,
-                'amount'    =>  $coupon->amount
-            ]);
         }
+        session()->put('coupon' ,[
+            'code'      =>  $coupon->code,
+            'amount'    =>  $coupon->amount
+        ]);
     }
 }
 

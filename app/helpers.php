@@ -1,15 +1,25 @@
 <?php
+/** @noinspection PhpUndefinedMethodInspection */
+/** @noinspection PhpDynamicAsStaticMethodCallInspection */
 
 use App\Models\City;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Province;
 use Carbon\Carbon;
+use Darryldecode\Cart\Cart;
 use Hekmatinasser\Verta\Facades\Verta;
+use JetBrains\PhpStorm\ArrayShape;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 
 if (!function_exists('generateFileName')) {
-    function generateFileName($name)
+    /**
+     * @param $name
+     * @return string
+     */
+    function generateFileName($name): string
     {
         $year         = Carbon::now()->year;
         $month        = Carbon::now()->month;
@@ -23,6 +33,10 @@ if (!function_exists('generateFileName')) {
 }
 
 if (!function_exists('convertShamsiToGeographical')) {
+    /**
+     * @param $shamsi
+     * @return null
+     */
     function convertShamsiToGeographical($shamsi)
     {
         if ($shamsi == null) {
@@ -37,10 +51,13 @@ if (!function_exists('convertShamsiToGeographical')) {
 }
 
 if (!function_exists('cartTotalSaleAmount')) {
-    function cartTotalSaleAmount()
+    /**
+     * @return float|int
+     */
+    function cartTotalSaleAmount(): float|int
     {
         $cartTotalSaleAmount = 0;
-        foreach (\Cart::getContent() as $item) {
+        foreach (Cart::getContent() as $item) {
             if ($item->attributes->is_sale) {
                 $cartTotalSaleAmount += $item->quantity * ($item->attributes->price - $item->attributes->sale_price);
             }
@@ -50,10 +67,13 @@ if (!function_exists('cartTotalSaleAmount')) {
 }
 
 if (!function_exists('totalDeliveryAmount')) {
-    function totalDeliveryAmount()
+    /**
+     * @return int
+     */
+    function totalDeliveryAmount(): int
     {
         $totalDeliveryAmount = 0;
-        foreach (\Cart::getContent() as $item) {
+        foreach (Cart::getContent() as $item) {
             $totalDeliveryAmount += $item->associatedModel->delivery_amount;
         }
         return $totalDeliveryAmount;
@@ -62,26 +82,33 @@ if (!function_exists('totalDeliveryAmount')) {
 
 if(!function_exists('cartTotalAmount'))
 {
-    function cartTotalAmount()
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    function cartTotalAmount(): mixed
     {
-        
+
         if(session()->has('coupon'))
         {
-            if(session()->get('coupon.amount') > \Cart::getTotal() + totalDeliveryAmount())
+            if(session()->get('coupon.amount') > Cart::getTotal() + totalDeliveryAmount())
             {
                 return 0;
             }else{
-                return \Cart::getTotal() + totalDeliveryAmount() - session()->get('coupon.amount');
+                return Cart::getTotal() + totalDeliveryAmount() - session()->get('coupon.amount');
             }
         }else{
-            return \Cart::getTotal() + totalDeliveryAmount();
+            return Cart::getTotal() + totalDeliveryAmount();
         }
     }
 }
 
 if(!function_exists('checkCoupon'))
 {
-    function checkCoupon($code)
+    /**
+     * @return array{error: mixed}
+     */
+    #[ArrayShape(['error' => "mixed"])] function checkCoupon($code): array
     {
         $coupon = Coupon::query()->where('code',$code)->where('expired_at', '>' , Carbon::now())->first();
         if($coupon === null)
@@ -101,7 +128,7 @@ if(!function_exists('checkCoupon'))
                 'amount'    =>  $coupon->amount
             ]);
         }else{
-            $total  = \Cart::getTotal();
+            $total  = Cart::getTotal();
             $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
             session()->put('coupon' ,[
                 'code'      =>  $coupon->code,
@@ -113,7 +140,11 @@ if(!function_exists('checkCoupon'))
 
 if(!function_exists('province_name'))
 {
-    function province_name($provinceId)
+    /**
+     * @param $provinceId
+     * @return mixed
+     */
+    function province_name($provinceId): mixed
     {
         return Province::findOrFail($provinceId)->name;
     }
@@ -121,7 +152,11 @@ if(!function_exists('province_name'))
 
 if(!function_exists('city_name'))
 {
-    function city_name($cityId)
+    /**
+     * @param $cityId
+     * @return mixed
+     */
+    function city_name($cityId): mixed
     {
         return City::findOrFail($cityId)->name;
     }

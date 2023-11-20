@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUndefinedMethodInspection */
+<?php /** @noinspection ALL */
+/** @noinspection PhpDynamicAsStaticMethodCallInspection */
+/** @noinspection PhpUndefinedMethodInspection */
 
 /** @noinspection PhpUndefinedFieldInspection */
 
@@ -15,7 +17,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
-use Cart;
+
 
 class CartController extends Controller
 {

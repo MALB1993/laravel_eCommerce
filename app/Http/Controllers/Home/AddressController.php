@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpUndefinedFieldInspection */
+/** @noinspection PhpUndefinedMethodInspection */
+
+/** @noinspection UnknownColumnInspection */
 
 namespace App\Http\Controllers\Home;
 
@@ -6,6 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\UserAddress;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -15,35 +23,38 @@ class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
      */
-    public function index()
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $addresses  = UserAddress::query()->where('user_id',auth()->id())->get();
         $provinces  = Province::all();
-        
+
         return view('home.users_profile.addresses',[
             'provinces'     =>      $provinces,
-            'addresses'     =>      $addresses  
+            'addresses'     =>      $addresses
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function getProvinceCitiesList(Request $request)
-    {
-        
-        $cities = City::where('province_id',$request->province_id)->get();
 
-        return $cities;
+    /**
+     * @param Request $request
+     * @return Collection|array
+     */
+    public function getProvinceCitiesList(Request $request): \Illuminate\Database\Eloquent\Collection|array
+    {
+
+        return City::query()->where('province_id',$request->province_id)->get();
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        
+
         $request->validateWithBag('addressesStore',[
             'title'         =>  'required|min:3|max:100|persian_alpha|unique:user_addresses,title',
             'cellphone'     =>  'required|ir_mobile',
@@ -53,7 +64,7 @@ class AddressController extends Controller
             'city_id'       =>  'required|integer',
         ]);
 
-        UserAddress::create([
+        UserAddress::query()->create([
             'user_id'       =>  auth()->id(),
             'title'         =>  $request->input('title'),
             'cellphone'     =>  $request->input('cellphone'),
@@ -69,25 +80,12 @@ class AddressController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(UserAddress $userAddress)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserAddress $userAddress)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param UserAddress $address
+     * @return RedirectResponse
      */
-    public function update(Request $request, UserAddress $address)
+    public function update(Request $request, UserAddress $address): RedirectResponse
     {
         $validator = Validator::make($request->all(),[
             'title'         =>  'required|min:3|max:100|persian_alpha',
@@ -97,7 +95,7 @@ class AddressController extends Controller
             'province_id'   =>  'required|integer',
             'city_id'       =>  'required|integer',
         ]);
-        
+
         if($validator->fails())
         {
             $validator->errors()->add('address_id', $address->id);
@@ -116,13 +114,5 @@ class AddressController extends Controller
 
         Alert::success(__('Confirm'),__('Your address has been updated correctly'));
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserAddress $userAddress)
-    {
-        //
     }
 }

@@ -1,23 +1,38 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
+/** @noinspection PhpUndefinedFieldInspection */
 
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use Darryldecode\Cart\Cart;
+use Illuminate\Contracts\Foundation\Application as FoundationApplication;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Cart;
 
 class CartController extends Controller
 {
-    
-    public function index()
+
+    /**
+     * @return View|Application|Factory|FoundationApplication
+     */
+    public function index(): View|Application|Factory|FoundationApplication
     {
         return view('home.carts.index');
     }
 
-    public function add(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function add(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'variation'     =>  'required|json',
@@ -35,7 +50,7 @@ class CartController extends Controller
         }
 
         $rowId = $Product->id.'-'.$productVariation->id;
-        
+
 
         if(Cart::get($rowId) == null){
             Cart::add([
@@ -48,14 +63,17 @@ class CartController extends Controller
             ]);
 
             Alert::success(__('Confirm'), __('Your product has been successfully added to the cart.'));
-            return redirect()->back();
         }else{
             Alert::warning(__('Info'), __('Your product has been successfully added to the cart.'));
-            return redirect()->back();
         }
+        return redirect()->back();
     }
 
-    public function update(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(Request $request): RedirectResponse
     {
         $request->validate([
             'qtybutton' =>  'required'
@@ -86,7 +104,11 @@ class CartController extends Controller
     }
 
 
-    public function remove($rowId)
+    /**
+     * @param $rowId
+     * @return RedirectResponse
+     */
+    public function remove($rowId): RedirectResponse
     {
         Cart::remove($rowId);
         Alert::success(__('Confirm'), __('Your product has been successfully removed to the cart.'));
@@ -94,13 +116,20 @@ class CartController extends Controller
     }
 
 
-    public function clear()
+    /**
+     * @return RedirectResponse
+     */
+    public function clear(): RedirectResponse
     {
         Cart::clear();
         return redirect()->back();
     }
 
-    public function checkCoupon(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function checkCoupon(Request $request): RedirectResponse
     {
         $request->validate([
             'code'  =>  'required',
@@ -113,8 +142,8 @@ class CartController extends Controller
         }
 
         $result =  checkCoupon($request->code);
-        
-        
+
+
 
         if($result != null)
         {

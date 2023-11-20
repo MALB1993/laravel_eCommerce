@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+/**
+ * @method static findOrFail($id)
+ */
 class ProductVariation extends Model
 {
     use HasFactory, SoftDeletes;

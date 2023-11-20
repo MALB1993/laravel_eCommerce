@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+/**
+ * @method static findOrFail(mixed $product_id)
+ */
 class Product extends Model
 {
     use HasFactory , SoftDeletes, Sluggable;

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Http\Controllers\Home;
 
@@ -7,15 +7,20 @@ use App\Models\Comment;
 use App\Models\Product;
 use App\Models\ProductRate;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CommentController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return RedirectResponse|void
+     */
     public function store(Request $request , Product $product)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(),[
             'text'  =>  'required|string|min:5|max:7000',
             'rate'  =>  'required|integer|digits_between:0,5',

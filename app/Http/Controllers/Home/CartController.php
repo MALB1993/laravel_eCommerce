@@ -9,6 +9,8 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Province;
+use App\Models\UserAddress;
 use Illuminate\Contracts\Foundation\Application as FoundationApplication;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -53,8 +55,8 @@ class CartController extends Controller
         $rowId = $Product->id.'-'.$productVariation->id;
 
 
-        if(Cart::get($rowId) == null){
-            Cart::add([
+        if(\Cart::get($rowId) == null){
+            \Cart::add([
                 'id'                =>      $rowId,
                 'name'              =>      $Product->name,
                 'price'             =>      $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
@@ -159,13 +161,19 @@ class CartController extends Controller
     public function checkout()
     {
 
+        $addresses  = UserAddress::query()->where('user_id',auth()->id())->get();
+        $provinces  = Province::all();
+
         if(\Cart::isEmpty())
         {
             Alert::warning(__('Info'), __('Your shopping cart is empty'));
             return redirect()->back();
         }
 
-        return view('home.carts.checkout');
+        return view('home.carts.checkout',[
+            'addresses' =>  $addresses,
+            'provinces' =>  $provinces
+        ]);
     }
 
 

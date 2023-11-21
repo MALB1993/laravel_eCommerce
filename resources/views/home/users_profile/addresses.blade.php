@@ -43,13 +43,13 @@
                                                 {{ $address->address }}
                                                 <br>
                                                 <span>
-                                                    {{ __('State') }} : 
-                                                    {{ province_name($address->province_id) }} 
+                                                    {{ __('State') }} :
+                                                    {{ province_name($address->province_id) }}
                                                 </span>
                                                 -
                                                 <span>
-                                                    {{ __('City') }} : 
-                                                    {{ city_name($address->city_id) }} 
+                                                    {{ __('City') }} :
+                                                    {{ city_name($address->city_id) }}
                                                 </span>
                                             </p>
                                             <p class="d-flex justify-content-between">
@@ -60,24 +60,24 @@
                                                 <span>{{ __('Phone Number') }} : </span>
                                                 <span>{{ $address->cellphone }}</span>
                                             </p>
-                                
+
                                         </address>
                                         <a data-toggle="collapse" href="#collapse-address-update-content-{{ $address->id }}" class="check-btn sqr-btn collapse-address-update">
                                             <i class="sli sli-pencil"></i>
                                             {{ __('Edit') }} {{ __('Address') }}
                                         </a>
                                         <div class="collapse border p-2 border-secondary rounded-md m-1" id="collapse-address-update-content-{{ $address->id }}" style="{{ count($errors->addressesUpdate) > 0 && $errors->addressesUpdate->first('address_id') == $address->id ? 'display:block' : '' }}">
-                                
-                                        <form action="{{ route('home.user-profile.address.update', ['address' => $address->id]) }}" method="post">    
+
+                                        <form action="{{ route('home.user-profile.address.update', ['address' => $address->id]) }}" method="post">
                                             @csrf
                                             @method('PUT')
-                                
+
                                             <div class="row">
                                                 {{-- title --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
                                                     {{-- title --}}
                                                     <label for="title">{{ __('Title') }}</label>
-                                                    <input type="text" name="title" id="title" value="{{ $address->title }}" dir="auto"> 
+                                                    <input type="text" name="title" id="title" value="{{ $address->title }}" dir="auto">
                                                     @error('title','addressesUpdate')
                                                         <div class="input-error-validation">
                                                             <strong class="text-danger">{{ $message }}</strong>
@@ -121,7 +121,7 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 {{-- address --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
                                                     <label for="address">آدرس</label>
@@ -135,7 +135,7 @@
                                                 {{-- postal code --}}
                                                 <div class="tax-select col-lg-6 col-md-6">
                                                     <label for="postal_code">کد پستی</label>
-                                                    <input type="text" name="postal_code" value="{{ $address->postal_code }}" dir="ltr"> 
+                                                    <input type="text" name="postal_code" value="{{ $address->postal_code }}" dir="ltr">
                                                     @error('postal_code','addressesUpdate')
                                                         <div class="input-error-validation">
                                                             <strong class="text-danger">{{ $message }}</strong>
@@ -148,24 +148,24 @@
                                                 </div>
                                             </div>
                                         </form>
-                                
+
                                         </div>
                                     </div>
                                     <hr>
                                 @endforeach
                                 <button class="collapse-address-create mt-3" type="submit"> ایجاد آدرس جدید </button>
                                 <div class="collapse-address-create-content" style="{{ count($errors->addressesStore) > 0 ? 'display:block' : '' }}">
-                            
+
                                     <form action="{{ route('home.user-profile.address.store') }}" method="post">
                                         @csrf
                                         @method('POST')
-                            
+
                                         <div class="row">
                                             {{-- title --}}
                                             <div class="tax-select col-lg-6 col-md-6">
                                                 {{-- title --}}
                                                 <label for="title">{{ __('Title') }}</label>
-                                                <input type="text" name="title" id="title" value="{{ old('title') }}" class="@error('title','addressesStore') is-invalid @enderror" dir="auto"> 
+                                                <input type="text" name="title" id="title" value="{{ old('title') }}" class="@error('title','addressesStore') is-invalid @enderror" dir="auto">
                                                 @error('title','addressesStore')
                                                     <div class="input-error-validation">
                                                         <strong class="text-danger">{{ $message }}</strong>
@@ -207,7 +207,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            
+
                                             {{-- address --}}
                                             <div class="tax-select col-lg-6 col-md-6">
                                                 <label for="address">آدرس</label>
@@ -221,7 +221,7 @@
                                             {{-- postal code --}}
                                             <div class="tax-select col-lg-6 col-md-6">
                                                 <label for="postal_code">کد پستی</label>
-                                                <input type="text" name="postal_code" value="{{ old('postal_code') }}" dir="ltr"> 
+                                                <input type="text" name="postal_code" value="{{ old('postal_code') }}" dir="ltr">
                                                 @error('postal_code','addressesStore')
                                                     <div class="input-error-validation">
                                                         <strong class="text-danger">{{ $message }}</strong>
@@ -252,7 +252,7 @@
         $(".province-select").change(function(){
 
             const provinceID = $(this).val();
-            
+
             if(provinceID)
             {
                 $.ajax({

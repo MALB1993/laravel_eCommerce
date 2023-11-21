@@ -139,14 +139,13 @@
                                 </h5>
                                 @if (cartTotalSaleAmount() > 0)
                                     <hr>
-                                    <h5>
                                         مبلغ کلی تخفیف :
                                         <span class="text-danger">
                                             {{ number_format(cartTotalSaleAmount()) }}
                                             {{ __('Toman') }}
                                         </span>
-                                    </h5>
                                 @endif
+
                                 @if (session()->has('coupon'))
                                     <hr>
                                     <h5>
@@ -157,6 +156,7 @@
                                         </span>
                                     </h5>
                                 @endif
+
                                 <div class="total-shipping">
                                     <h5>
                                         هزینه ارسال :

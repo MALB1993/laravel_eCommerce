@@ -58,7 +58,7 @@ if (!function_exists('cartTotalSaleAmount')) {
     function cartTotalSaleAmount(): float|int
     {
         $cartTotalSaleAmount = 0;
-        foreach (Cart::getContent() as $item) {
+        foreach (\Cart::getContent() as $item) {
             if ($item->attributes->is_sale) {
                 $cartTotalSaleAmount += $item->quantity * ($item->attributes->price - $item->attributes->sale_price);
             }
@@ -74,7 +74,7 @@ if (!function_exists('totalDeliveryAmount')) {
     function totalDeliveryAmount(): int
     {
         $totalDeliveryAmount = 0;
-        foreach (Cart::getContent() as $item) {
+        foreach (\Cart::getContent() as $item) {
             $totalDeliveryAmount += $item->associatedModel->delivery_amount;
         }
         return $totalDeliveryAmount;
@@ -92,14 +92,14 @@ if(!function_exists('cartTotalAmount'))
 
         if(session()->has('coupon'))
         {
-            if(session()->get('coupon.amount') > Cart::getTotal() + totalDeliveryAmount())
+            if(session()->get('coupon.amount') > \Cart::getTotal() + totalDeliveryAmount())
             {
                 return 0;
             }else{
-                return Cart::getTotal() + totalDeliveryAmount() - session()->get('coupon.amount');
+                return \Cart::getTotal() + totalDeliveryAmount() - session()->get('coupon.amount');
             }
         }else{
-            return Cart::getTotal() + totalDeliveryAmount();
+            return \Cart::getTotal() + totalDeliveryAmount();
         }
     }
 }

@@ -93,9 +93,11 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::post('/add-to-cart',[CartController::class,'add'])->name('cart-add');
     Route::get('/remove-form-cart/{rowId}',[CartController::class,'remove'])->name('cart.remove');
     Route::get('/clear-cart',[CartController::class,'clear'])->name('cart.clear');
-    
+
     //================================== coupons
     Route::post('/check-coupon',[CartController::class,'checkCoupon'])->name('check-coupon');
+    //================================== checkout
+    Route::get('/checkout',[CartController::class,'checkout'])->name('checkout');
 
 });
 

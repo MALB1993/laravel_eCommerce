@@ -1,7 +1,7 @@
 @extends('home.layouts.master')
 @section('title', __('Card'))
 @section('content')
-    
+
 <div class="breadcrumb-area pt-35 pb-35 bg-gray" style="direction: rtl;">
     <div class="container">
         <div class="breadcrumb-content text-center">
@@ -108,7 +108,7 @@
                     </form>
 
                     <div class="row justify-content-between">
-                        
+
                         <div class="col-lg-4 col-md-6">
                             <div class="discount-code-wrapper">
                                 <div class="title-wrap">
@@ -178,7 +178,7 @@
                                         {{ __('Toman') }}
                                     </span>
                                 </h4>
-                                <a href="./checkout.html"> ادامه فرآیند خرید </a>
+                                <a href="{{ route('home.checkout') }}"> ادامه فرآیند خرید </a>
                             </div>
                         </div>
                     </div>

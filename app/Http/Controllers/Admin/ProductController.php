@@ -184,7 +184,7 @@ class ProductController extends Controller
             'is_active'                              =>       'required|boolean',
             'tag_ids'                                =>       'required|array',
             'tag_ids.*'                              =>       'required|exists:tags,id|integer',
-            'description'                            =>       'required|string|min:300|max:2000',
+            'description'                            =>       'required|string',
             'delivery_amount'                        =>       'required|integer',
             'delivery_amount_per_product'            =>       'nullable|integer',
             'attribute_values'                       =>       'required',
@@ -192,7 +192,7 @@ class ProductController extends Controller
             'variation_values.*.price'               =>       'required|integer',
             'variation_values.*.quantity'            =>       'required|integer',
             'variation_values.*.sku'                 =>       'required|string',
-            'variation_values.*.sale_price'          =>       'required|integer',
+            'variation_values.*.sale_price'          =>       'nullable|integer',
             'variation_values.*.date_on_sale_from'   =>       'nullable|date',
             'variation_values.*.date_on_sale_to'     =>       'nullable|date',
         ]);

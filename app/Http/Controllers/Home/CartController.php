@@ -9,7 +9,6 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariation;
-use Darryldecode\Cart\Cart;
 use Illuminate\Contracts\Foundation\Application as FoundationApplication;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -156,5 +155,18 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function checkout()
+    {
+
+        if(\Cart::isEmpty())
+        {
+            Alert::warning(__('Info'), __('Your shopping cart is empty'));
+            return redirect()->back();
+        }
+
+        return view('home.carts.checkout');
+    }
+
 
 }

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo pt-40">
-                        <a href="index.html">
+                        <a href="{{ route('home.index') }}">
                             <h3 class="font-weight-bold">Ecommerce</h3>
                         </a>
                     </div>
@@ -59,7 +59,7 @@
                             <button class="icon-cart-active">
                                 <span class="icon-cart">
                                     <i class="sli sli-bag"></i>
-                                    @if(Cart::isEmpty())    
+                                    @if(Cart::isEmpty())
                                         <span class="count-style">0</span>
                                         @else
                                         <span class="count-style">{{ Cart::getContent()->count() }}</span>
@@ -78,7 +78,7 @@
                                     <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
                                     <h4>سبد خرید</h4>
                                 </div>
-                                
+
                                     @if(Cart::isEmpty())
                                     <p>{{ __('Your shopping cart is empty') }}</p>
                                     <div class="shopping-cart-bottom">
@@ -131,7 +131,7 @@
                                             </span>
                                         </div>
                                         <div class="shopping-cart-btn btn-hover text-center">
-                                            <a class="default-btn" href="#">
+                                            <a class="default-btn" href="{{ route('home.checkout') }}">
                                                 ثبت سفارش
                                             </a>
                                             <a class="default-btn" href="{{ route('home.cart.index') }}">
@@ -200,7 +200,7 @@
                             <button class="icon-cart-active">
                                 <span class="icon-cart">
                                     <i class="sli sli-bag"></i>
-                                    @if(Cart::isEmpty())    
+                                    @if(Cart::isEmpty())
                                         <span class="count-style">0</span>
                                         @else
                                         <span class="count-style">{{ Cart::getContent()->count() }}</span>
@@ -219,7 +219,7 @@
                                     <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
                                     <h4>سبد خرید</h4>
                                 </div>
-                                
+
                                     @if(Cart::isEmpty())
                                     <p>{{ __('Your shopping cart is empty') }}</p>
                                     <div class="shopping-cart-bottom">
@@ -272,7 +272,7 @@
                                             </span>
                                         </div>
                                         <div class="shopping-cart-btn btn-hover text-center">
-                                            <a class="default-btn" href="#">
+                                            <a class="default-btn" href="{{ route('home.checkout') }}">
                                                 ثبت سفارش
                                             </a>
                                             <a class="default-btn" href="{{ route('home.cart.index') }}">

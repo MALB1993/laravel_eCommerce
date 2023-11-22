@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\PaymentController;
 use \App\Http\Controllers\Home\CategoryController   as HomeCategoryController;
 use App\Http\Controllers\Home\ProductController     as HomeProductController;
 use App\Http\Controllers\Home\CommentController     as HomeCommentController;
@@ -99,6 +100,8 @@ Route::prefix('/')->name('home.')->group(function(){
     //================================== checkout
     Route::get('/checkout',[CartController::class,'checkout'])->name('checkout');
     //================================== payment
+    Route::post('/payment',[PaymentController::class,'payment'])->name('payment');
+    Route::get ('/payment-verify',[PaymentController::class,'paymentVerify'])->name('payment_verify');
 });
 
 

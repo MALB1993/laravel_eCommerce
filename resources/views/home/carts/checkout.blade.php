@@ -257,7 +257,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <form action="{{ route('home.checkout.store') }}" method="post">
+                                <form action="{{ route('home.payment') }}" method="post">
                                     @csrf
                                     @method('POST')
                                     <div class="payment-method">

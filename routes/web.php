@@ -98,7 +98,7 @@ Route::prefix('/')->name('home.')->group(function(){
     Route::post('/check-coupon',[CartController::class,'checkCoupon'])->name('check-coupon');
     //================================== checkout
     Route::get('/checkout',[CartController::class,'checkout'])->name('checkout');
-
+    //================================== payment
 });
 
 
@@ -136,5 +136,9 @@ Route::prefix('/test')->group(function(){
     Route::get('/cart',function(){
         dd( \Cart::getContent());
     });
+    //================================== checkout
+    Route::post('/checkout-store',function(\Illuminate\Http\Request $request){
+        dd($request->all());
+    })->name('home.checkout.store');
 });
 

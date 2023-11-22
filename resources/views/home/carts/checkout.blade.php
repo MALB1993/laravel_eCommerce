@@ -49,7 +49,7 @@
                                     <div class="billing-info tax-select mb-20">
                                         <label> انتخاب آدرس تحویل سفارش <abbr class="required" title="required">*</abbr></label>
 
-                                        <select class="email s-email s-wid">
+                                        <select class="email s-email s-wid" id="address_input">
                                             @forelse($addresses as $address)
                                                 <option value="{{ $address->id }}">{{ $address->title }}</option>
                                                 @empty
@@ -257,31 +257,36 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="payment-method">
-                                    <div class="pay-top sin-payment">
-                                        <input id="zarinpal" class="input-radio" type="radio" value="zarinpal"
-                                               checked="checked" name="payment_method">
-                                        <label for="zarinpal"> درگاه پرداخت زرین پال </label>
-                                        <div class="payment-box payment_method_bacs">
-                                            <p>
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                            </p>
+                                <form action="{{ route('home.checkout.store') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="payment-method">
+                                        <div class="pay-top sin-payment">
+                                            <input id="zarinpal" class="input-radio" type="radio" value="zarinpal"
+                                                   checked="checked" name="payment_method">
+                                            <label for="zarinpal"> درگاه پرداخت زرین پال </label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="pay-top sin-payment">
+                                            <input id="pay" class="input-radio" type="radio" value="pay"
+                                                   name="payment_method">
+                                            <label for="pay">درگاه پرداخت پی</label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                                                </p>
+                                            </div>
+                                            <input type="hidden" name="address_id" id="order_address">
+                                        </div>
+                                        <div class="Place-order mt-40">
+                                            <button type="submit">ثبت سفارش</button>
                                         </div>
                                     </div>
-                                    <div class="pay-top sin-payment">
-                                        <input id="pay" class="input-radio" type="radio" value="pay"
-                                               name="payment_method">
-                                        <label for="pay">درگاه پرداخت پی</label>
-                                        <div class="payment-box payment_method_bacs">
-                                            <p>
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Place-order mt-40">
-                                <button type="submit">ثبت سفارش</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -296,7 +301,10 @@
 @endsection
 @section('javascript')
     <script>
-
+        $("#order_address").val($("#address_input").val());
+        $("#address_input").change(function(){
+            $("#order_address").val($(this).val());
+        });
         $(".province-select").change(function(){
 
             const provinceID = $(this).val();

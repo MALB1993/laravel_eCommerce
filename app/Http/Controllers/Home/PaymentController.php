@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,19 +11,33 @@ class PaymentController extends Controller
 {
     public function payment(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'address_id'        =>  'required',
             'payment_method'    =>  'required'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             alert()->error(__('Error'), __('Payment Cancelled'));
             return redirect()->back();
         }
 
+        $checkcart = $this->checkcart();
+        
+        if (array_key_exists('error', $checkcart)) {
+            alert()->error(__('Info'), $checkcart['error']);
+            return redirect()->back();
+        }
+
+        $amounts = $this->getAmount();
+        
+        if (array_key_exists('error', $amounts)) {
+            alert()->error(__('Info'), $amounts['error']);
+            return redirect()->back();
+        }
+
+
         $api = 'test';
-        $amount = "10000";
+        $amount = $amounts['paying_amount'];
         $redirect = route('home.payment_verify');
         $result = $this->send($api, $amount, $redirect);
         $result = json_decode($result);
@@ -50,7 +65,7 @@ class PaymentController extends Controller
             if ($_GET['status'] == 0) {
                 echo "<h1>تراکنش با خطا مواجه شد</h1>";
             }
-        } 
+        }
     }
 
     public function send($api, $amount, $redirect)
@@ -79,10 +94,59 @@ class PaymentController extends Controller
         return $res;
     }
 
-    public function verify($api, $token) {
+    public function verify($api, $token)
+    {
         return $this->curl_post('https://pay.ir/pg/verify', [
-            'api' 	=> $api,
+            'api'     => $api,
             'token' => $token,
         ]);
+    }
+
+    public function checkcart()
+    {
+
+        if (\Cart::isEmpty()) {
+            return ['error' => __('is Your shopping cart is empty')];
+        }
+
+        foreach (\Cart::getContent() as $item) {
+            $variation = ProductVariation::query()->find($item->attributes->id);
+
+            $price = $variation->is_sale ? $variation->sale_price : $variation->price;
+
+            if ($item->price != $price) {
+                \Cart::clear();
+                return ['error' => __('The price of the product has changed')];
+            }
+
+            if ($item->quantity > $variation->quantity) {
+                \Cart::clear();
+                return ['error' => __('The quantity of the product has changed')];
+            }
+
+            return ['success' => 'success'];
+        }
+    }
+
+    public function getAmount()
+    {
+        if(session()->has('coupon'))
+        {
+            $checkCoupon = checkCoupon(session()->get('coupon.code'));
+
+            if(array_key_exists('error', $checkCoupon))
+            {
+                return $checkCoupon;
+            }
+        }
+
+
+
+        return [
+            'total_amount'      =>  (\Cart::getTotal() + cartTotalSaleAmount()),
+            'delivery_amount'   =>  totalDeliveryAmount(),
+            'coupon_amount'     =>  session()->has('coupon') ? session()->get('coupon.amount') : 0,
+            'paying_amount'     =>  cartTotalAmount(),
+        ];
     }
 }

@@ -1283,6 +1283,8 @@
     "Your address has been saved correctly" : "آدرس شما به درستی ذخیره شد",
     "Your address has been updated correctly" : "آدرس شما به درستی به روز شد",
     "The discount code has been correctly registered for you." : "کد تخفیف برای شما به درستی به ثبت رسید .",
-    "Check out" : "برسی سفارشات"
+    "Check out" : "برسی سفارشات",
+    "The price of the product has changed" : "قیمت محصول تغییر کرد",
+    "The quantity of the product has changed" : "تعداد محصول تغییر کرد"
 
 }

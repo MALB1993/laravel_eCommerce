@@ -85,14 +85,14 @@ class CartController extends Controller
         foreach($request->qtybutton as $rowId => $quantity)
         {
 
-            $item = Cart::get($rowId);
+            $item = \Cart::get($rowId);
 
             if($quantity > $item->attributes->quantity)
             {
                 Alert::error(__('Info'),__('The number of imported products is not correct'));
                 return redirect()->back();
             }else{
-                Cart::update($rowId, [
+                \Cart::update($rowId, [
                     'quantity'  =>  [
                         'relative'  =>  false,
                         'value'     =>  $quantity
@@ -113,7 +113,7 @@ class CartController extends Controller
      */
     public function remove($rowId): RedirectResponse
     {
-        Cart::remove($rowId);
+        \Cart::remove($rowId);
         Alert::success(__('Confirm'), __('Your product has been successfully removed to the cart.'));
         return redirect()->back();
     }
@@ -124,7 +124,7 @@ class CartController extends Controller
      */
     public function clear(): RedirectResponse
     {
-        Cart::clear();
+        \Cart::clear();
         return redirect()->back();
     }
 
@@ -146,9 +146,7 @@ class CartController extends Controller
 
         $result =  checkCoupon($request->code);
 
-
-
-        if($result != null)
+        if($result == null)
         {
             Alert::warning(__('Info'), $result['error'] );
         }else{

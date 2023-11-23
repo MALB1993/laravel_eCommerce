@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\ProductVariation;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,6 +46,13 @@ class PaymentController extends Controller
         $result = $this->send($api, $amount, $redirect);
         $result = json_decode($result);
         if ($result->status) {
+
+            $createOrder = $this->createOrder($request->address_id, $amounts, $result->token, 'pay');
+            if (array_key_exists('error', $createOrder)) {
+                alert()->error(__('Info'), $createOrder['error']);
+                return redirect()->back();
+            }
+
             $go = "https://pay.ir/pg/$result->token";
             return redirect()->to($go);
         } else {
@@ -148,5 +159,52 @@ class PaymentController extends Controller
             'coupon_amount'     =>  session()->has('coupon') ? session()->get('coupon.amount') : 0,
             'paying_amount'     =>  cartTotalAmount(),
         ];
+    }
+
+
+    public function createOrder($addressId, $amounts, $token, $getway_name)
+    {
+        try {
+
+            \Illuminate\Support\Facades\DB::beginTransaction();
+
+            $order = Order::create([
+                'user_id'          =>     auth()->id(),
+                'address_id'       =>     $addressId,
+                'coupon_id'        =>     session()->has('coupon') ? Coupon::query()->where('code',session()->get('coupon.code'))->first()->id : null,
+                'total_amount'     =>     $amounts['total_amount'],
+                'delivery_amount'  =>     $amounts['delivery_amount'],
+                'coupon_amount'    =>     $amounts['coupon_amount'],
+                'paying_amount'    =>     $amounts['paying_amount'],
+                'payment_type'     =>     'online'
+            ]);
+
+
+            foreach(\Cart::getContent() as $item)
+            {
+                OrderItem::create([
+                    'order_id'              =>  $order->id,
+                    'product_id'            =>  $item->associateModel->id,
+                    'product_variation'     =>  $item->attributes->id,
+                    'price'                 =>  $item->price,
+                    'quantity'              =>  $item->quantity,
+                    'subtotals'             =>  ($item->quantity * $item->price),
+
+                ]);
+            }
+
+            Transaction::create([
+                'user_id'       =>  auth()->id(),
+                'order_id'      =>  $order->id,
+                'amount'        =>  $amounts['paying_amount'],
+                'token'         =>  $token,
+                'getway_name'   =>  $getway_name,
+
+            ]);
+
+        } catch (\Exception $ex) {
+            \Illuminate\Support\Facades\DB::rollBack();
+             return ['error' => $ex->getCode() . " : " . $ex->getMessage()];
+         }
     }
 }

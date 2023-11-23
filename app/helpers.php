@@ -108,11 +108,10 @@ if(!function_exists('checkCoupon'))
 {
 
 
-    /**
-     * @return array{error: mixed}
-     */
-    #[ArrayShape(['error' => "mixed"])] function checkCoupon($code): array
+    
+    function checkCoupon($code)
     {
+        
         $coupon = Coupon::query()->where('code',$code)->where('expired_at', '>' , Carbon::now())->first();
         if($coupon === null)
         {
@@ -125,7 +124,7 @@ if(!function_exists('checkCoupon'))
         }
 
         if($coupon->getRawOriginal('type') != 'amount') {
-            $total = Cart::getTotal();
+            $total = \Cart::getTotal();
             $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
             session()->put('coupon' ,[
                 'code'      =>  $coupon->code,

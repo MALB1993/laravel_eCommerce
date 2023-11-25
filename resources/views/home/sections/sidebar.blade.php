@@ -5,7 +5,7 @@
         {{ __('profile') }}
     </a>
 
-    <a href="#orders" >
+    <a href="{{ route('home.user-profile.order') }}" class="{{ request()->is('profile/orders') ? 'active' : '' }}">
         <i class="sli sli-basket ml-1"></i>
         سفارشات
     </a>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\OrderItem;
 
 class Order extends Model
 {
@@ -26,5 +27,17 @@ class Order extends Model
         'payment_status',
         'description'
     ];
+
+
+    public function getStatusAttribute($status)
+    {
+        return $status ? __('Paying success') : __('Paying error');
+    }
+
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 
 }

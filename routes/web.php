@@ -137,7 +137,7 @@ Route::prefix('/test')->group(function(){
 
     //================================== cart
     Route::get('/cart',function(){
-        dd( \Cart::getContent());
+        dd( \Cart::getContent() );
     });
     //================================== checkout
     Route::post('/checkout-store',function(\Illuminate\Http\Request $request){

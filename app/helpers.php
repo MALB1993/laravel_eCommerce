@@ -127,6 +127,7 @@ if(!function_exists('checkCoupon'))
             $total = \Cart::getTotal();
             $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
             session()->put('coupon' ,[
+                'id'        =>  $coupon->id,
                 'code'      =>  $coupon->code,
                 'amount'    =>  $amount
             ]);

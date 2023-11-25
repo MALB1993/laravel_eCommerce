@@ -1288,5 +1288,8 @@
     "The quantity of the product has changed" : "تعداد محصول تغییر کرد",
     "The payment encountered an error." : "پرداخت با خطا مواجه شد.",
     "Paying success" : "پرداخت موفق",
-    "Paying error"   :  "پرداخت ناموفق"
+    "Paying error"   :  "پرداخت ناموفق",
+    "Username"  : "نام کاربری",
+    "Paying status" : "وضعیت پرداخت",
+    "Paying type" : "نوع پرداخت"
 }

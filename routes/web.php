@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
@@ -69,6 +70,9 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
     //================================== coupons
     Route::resource('coupons',CouponController::class);
+
+    //================================== orders
+    Route::resource('orders',OrderController::class);
 });
 
 

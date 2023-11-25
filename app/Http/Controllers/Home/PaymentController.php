@@ -10,6 +10,7 @@ use App\Models\ProductVariation;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
@@ -48,17 +49,46 @@ class PaymentController extends Controller
         if ($result->status) {
 
             $createOrder = $this->createOrder($request->address_id, $amounts, $result->token, 'pay');
-         
+
             if (array_key_exists('error', $createOrder)) {
                 alert()->error(__('Info'), $createOrder['error']);
                 return redirect()->back();
             }
-            
+
 
             $go = "https://pay.ir/pg/$result->token";
             return redirect()->to($go);
         } else {
-            echo $result->errorMessage;
+            alert()->error(__('Info'), $result->errorMessage);
+            return redirect()->back();
+        }
+    }
+
+    public function paymentVerify(Request $request)
+    {
+        $api = 'test';
+        $token = $request->token;
+        $result = json_decode($this->verify($api, $token));
+        if (isset($result->status)) {
+            if ($result->status == 1) {
+                $updateOrder = $this->updateOrder($token, $result->transId);        
+                if (array_key_exists('error', $updateOrder)) {
+                    alert()->error(__('Info'), $updateOrder['error']);
+                    return redirect()->back();
+                }
+                \Cart::clear();
+                Alert::success(__('Confirm'), __('Payment Confirmation') ." : ". __('VAT Number') ." : " . $result->transId);
+                return redirect()->route('home.index');
+            } else {
+                Alert::error(__('Info'),__('The payment encountered an error.'));
+                return redirect()->route('home.index');
+            }
+        } else {
+            if ($request->status == 0) 
+            {
+                Alert::error(__('Info'),__('The payment encountered an error.'));
+                return redirect()->route('home.index');
+            }
         }
     }
 
@@ -67,11 +97,11 @@ class PaymentController extends Controller
         try {
 
             \Illuminate\Support\Facades\DB::beginTransaction();
-            
+
             $order = Order::create([
                 'user_id'           =>  auth()->id(),
                 'address_id'        =>  $addressId,
-                'coupon_id'         =>  session()->has('coupon') ? Coupon::query()->where('code', session()->get('coupon.code'))->first()->id : null, 
+                'coupon_id'         =>  session()->has('coupon') ? Coupon::query()->where('code', session()->get('coupon.code'))->first()->id : null,
                 'status'            =>  0,
                 'total_amount'      =>  $amounts['total_amount'],
                 'delivery_amount'   =>  $amounts['delivery_amount'],
@@ -89,7 +119,7 @@ class PaymentController extends Controller
                     'product_variation' =>  $item->attributes->id,
                     'price'             =>  $item->price,
                     'quantity'          =>  $item->quantity,
-                    'subtotals'         =>  ($item->quantity * $item->price),
+                    'subtotals'         => ($item->quantity * $item->price),
                 ]);
             }
 
@@ -110,22 +140,44 @@ class PaymentController extends Controller
         return ['success', 'success !'];
     }
 
-    public function paymentVerify(Request $request)
+    public function updateOrder($token, $ref_id)
     {
-        $api = 'test';
-        $token = $request->token;
-        $result = json_decode($this->verify($api, $token));
-        if (isset($result->status)) {
-            if ($result->status == 1) {
-                echo "<h1>تراکنش با موفقیت انجام شد</h1>";
-            } else {
-                echo "<h1>تراکنش با خطا مواجه شد</h1>";
+        try {
+
+            \Illuminate\Support\Facades\DB::beginTransaction();
+
+            $Transaction = Transaction::query()->where('token', $token)->firstOrFail();
+
+
+            $Transaction->update([
+                'status'    =>  1,
+                'ref_id'    =>  $ref_id,
+            ]);
+
+            $order = Order::findOrFail($Transaction->order_id);
+
+            $order->update([
+                'payment_status'    =>  1,
+                'status'            =>  1
+            ]);
+
+
+            foreach (\Cart::getContent() as $item) 
+            {
+                $variation = ProductVariation::find($item->attributes->id);
+
+                $variation->update([
+                    'quantity'  =>  $variation->quantity - $item->quantity
+                ]);
             }
-        } else {
-            if ($_GET['status'] == 0) {
-                echo "<h1>تراکنش با خطا مواجه شد</h1>";
-            }
+
+            \Illuminate\Support\Facades\DB::commit();
+        } catch (\Exception $ex) {
+
+            \Illuminate\Support\Facades\DB::rollBack();
+            return ['error' => $ex->getCode() . " : " . $ex->getMessage()];
         }
+        return ['success', 'success !'];
     }
 
     public function send($api, $amount, $redirect)

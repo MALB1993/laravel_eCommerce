@@ -26,14 +26,14 @@ class PaymentController extends Controller
         }
 
         $checkcart = $this->checkcart();
-        
+
         if (array_key_exists('error', $checkcart)) {
             alert()->error(__('Info'), $checkcart['error']);
             return redirect()->back();
         }
 
         $amounts = $this->getAmount();
-        
+
         if (array_key_exists('error', $amounts)) {
             alert()->error(__('Info'), $amounts['error']);
             return redirect()->back();
@@ -48,10 +48,12 @@ class PaymentController extends Controller
         if ($result->status) {
 
             $createOrder = $this->createOrder($request->address_id, $amounts, $result->token, 'pay');
+         
             if (array_key_exists('error', $createOrder)) {
                 alert()->error(__('Info'), $createOrder['error']);
                 return redirect()->back();
             }
+            
 
             $go = "https://pay.ir/pg/$result->token";
             return redirect()->to($go);
@@ -60,6 +62,53 @@ class PaymentController extends Controller
         }
     }
 
+    public function createOrder($addressId, $amounts, $token, $gateway_name)
+    {
+        try {
+
+            \Illuminate\Support\Facades\DB::beginTransaction();
+            
+            $order = Order::create([
+                'user_id'           =>  auth()->id(),
+                'address_id'        =>  $addressId,
+                'coupon_id'         =>  session()->has('coupon') ? Coupon::query()->where('code', session()->get('coupon.code'))->first()->id : null, 
+                'status'            =>  0,
+                'total_amount'      =>  $amounts['total_amount'],
+                'delivery_amount'   =>  $amounts['delivery_amount'],
+                'coupon_amount'     =>  $amounts['coupon_amount'],
+                'paying_amount'     =>  $amounts['paying_amount'],
+                'payment_type'      =>  'online',
+                'payment_status'    =>  0,
+            ]);
+
+
+            foreach (\Cart::getContent() as $item) {
+                OrderItem::create([
+                    'order_id'          =>  $order->id,
+                    'product_id'        =>  $item->associatedModel->id,
+                    'product_variation' =>  $item->attributes->id,
+                    'price'             =>  $item->price,
+                    'quantity'          =>  $item->quantity,
+                    'subtotals'         =>  ($item->quantity * $item->price),
+                ]);
+            }
+
+            Transaction::create([
+                'user_id'           =>  auth()->id(),
+                'order_id'          =>  $order->id,
+                'amount'            =>  $amounts['paying_amount'],
+                'token'             =>  $token,
+                'gateway_name'      =>  $gateway_name
+            ]);
+
+            \Illuminate\Support\Facades\DB::commit();
+        } catch (\Exception $ex) {
+
+            \Illuminate\Support\Facades\DB::rollBack();
+            return ['error' => $ex->getCode() . " : " . $ex->getMessage()];
+        }
+        return ['success', 'success !'];
+    }
 
     public function paymentVerify(Request $request)
     {
@@ -141,12 +190,10 @@ class PaymentController extends Controller
 
     public function getAmount()
     {
-        if(session()->has('coupon'))
-        {
+        if (session()->has('coupon')) {
             $checkCoupon = checkCoupon(session()->get('coupon.code'));
 
-            if(array_key_exists('error', $checkCoupon))
-            {
+            if (array_key_exists('error', $checkCoupon)) {
                 return $checkCoupon;
             }
         }
@@ -154,57 +201,10 @@ class PaymentController extends Controller
 
 
         return [
-            'total_amount'      =>  (\Cart::getTotal() + cartTotalSaleAmount()),
+            'total_amount'      => (\Cart::getTotal() + cartTotalSaleAmount()),
             'delivery_amount'   =>  totalDeliveryAmount(),
             'coupon_amount'     =>  session()->has('coupon') ? session()->get('coupon.amount') : 0,
             'paying_amount'     =>  cartTotalAmount(),
         ];
-    }
-
-
-    public function createOrder($addressId, $amounts, $token, $getway_name)
-    {
-        try {
-
-            \Illuminate\Support\Facades\DB::beginTransaction();
-
-            $order = Order::create([
-                'user_id'          =>     auth()->id(),
-                'address_id'       =>     $addressId,
-                'coupon_id'        =>     session()->has('coupon') ? Coupon::query()->where('code',session()->get('coupon.code'))->first()->id : null,
-                'total_amount'     =>     $amounts['total_amount'],
-                'delivery_amount'  =>     $amounts['delivery_amount'],
-                'coupon_amount'    =>     $amounts['coupon_amount'],
-                'paying_amount'    =>     $amounts['paying_amount'],
-                'payment_type'     =>     'online'
-            ]);
-
-
-            foreach(\Cart::getContent() as $item)
-            {
-                OrderItem::create([
-                    'order_id'              =>  $order->id,
-                    'product_id'            =>  $item->associateModel->id,
-                    'product_variation'     =>  $item->attributes->id,
-                    'price'                 =>  $item->price,
-                    'quantity'              =>  $item->quantity,
-                    'subtotals'             =>  ($item->quantity * $item->price),
-
-                ]);
-            }
-
-            Transaction::create([
-                'user_id'       =>  auth()->id(),
-                'order_id'      =>  $order->id,
-                'amount'        =>  $amounts['paying_amount'],
-                'token'         =>  $token,
-                'getway_name'   =>  $getway_name,
-
-            ]);
-
-        } catch (\Exception $ex) {
-            \Illuminate\Support\Facades\DB::rollBack();
-             return ['error' => $ex->getCode() . " : " . $ex->getMessage()];
-         }
     }
 }

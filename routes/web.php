@@ -137,7 +137,10 @@ Route::prefix('/test')->group(function(){
 
     //================================== cart
     Route::get('/cart',function(){
-        dd( \Cart::getContent() );
+        // session()->forget('coupon');
+        dd(session()->get('coupon'));
+        // \Cart::clear();
+        // dd( \Cart::getContent() );
     });
     //================================== checkout
     Route::post('/checkout-store',function(\Illuminate\Http\Request $request){

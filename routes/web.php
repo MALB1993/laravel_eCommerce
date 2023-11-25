@@ -118,6 +118,9 @@ Route::prefix('/profile')->name('home.')->group(function(){
     Route::put('/addresses/update/{address}',[AddressController::class,'update'])->name('user-profile.address.update');
 
     Route::get('/get-province-cities-list',[AddressController::class,'getProvinceCitiesList']);
+    //================================== orders
+    Route::get('/orders',[CartController::class,'UserProfileIndex'])->name('user-profile.order');
+
 });
 
 

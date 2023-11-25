@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Province;
@@ -174,5 +175,12 @@ class CartController extends Controller
         ]);
     }
 
+    public function UserProfileIndex ()
+    {
+        $orders = Order::query()->where('user_id', auth()->id())->get();
+        return view('home.users_profile.order',[
+            'orders'    =>  $orders
+        ]);
+    }
 
 }

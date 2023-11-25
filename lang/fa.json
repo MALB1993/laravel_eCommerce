@@ -1285,6 +1285,7 @@
     "The discount code has been correctly registered for you." : "کد تخفیف برای شما به درستی به ثبت رسید .",
     "Check out" : "برسی سفارشات",
     "The price of the product has changed" : "قیمت محصول تغییر کرد",
-    "The quantity of the product has changed" : "تعداد محصول تغییر کرد"
+    "The quantity of the product has changed" : "تعداد محصول تغییر کرد",
+    "The payment encountered an error." : "پرداخت با خطا مواجه شد."
 
 }

@@ -36,8 +36,11 @@
                             <td>{{ Verta($order->created_at) }}</td>
 
                             <td>
-                                <a href="{{ route('admin-panel.orders.edit',['order' => $order->id]) }}">
+                                <a href="{{ route('admin-panel.orders.edit',['order' => $order->id]) }}" class="btn btn-md btn-success">
                                     <i class="fa fa-fw fa-pen-nib"></i>
+                                </a>
+                                <a href="{{ route('admin-panel.orders.show',['order' => $order->id]) }}" class="btn btn-md btn-primary">
+                                    <i class="fa fa-fw fa-eye"></i>
                                 </a>
                             </td>
                         </tr>

@@ -54,7 +54,8 @@
         <div id="collapseOrders" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin-panel.coupons.index') }}">{{ __('Coupon') }}</a>
-                <a class="collapse-item" href="{{ route('admin-panel.orders.index') }}">{{ __('Transaction') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.orders.index') }}">{{ __('Orders') }}</a>
+                <a class="collapse-item" href="{{ route('admin-panel.transactions.index') }}">{{ __('Transaction') }}</a>
             </div>
         </div>
     </li>

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\OrderItem;
+use App\Models\Coupon;
+use App\Models\UserAddress;
 
 class Order extends Model
 {
@@ -43,6 +45,16 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(UserAddress::class);
     }
 
 }

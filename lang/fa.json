@@ -1291,5 +1291,7 @@
     "Paying error"   :  "پرداخت ناموفق",
     "Username"  : "نام کاربری",
     "Paying status" : "وضعیت پرداخت",
-    "Paying type" : "نوع پرداخت"
+    "Paying type" : "نوع پرداخت",
+    "Transaction" : "تراکنش ها",
+    "paying amount" : "مبلغ قابل پرداخت"
 }

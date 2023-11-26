@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
@@ -77,7 +78,9 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
     //================================== transaction
     Route::resource('transactions',TransactionController::class);
-
+    
+    //================================== users
+    Route::resource('users',UserController::class);
 });
 
 

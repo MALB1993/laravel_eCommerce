@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'cellphone',
         'password',
     ];
 
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function rates()
     {
         return $this->hasMany(ProductRate::class);
+    }
+
+    public function getStatusAttribute($status)
+    {
+        return $status ? __('Enable') : __('Disable');
     }
 }

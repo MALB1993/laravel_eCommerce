@@ -16,4 +16,13 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
+
+
+    public function show(Order $order)
+    {
+        return view('admin.orders.show',[
+            'order' => $order
+        ]);
+    }
+
 }

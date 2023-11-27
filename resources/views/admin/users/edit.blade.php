@@ -30,6 +30,41 @@
                     <label for="">{{ __('Phone Number') }}</label>
                     <input type="text" name="cellphone" value="{{ $user->cellphone }}" class="form-control">
                 </div>
+                <div class="col-md-3">
+                    <label for="inlineFormRoles">{{ __('Role') }}</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormRoles" name="role">
+                      <option selected value="">{{ __('Please select at least one ability.') }}</option>
+                      @foreach ($roles as $role)
+                        <option value="{{ $role->name }}" {{ in_array($role->id,$user->roles->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $role->display_name }}</option>
+                      @endforeach
+                    </select>
+                </div>
+                <div class="col-md-12 my-2">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                          <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link btn-block  text-right" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                {{ __('Permissions') }}
+                              </button>
+                            </h2>
+                          </div>
+                      
+                          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach ($permissions as $permission)
+                                    <div class="form-check col-md-3">
+                                        <input class="form-check-input" type="checkbox" value="{{ $permission->name }}" id="defaultCheck-{{ $permission->id }}" name="{{ $permission->name }}" {{ in_array($permission->id, $user->permissions->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                        <label class="form-check-label mx-3" for="defaultCheck-{{ $permission->id }}">{{ $permission->display_name }}</label>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
                 <div class="col-md-12 my-3">
                     <button class="btn btn-md btn-success">{{ __('Save') }}</button>
                 </div>

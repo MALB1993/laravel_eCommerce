@@ -85,6 +85,9 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
 
     //================================== permissions
     Route::resource('permissions',PermissionController::class);
+
+    //================================== roles
+    Route::resource('roles',RolesController::class);
 });
 
 

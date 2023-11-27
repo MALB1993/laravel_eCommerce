@@ -80,7 +80,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit', ['role' => $role]);
+        $permissions = Permission::latest()->get(); 
+        return view('admin.roles.edit', ['permissions' => $permissions, 'role' => $role]);
     }
 
     /**
@@ -88,18 +89,35 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        $request->validate([
-            'name'          =>  'required|string',
-            'display_name'  =>  'required|string',
-            'guard_name'    =>  'web'
-        ]);
+        try {
 
-        $role->update([
-            'name'          =>  $request->input('name'),
-            'display_name'  =>  $request->input('display_name'),
-        ]);
+            \Illuminate\Support\Facades\DB::beginTransaction();
+            
+            $request->validate([
+                'name'          =>  'required|string',
+                'display_name'  =>  'required|string',
+            ]);
 
-        Alert::success(__('Confirm'), __('Edit role successfully !'));
+            $role->update([
+                'name'          =>  $request->input('name'),
+                'display_name'  =>  $request->input('display_name'),
+                'guard_name'    =>  'web'
+            ]);
+
+            $permissions  = $request->except('_token', '_method' ,'name', 'display_name');
+            
+            
+            $role->syncPermissions($permissions);
+
+            \Illuminate\Support\Facades\DB::commit();
+
+        }
+        catch (\Exception $ex) {
+            \Illuminate\Support\Facades\DB::rollBack();
+            Alert::toast(__('Difficulty creating roles') . $ex->getCode(), 'danger');
+            return redirect()->back();
+        }
+        Alert::success(__('Confirm'), __('Create role successfully !'));
         return redirect()->route('admin-panel.roles.index');
     }
 

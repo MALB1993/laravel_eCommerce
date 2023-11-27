@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Edit roles'))
+@section('title', __('edit roles'))
 
 @section('content')
     <div class="col-md-12">
@@ -13,14 +13,14 @@
         </div>
 
         <div class="my-2 bg-white border shadow rounded p-4">
-            <form action="{{ route('admin-panel.roles.update',['permission' => $permission->id]) }}" method="POST">
+            <form action="{{ route('admin-panel.roles.update',['role' => $role->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
                     {{-- name --}}
                     <div class="form-group col-md-3">
                         <label for="name">{{ __('Name') }}</label>
-                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ $permission->name }}">
+                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ $role->name }}">
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -29,10 +29,37 @@
                     {{-- display_name --}}
                     <div class="form-group col-md-3">
                         <label for="display_name">{{ __('display name') }}</label>
-                        <input type="text" name="display_name" id="display_name" class="form-control @error('display_name') is-invalid @enderror" value="{{ $permission->display_name }}" dir="auto">
+                        <input type="text" name="display_name" id="display_name" class="form-control @error('display_name') is-invalid @enderror" value="{{ $role->display_name }}" dir="auto">
                         @error('display_name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                    </div>
+
+                    <div class="col-md-12 my-2">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                              <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block  text-right" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    {{ __('Permissions') }}
+                                  </button>
+                                </h2>
+                              </div>
+                          
+                              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="row">
+                                        @foreach ($permissions as $permission)
+                                        <div class="form-check col-md-3">
+                                            <input class="form-check-input" type="checkbox" value="{{ $permission->name }}" id="defaultCheck-{{ $permission->id }}" name="{{ $permission->name }}" {{ in_array($permission->id,$role->permissions->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                            <label class="form-check-label mx-3" for="defaultCheck-{{ $permission->id }}">{{ $permission->display_name }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                     </div>
 
                 </div>

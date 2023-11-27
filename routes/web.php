@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\AddressController;
@@ -87,7 +88,7 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     Route::resource('permissions',PermissionController::class);
 
     //================================== roles
-    Route::resource('roles',RolesController::class);
+    Route::resource('roles',RoleController::class);
 });
 
 

@@ -38,7 +38,7 @@
                 <h6 class="collapse-header">{{ __('Client') }}</h6>
                 <a class="collapse-item" href="{{ route('admin-panel.users.index') }}">لیست کاربران</a> 
                 <a class="collapse-item" href="">گروه های کاربری</a>
-                <a class="collapse-item" href="">دسترسی ها</a>
+                <a class="collapse-item" href="{{ route('admin-panel.permissions.index') }}">پرمیژن</a>
             </div>
         </div>
     </li>

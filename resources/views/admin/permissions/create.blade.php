@@ -13,7 +13,7 @@
         </div>
 
         <div class="my-2 bg-white border shadow rounded p-4">
-            <form action="{{ route('admin-panel.permissions.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin-panel.permissions.store') }}" method="POST">
                 @csrf
                 @method('POST')
                 <div class="row">
@@ -55,21 +55,4 @@
     </div>
 
 
-@endsection
-
-@section('javascript')
-    <script>
-        $("#image").change(function(){
-        let fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName)
-        });
-
-        // status
-        $('#is_active').selectpicker({
-            liveSearch: true,
-            liveSearchPlaceholder: "{{ __('Searching') }}",
-            multipleSeparator: " | ",
-            title: "{{ __('Please select at least one ability.') }}"
-        });
-    </script>
 @endsection

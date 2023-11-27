@@ -1297,6 +1297,9 @@
     "paying amount" : "مبلغ قابل پرداخت",
     "Write your permission display name" : "نام نمایشی مجوز خود را بنویسید",
     "display name" : "نام نمایشی",
-    "Write your premission name"  : "نام پیش‌فرض خود را بنویسید"
+    "Write your permission name"  : "نام پیش‌فرض خود را بنویسید",
+    "Index permissions" : "پیش‌فرض‌های شاخص",
+    "create permissions" : "پیش فرض ها را ایجاد کنید",
+    "Create Permission successfully !" : "ایجاد مجوز با موفقیت!"
 
 }

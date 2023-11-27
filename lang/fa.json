@@ -1300,6 +1300,8 @@
     "Write your permission name"  : "نام پیش‌فرض خود را بنویسید",
     "Index permissions" : "پیش‌فرض‌های شاخص",
     "create permissions" : "پیش فرض ها را ایجاد کنید",
-    "Create Permission successfully !" : "ایجاد مجوز با موفقیت!"
+    "Edit permissions" : "پیش فرض ها را ایجاد کنید",
+    "Create Permission successfully !" : "ایجاد مجوز با موفقیت!",
+    "Edit Permission successfully !" : "ویرایش مجوز با موفقیت!"
 
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PremissionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\AddressController;
@@ -81,6 +82,9 @@ Route::prefix('/admin-panel/management')->name('admin-panel.')->group(function()
     
     //================================== users
     Route::resource('users',UserController::class);
+
+    //================================== premissions
+    Route::resource('premissions',PremissionController::class);
 });
 
 

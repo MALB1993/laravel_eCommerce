@@ -37,7 +37,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{{ __('Client') }}</h6>
                 <a class="collapse-item" href="{{ route('admin-panel.users.index') }}">لیست کاربران</a> 
-                <a class="collapse-item" href="">گروه های کاربری</a>
+                <a class="collapse-item" href="{{ route('admin-panel.roles.index') }}">گروه های کاربری</a>
                 <a class="collapse-item" href="{{ route('admin-panel.permissions.index') }}">پرمیژن</a>
             </div>
         </div>

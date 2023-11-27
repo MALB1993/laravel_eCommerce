@@ -22,6 +22,7 @@
                         <th>#</th>
                         <th>{{ __('Name') }}</th>
                         <th>{{ __('display name') }}</th>
+                        <th>{{ __('Role') }}</th>
                         <th>{{ __('created_at') }}</th>
                         <th>{{ __('Action') }}</th>
                     </tr>
@@ -33,6 +34,12 @@
                             <td>{{ $roles->firstItem() + $key }}</td>
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->display_name }}</td>
+                            <td>
+                                @foreach ($role->permissions as $premission)
+                                    {{ $premission->display_name }}
+                                    {{ $loop->last ? '' : '|' }}
+                                @endforeach
+                            </td>
                             <td>{{ Verta($role->created_at) }}</td>
 
                             <td>
@@ -45,10 +52,6 @@
                                         <a class="dropdown-item text-primary" href="{{ route('admin-panel.roles.edit', ['role' => $role->id]) }}">
                                             <i class="fa fa-fw fa-pen"></i>
                                             {{ __('Edit') }}
-                                        </a>
-                                        <a class="dropdown-item text-info" href="{{ route('admin-panel.roles.show',['role' => $role->id]) }}">
-                                            <i class="fa fa-fw fa-eye"></i>
-                                            {{ __('Show Content') }}
                                         </a>
                                     </div>
                                 </div>

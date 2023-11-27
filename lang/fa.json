@@ -1294,5 +1294,9 @@
     "Paying status" : "وضعیت پرداخت",
     "Paying type" : "نوع پرداخت",
     "Transaction" : "تراکنش ها",
-    "paying amount" : "مبلغ قابل پرداخت"
+    "paying amount" : "مبلغ قابل پرداخت",
+    "Write your permission display name" : "نام نمایشی مجوز خود را بنویسید",
+    "display name" : "نام نمایشی",
+    "Write your premission name"  : "نام پیش‌فرض خود را بنویسید"
+
 }

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->boolean('is_active')->default(1);
             $table->unsignedInteger('delivery_amount')->default(0);
-            $table->unsignedInteger('delivery_amount_per_product')->nullable(0);
+            $table->unsignedInteger('delivery_amount_per_product')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

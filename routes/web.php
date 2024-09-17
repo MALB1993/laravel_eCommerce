@@ -122,6 +122,9 @@ Route::prefix('/')->name('home.')->group(function(){
     //================================== payment
     Route::post('/payment',[PaymentController::class,'payment'])->name('payment');
     Route::get ('/payment-verify',[PaymentController::class,'paymentVerify'])->name('payment_verify');
+
+    //================================== AboutUs
+    Route::get('/about-us',[HomeController::class, 'aboutUs'])->name('about-us');
 });
 
 

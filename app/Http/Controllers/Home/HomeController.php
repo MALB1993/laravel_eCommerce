@@ -30,4 +30,10 @@ class HomeController extends Controller
             'products'              =>      $products
         ]);
     }
+
+
+    public function aboutUs()
+    {
+        return view('home.aboutUs.index');
+    }
 }

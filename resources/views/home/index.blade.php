@@ -39,33 +39,39 @@
     <div class="banner-area pt-100 pb-65">
         <div class="container">
             <div class="row">
-                @foreach ($index_banners_top->chunk(3)->first() as $banner)
-                <div class="col-lg-4 col-md-4">
-                <div class="single-banner mb-30 scroll-zoom">
-                    <a href="{{ $banner->button_link }}">
-                        <img class="animated" src="{{ asset(env('IMAGE_UPLOAD_PATH').'banners/'.$banner->image) }}" alt="{{ $banner->title }}" />
-                    </a>
-                    <div class="banner-content-2 banner-position-5">
-                        <h4>{{ $banner->title }}</h4>
-                    </div>
-                </div>
-            </div>
-                @endforeach
-
-                @foreach ($index_banners_top->chunk(3)->last() as $banner)
-                    <div class="col-lg-6 col-md-6">
-                    <div class="single-banner mb-30 scroll-zoom">
-                        <a href="{{ $banner->button_link }}">
-                            <img class="animated" src="{{ asset(env('IMAGE_UPLOAD_PATH').'banners/'.$banner->image) }}" alt="{{ $banner->title }}" />
-                        </a>
-                        <div class="{{ $loop->last ? 'banner-content-3 banner-position-7' : 'banner-content banner-position-6 text-right' }}">
-                            <h3>{{ $banner->title }}</h3>
-                            <h2>{{ $banner->text }}</h2>
-                            <a href="{{ $banner->button_link }}">{{ $banner->button_text }}</a>
+                @forelse ($index_banners_top->chunk(3)->first() as $banner)
+                    <div class="col-lg-4 col-md-4">
+                        <div class="single-banner mb-30 scroll-zoom">
+                            <a href="{{ $banner->button_link }}">
+                                <img class="animated" src="{{ asset(env('IMAGE_UPLOAD_PATH').'banners/'.$banner->image) }}" alt="{{ $banner->title }}" />
+                            </a>
+                            <div class="banner-content-2 banner-position-5">
+                                <h4>{{ $banner->title }}</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
+                @empty
+                    <div class="col-lg-4 col-md-4">
+                        ...
+                    </div>
+                @endforelse
+                
+                @forelse ($index_banners_top->chunk(3)->last() as $banner)
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single-banner mb-30 scroll-zoom">
+                            <a href="{{ $banner->button_link }}">
+                                <img class="animated" src="{{ asset(env('IMAGE_UPLOAD_PATH').'banners/'.$banner->image) }}" alt="{{ $banner->title }}" />
+                            </a>
+                            <div class="{{ $loop->last ? 'banner-content-3 banner-position-7' : 'banner-content banner-position-6 text-right' }}">
+                                <h3>{{ $banner->title }}</h3>
+                                <h2>{{ $banner->text }}</h2>
+                                <a href="{{ $banner->button_link }}">{{ $banner->button_text }}</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    ...
+                @endforelse
             </div>
         </div>
     </div>
